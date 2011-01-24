@@ -1,6 +1,10 @@
 ---
 layout: default
-title: Muh GitHub Shabaz
+title: Tyler Cipriani's GitHub Shabaz
 ---
-
+{% for post in site.posts limit:5 %}
+<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+{{ post.content }}
+<em>Posted {{ post.date | date_to_long_string }}.</em>
+{% endfor %}
 Still more a comin'
