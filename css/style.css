@@ -182,4 +182,4 @@ body { background: #e5e5e5 url('../images/texture_075.png'); text-shadow: 0 1px 
 
   #container h2{ font-size: 400%; letter-spacing: -0.07em; line-height:1.4em; color:#292929; }
 
-  #container h2 a{ color:#292929; }
+  #container h2 a{ color:#292929; text-decoration:none; }
