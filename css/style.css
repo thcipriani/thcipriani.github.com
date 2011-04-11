@@ -179,3 +179,7 @@ svg {
 body { background: #e5e5e5 url('../images/texture_075.png'); text-shadow: 0 1px 0px #fff; color:#333; font-family: Helvetica, Arial, sans-serif;}
 
   #container { width:600px; min-width:600px; margin:0 auto; }
+
+  #container h2{ font-size: 400%; letter-spacing: -0.07em; line-height:1.4em; color:#292929; }
+
+  #container h2 a{ color:#292929; }
