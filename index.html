@@ -4,6 +4,6 @@ title: Tyler Cipriani's GitHub Shabaz
 ---
 {% for post in site.posts limit:5 %}
 <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-<p class="content">{{ post.content }}</p>
+{{ post.content }}
 <p class="date">Posted {{ post.date | date_to_long_string }}.</p>
 {% endfor %}
