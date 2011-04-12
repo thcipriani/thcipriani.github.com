@@ -173,6 +173,7 @@ body {
     body #container header {
       width: 100%;
       color: #ce3030;
+      float: left;
       font-size: 80%; }
       body #container header ul {
         float: right;
