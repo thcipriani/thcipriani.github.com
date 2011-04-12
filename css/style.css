@@ -187,3 +187,7 @@ body {
       body #container h2 a:hover {
         color: #e3e3e3;
         text-decoration: none; }
+    body #container p.content {
+      color: #3db617;
+      font-size: 75%;
+      text-align: right; }
