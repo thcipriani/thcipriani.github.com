@@ -163,7 +163,7 @@ svg {
  * #################################################################################################### */
 body {
   background: #2a2b2c url("../images/texture_075.png");
-  text-shadow: 0 1px 0px #cccccc;
+  text-shadow: 0 1px 0px #aaaaaa;
   color: #f1f1ea;
   font-family: Helvetica, Arial, sans-serif; }
   body #container {
