@@ -149,6 +149,13 @@ svg {
   /* For IE9. */
   overflow: hidden; }
 
+@font-face {
+  font-family: "SnigletRegular";
+  src: url("Sniglet-webfont.eot");
+  src: url("Sniglet-webfont.eot?#iefix") format("eot"), url("Sniglet-webfont.woff") format("woff"), url("Sniglet-webfont.ttf") format("truetype"), url("Sniglet-webfont.svg#webfontGFFODQKC") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 /*####################################################################################################
  *
  * Start Regular styles
@@ -164,10 +171,12 @@ body {
     min-width: 600px;
     margin: 0 auto; }
     body #container h2 {
-      font-size: 400%;
       letter-spacing: -0.07em;
       line-height: 1.4em;
       color: #e3e3e3; }
+      body #container h2 font {
+        size: 400%;
+        family: "SingletRegular"; }
       body #container h2 a:link {
         color: #e3e3e3;
         text-decoration: none; }
