@@ -181,6 +181,8 @@ body {
           float: left;
           margin-left: 10px;
           padding: 5px; }
+        body #container header ul a:link {
+          color: inherit; }
     body #container h2 {
       clear: both;
       font-size: 500%;
