@@ -169,7 +169,8 @@ body {
   body #container {
     width: 600px;
     min-width: 600px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    overflow: hidden; }
     body #container header {
       width: 100%;
       color: #ce3030;
