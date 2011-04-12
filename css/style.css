@@ -171,9 +171,8 @@ body {
     min-width: 600px;
     margin: 0 auto; }
     body #container h2 {
-      font-size: 400%;
+      font-size: 700%;
       font-family: "SnigletRegular";
-      letter-spacing: -0.07em;
       line-height: 1.4em;
       color: #e3e3e3; }
       body #container h2 a:link {
