@@ -163,7 +163,6 @@ svg {
  * #################################################################################################### */
 body {
   background: #2a2b2c url("../images/texture_075.png");
-  text-shadow: 0 1px 0px #aaaaaa;
   color: #f1f1ea;
   font-family: Helvetica, Arial, sans-serif; }
   body p {
@@ -197,7 +196,8 @@ body {
         float: left;
         font-size: 500%;
         font-family: "SnigletRegular";
-        color: #e3e3e3; }
+        color: #e3e3e3;
+        text-shadow: 0 2px 2px white; }
         body #container #main h2 a:link {
           color: #e3e3e3;
           text-decoration: none; }
