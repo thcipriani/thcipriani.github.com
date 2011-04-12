@@ -166,21 +166,23 @@ body {
   text-shadow: 0 1px 0px #aaaaaa;
   color: #f1f1ea;
   font-family: Helvetica, Arial, sans-serif; }
-  body header {
-    width: 100%;
-    color: #ce3030;
-    font-size: 80%; }
-    body header ul {
-      float: right; }
-      body header ul li {
-        float: left;
-        margin-left: 10px;
-        padding: 5px; }
   body #container {
     width: 600px;
     min-width: 600px;
     margin: 0 auto; }
+    body #container header {
+      width: 100%;
+      color: #ce3030;
+      font-size: 80%; }
+      body #container header ul {
+        float: right;
+        list-style-type: none; }
+        body #container header ul li {
+          float: left;
+          margin-left: 10px;
+          padding: 5px; }
     body #container h2 {
+      clear: both;
       font-size: 500%;
       font-family: "SnigletRegular";
       color: #e3e3e3;
