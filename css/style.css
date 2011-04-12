@@ -186,8 +186,10 @@ body {
           color: inherit; }
     body #container #main {
       clear: both;
-      margin-top: 25px; }
+      margin-top: 25px;
+      float: left; }
       body #container #main h2 {
+        float: left;
         font-size: 500%;
         font-family: "SnigletRegular";
         color: #e3e3e3; }
