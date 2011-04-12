@@ -190,14 +190,14 @@ body {
     body #container #main {
       clear: both;
       width: 100%;
-      margin-top: 25px;
+      margin-top: 200px;
       float: left; }
       body #container #main h2 {
         float: left;
         font-size: 500%;
         font-family: "SnigletRegular";
         color: #e3e3e3;
-        text-shadow: 0 2px 2px white; }
+        text-shadow: 0 2px 0 white; }
         body #container #main h2 a:link {
           color: #e3e3e3;
           text-decoration: none; }
