@@ -184,25 +184,26 @@ body {
           padding: 5px; }
         body #container header ul a:link {
           color: inherit; }
-    body #container h2 {
+    body #container #main {
       clear: both;
-      font-size: 500%;
-      font-family: "SnigletRegular";
-      color: #e3e3e3;
       margin-top: 25px; }
-      body #container h2 a:link {
-        color: #e3e3e3;
-        text-decoration: none; }
-      body #container h2 a:visited {
-        color: #e3e3e3;
-        text-decoration: none; }
-      body #container h2 a:active {
-        color: #bb1c1c;
-        text-decoration: none; }
-      body #container h2 a:hover {
-        color: #e3e3e3;
-        text-decoration: none; }
-    body #container p.date {
-      color: #3db617;
-      font-size: 75%;
-      text-align: right; }
+      body #container #main h2 {
+        font-size: 500%;
+        font-family: "SnigletRegular";
+        color: #e3e3e3; }
+        body #container #main h2 a:link {
+          color: #e3e3e3;
+          text-decoration: none; }
+        body #container #main h2 a:visited {
+          color: #e3e3e3;
+          text-decoration: none; }
+        body #container #main h2 a:active {
+          color: #bb1c1c;
+          text-decoration: none; }
+        body #container #main h2 a:hover {
+          color: #e3e3e3;
+          text-decoration: none; }
+      body #container #main p.date {
+        color: #3db617;
+        font-size: 75%;
+        text-align: right; }
