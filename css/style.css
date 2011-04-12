@@ -173,7 +173,8 @@ body {
     body #container h2 {
       font-size: 500%;
       font-family: "SnigletRegular";
-      color: #e3e3e3; }
+      color: #e3e3e3;
+      margin-top: 25px; }
       body #container h2 a:link {
         color: #e3e3e3;
         text-decoration: none; }
