@@ -188,6 +188,8 @@ body {
           body #container header ul li a:link, body #container header ul li a:visited, body #container header ul li a:active, body #container header ul li a:hover {
             color: #e3e3e3;
             text-decoration: none; }
+          body #container header ul li a:hover {
+            color: #fd841f; }
     body #container #main {
       clear: both;
       width: 100%;
@@ -198,7 +200,7 @@ body {
         font-size: 500%;
         font-family: "SnigletRegular";
         color: #e3e3e3;
-        text-shadow: 5px 7px 0 #ff00cc; }
+        text-shadow: 5px 7px 0 #f92672; }
         body #container #main h2 a:link {
           color: #e3e3e3;
           text-decoration: none; }
