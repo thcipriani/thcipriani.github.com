@@ -185,8 +185,9 @@ body {
           float: left;
           margin-left: 10px;
           padding: 5px; }
-        body #container header ul a:link {
-          color: inherit; }
+          body #container header ul li a:link, body #container header ul li a:visited, body #container header ul li a:active, body #container header ul li a:hover {
+            color: #e3e3e3;
+            text-decoration: none; }
     body #container #main {
       clear: both;
       width: 100%;
