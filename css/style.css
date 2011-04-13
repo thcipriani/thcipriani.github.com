@@ -197,6 +197,7 @@ body {
       float: left; }
       body #container #main h2 {
         float: left;
+        clear: both;
         font-size: 500%;
         font-family: "SnigletRegular";
         color: #e3e3e3;
@@ -216,4 +217,5 @@ body {
       body #container #main p.date {
         color: #83a928;
         font-size: 75%;
-        float: right; }
+        float: right;
+        margin-bottom: 50px; }
