@@ -1,0 +1,13 @@
+---
+layout: default
+---
+
+<h2>{{ page.title }}</h2>
+{{ content }}
+<p class="date">Posted {{ page.date | date_to_long_string }}.</p>
+{% if page.previous %}
+  <a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a>
+{% endif %}
+{% if page.next %}
+  <a href="{{ page.next.url }}" title="{{ page.next.title }}">&rarr; Next</a>
+{% endif %}
