@@ -192,10 +192,12 @@ body {
           float: left; }
         body #container header #descript h1 {
           float: left;
+          width: 100%;
           padding-top: 10px;
           font-size: 80%; }
         body #container header #descript ul {
           float: left;
+          width: 100%;
           list-style-type: none;
           font-size: 65%; }
       body #container header nav {
