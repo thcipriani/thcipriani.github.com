@@ -189,23 +189,27 @@ body {
         width: 50%; }
         body #container header #descript img {
           padding: 18px;
-          float: left; }
+          float: left;
+          display: inline;
+          width: 73px; }
         body #container header #descript h1 {
           float: left;
-          width: 100%;
+          display: inline;
           padding-top: 10px;
           font-size: 80%; }
         body #container header #descript ul {
           float: left;
-          width: 100%;
+          display: inline;
           list-style-type: none;
           font-size: 65%; }
       body #container header nav {
         width: 50%;
         float: right;
+        display: inline;
         padding-top: 25px; }
         body #container header nav ul {
           float: right;
+          display: inline;
           list-style-type: none; }
           body #container header nav ul li {
             float: left;
@@ -222,13 +226,16 @@ body {
       clear: both;
       width: 100%;
       margin-top: 100px;
-      float: left; }
+      float: left;
+      display: inline; }
       body #container #main .post {
         width: 100%;
         float: left;
+        display: inline;
         margin-bottom: 100px; }
         body #container #main .post h2 {
           float: left;
+          display: inline;
           width: 600px;
           font-size: 500%;
           font-family: "SnigletRegular";
