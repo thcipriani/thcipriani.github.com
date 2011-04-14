@@ -167,7 +167,9 @@ body {
   font-family: Helvetica, Arial, sans-serif; }
   body p {
     float: left;
-    clear: both; }
+    clear: both;
+    display: inline;
+    width: 550px; }
   body #container {
     width: 600px;
     min-width: 600px;
