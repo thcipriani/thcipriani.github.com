@@ -195,12 +195,11 @@ body {
         body #container header #descript h1 {
           float: left;
           display: inline;
-          padding-top: 10px;
-          font-size: 80%; }
+          padding-top: 18px; }
         body #container header #descript ul {
           float: left;
           display: inline;
-          clear: left;
+          width: 50%;
           list-style-type: none;
           font-size: 65%; }
       body #container header nav {
