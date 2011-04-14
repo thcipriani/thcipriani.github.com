@@ -186,13 +186,15 @@ body {
       font-size: 100%; }
       body #container header img {
         padding: 18px;
-        float: left; }
+        float: left;
+        width: 109px; }
       body #container header nav {
         width: 100%;
         float: left; }
         body #container header nav ul {
           float: right;
-          list-style-type: none; }
+          list-style-type: none;
+          min-width: 244px; }
           body #container header nav ul li {
             float: left;
             display: inline;
