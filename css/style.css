@@ -201,6 +201,7 @@ body {
           display: inline;
           width: 50%;
           list-style-type: none;
+          color: #fd841f;
           font-size: 65%; }
       body #container header nav {
         width: 50%;
