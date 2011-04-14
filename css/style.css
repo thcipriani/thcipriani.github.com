@@ -169,7 +169,9 @@ body {
     float: left;
     clear: both;
     display: inline;
-    width: 550px; }
+    width: 550px;
+    margin-left: 25px;
+    margin-right: 25px; }
   body #container {
     width: 600px;
     min-width: 600px;
