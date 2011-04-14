@@ -183,20 +183,22 @@ body {
       width: 100%;
       color: #ce3030;
       float: left;
-      font-size: 80%; }
-      body #container header ul {
+      font-size: 100%; }
+      body #container header nav {
         width: 100%;
-        float: right;
-        list-style-type: none; }
-        body #container header ul li {
-          float: left;
-          margin-left: 10px;
-          padding: 5px; }
-          body #container header ul li a:link, body #container header ul li a:visited, body #container header ul li a:active, body #container header ul li a:hover {
-            color: #e3e3e3;
-            text-decoration: none; }
-          body #container header ul li a:hover {
-            color: #fd841f; }
+        float: left; }
+        body #container header nav ul {
+          float: right;
+          list-style-type: none; }
+          body #container header nav ul li {
+            float: left;
+            margin-left: 10px;
+            padding: 5px; }
+            body #container header nav ul li a:link, body #container header nav ul li a:visited, body #container header nav ul li a:active, body #container header nav ul li a:hover {
+              color: #e3e3e3;
+              text-decoration: none; }
+            body #container header nav ul li a:hover {
+              color: #fd841f; }
     body #container #main {
       clear: both;
       width: 100%;
