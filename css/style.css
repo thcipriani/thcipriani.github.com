@@ -192,9 +192,11 @@ body {
           list-style-type: none; }
           body #container header nav ul li {
             float: left;
+            display: inline;
             margin-left: 10px;
             padding: 5px; }
             body #container header nav ul li a:link, body #container header nav ul li a:visited, body #container header nav ul li a:active, body #container header nav ul li a:hover {
+              display: block;
               color: #e3e3e3;
               text-decoration: none; }
             body #container header nav ul li a:hover {
