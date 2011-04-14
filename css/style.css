@@ -184,6 +184,9 @@ body {
       color: #ce3030;
       float: left;
       font-size: 100%; }
+      body #container header img {
+        padding: 18px;
+        float: left; }
       body #container header nav {
         width: 100%;
         float: left; }
