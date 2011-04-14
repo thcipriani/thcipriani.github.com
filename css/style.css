@@ -204,30 +204,34 @@ body {
       width: 100%;
       margin-top: 150px;
       float: left; }
-      body #container #main h2 {
+      body #container #main .post {
+        width: 100%;
         float: left;
-        clear: both;
-        width: 600px;
-        font-size: 500%;
-        font-family: "SnigletRegular";
-        color: #e3e3e3;
-        text-shadow: 5px 7px 0 #f92672; }
-        body #container #main h2 a:link {
+        margin-bottom: 100px; }
+        body #container #main .post h2 {
+          float: left;
+          clear: both;
+          width: 600px;
+          font-size: 500%;
+          font-family: "SnigletRegular";
           color: #e3e3e3;
-          text-decoration: none; }
-        body #container #main h2 a:visited {
-          color: #e3e3e3;
-          text-decoration: none; }
-        body #container #main h2 a:active {
-          color: #bb1c1c;
-          text-decoration: none; }
-        body #container #main h2 a:hover {
-          color: #e3e3e3;
-          text-decoration: none; }
-      body #container #main p.date {
-        color: #83a928;
-        font-size: 100%;
-        float: right;
-        text-align: right;
-        clear: right;
-        margin-bottom: 50px; }
+          text-shadow: 5px 7px 0 #f92672; }
+          body #container #main .post h2 a:link {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:visited {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:active {
+            color: #bb1c1c;
+            text-decoration: none; }
+          body #container #main .post h2 a:hover {
+            color: #e3e3e3;
+            text-decoration: none; }
+        body #container #main .post p.date {
+          color: #83a928;
+          font-size: 100%;
+          float: right;
+          text-align: right;
+          clear: right;
+          margin-bottom: 50px; }
