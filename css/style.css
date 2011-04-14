@@ -200,6 +200,7 @@ body {
       body #container #main h2 {
         float: left;
         clear: both;
+        width: 600px;
         font-size: 500%;
         font-family: "SnigletRegular";
         color: #e3e3e3;
