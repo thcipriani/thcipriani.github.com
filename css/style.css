@@ -189,8 +189,7 @@ body {
         float: left; }
         body #container header nav ul {
           float: right;
-          list-style-type: none;
-          width: 250px; }
+          list-style-type: none; }
           body #container header nav ul li {
             float: left;
             display: inline;
@@ -213,7 +212,6 @@ body {
         margin-bottom: 100px; }
         body #container #main .post h2 {
           float: left;
-          clear: both;
           width: 600px;
           font-size: 500%;
           font-family: "SnigletRegular";
@@ -234,7 +232,6 @@ body {
         body #container #main .post p.date {
           color: #83a928;
           font-size: 100%;
-          float: right;
           text-align: right;
-          clear: right;
+          clear: both;
           margin-bottom: 50px; }

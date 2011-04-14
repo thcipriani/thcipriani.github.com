@@ -1,10 +1,15 @@
 ---
 layout: default
 ---
+<div class="post">
 
-<h2>{{ page.title }}</h2>
-{{ content }}
-<p class="date">Posted {{ page.date | date_to_long_string }}.</p>
+  <h2>{{ page.title }}</h2>
+
+    {{ content }}
+
+  <p class="date">Posted {{ page.date | date_to_long_string }}.</p>
+
+</div>
 <!--{% if page.previous %}
   <a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a>
 {% endif %}
