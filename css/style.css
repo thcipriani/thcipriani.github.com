@@ -170,6 +170,7 @@ body {
     clear: both;
     display: inline;
     width: 550px;
+    margin-top: 18px;
     margin-left: 25px;
     margin-right: 25px; }
   body #container {
@@ -224,4 +225,5 @@ body {
         font-size: 75%;
         float: right;
         text-align: right;
+        clear: right;
         margin-bottom: 50px; }
