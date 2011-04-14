@@ -17,6 +17,16 @@
   </script>
   <![endif]--> 
 
+  <!--[if lt IE 9]>
+		<script type="text/javascript"> 
+			/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+			var IE6UPDATE_OPTIONS = {
+				icons_path: "/images/"
+			}
+		</script>
+		<script type="text/javascript" src="js/ie6update.js"></script>
+  <![endif]-->
+
 </head>
 
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
@@ -29,7 +39,11 @@
 
     <header>
 
-      <img src="http://a3.twimg.com/profile_images/29254162/beggscartoon_bigger.jpg" alt="C'est Moi">
+      <div id="descript">
+
+        <img src="http://a3.twimg.com/profile_images/29254162/beggscartoon_bigger.jpg" alt="C'est Moi">
+
+      </div><!--end descript-->
 
       <nav>
 
@@ -56,29 +70,16 @@
   </div> <!--! end of #container -->
 
 
-  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-  <script>!window.jQuery && document.write('<script src="js/jquery-1.5.2.min.js"><\/script>')</script>
-
   <script type="text/javascript">
 
+    $(document).ready(function(){
+  
+      
+
+    });
     
 
   </script>
 
-  
-  <!-- asynchronous google analytics: mathiasbynens.be/notes/async-analytics-snippet 
-       change the UA-XXXXX-X to be your site's ID 
-  <script>
-   var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
-   (function(d, t) {
-    var g = d.createElement(t),
-        s = d.getElementsByTagName(t)[0];
-    g.async = true;
-    g.src = '//www.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g, s);
-   })(document, 'script');
-  </script>-->
-  
 </body>
 </html>
