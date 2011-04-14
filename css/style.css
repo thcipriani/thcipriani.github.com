@@ -1,56 +1,252 @@
-/*
-Syntax error: Inconsistent indentation: 7 spaces were used for indentation, but the rest of the document was indented using 2 spaces.
-        on line 204 of style.sass
+/* `XHTML, HTML4, HTML5 Reset
+ * ---------------------------------------------------------------------------------------------------- */
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+dialog,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+meter,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video,
+xmp {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100%; }
 
-199: 
-200:       #descript
-201:         float: left
-202:         width: 50%
-203: 
-204:        img
-205:          padding: 18px
-206:          float: left
-207: 
-208:        h1
-209:         float: left
+html,
+body {
+  height: 100%; }
 
-Backtrace:
-style.sass:204
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:282:in `tabulate'
-/usr/lib/ruby/1.8/fileutils.rb:243:in `each_with_index'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:240:in `each'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:240:in `each_with_index'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:240:in `tabulate'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:216:in `_to_tree'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/engine.rb:178:in `to_tree'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/files.rb:44:in `tree_for'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:223:in `update_stylesheet'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:75:in `update_stylesheets'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:73:in `each'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:73:in `update_stylesheets'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:195:in `watch'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:71:in `call'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:71:in `run_callback'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:54:in `callback_action'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/path.rb:34:in `update'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/state/file.rb:19:in `refresh'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/polling.rb:17:in `each'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/polling.rb:17:in `run'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/polling.rb:15:in `loop'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/backends/polling.rb:15:in `run'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm/monitor.rb:24:in `run'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/vendor/fssm/lib/fssm.rb:17:in `monitor'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/sass/plugin.rb:167:in `watch'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/haml/exec.rb:457:in `watch_or_update'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/haml/exec.rb:360:in `process_result'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/haml/exec.rb:41:in `parse'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/../lib/haml/exec.rb:21:in `parse!'
-/usr/lib/ruby/gems/1.8/gems/haml-3.0.25/bin/sass:8
-/usr/bin/sass:19:in `load'
-/usr/bin/sass:19
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Inconsistent indentation: 7 spaces were used for indentation, but the rest of the document was indented using 2 spaces.\A         on line 204 of style.sass\A \A 199: \A 200:       #descript\A 201:         float: left\A 202:         width: 50%\A 203: \A 204:        img\A 205:          padding: 18px\A 206:          float: left\A 207: \A 208:        h1\A 209:         float: left"; }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  /* Override the default (display: inline) for
+   * browsers that do not recognize HTML5 tags.
+   * IE8 (and lower) requires a shiv:
+   * http://ejohn.org/blog/html5-shiv */
+  display: block; }
+
+b,
+strong {
+  /* Makes browsers agree.
+   * IE + Opera = font-weight: bold.
+   * Gecko + WebKit = font-weight: bolder. */
+  font-weight: bold; }
+
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+  /* For IE.
+   * http://css-tricks.com/ie-fix-bicubic-scaling-for-images */
+  -ms-interpolation-mode: bicubic; }
+
+li {
+  /* For IE6 + IE7. */
+  display: list-item; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th,
+td,
+caption {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: left; }
+
+svg {
+  /* For IE9. */
+  overflow: hidden; }
+
+@font-face {
+  font-family: "SnigletRegular";
+  src: url("Sniglet-webfont.eot");
+  src: url("Sniglet-webfont.eot?#iefix") format("eot"), url("Sniglet-webfont.woff") format("woff"), url("Sniglet-webfont.ttf") format("truetype"), url("Sniglet-webfont.svg#webfontGFFODQKC") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/*####################################################################################################
+ *
+ * Start Regular styles
+ *
+ * #################################################################################################### */
+body {
+  background: #2a2b2c url("../images/bg.png");
+  color: #f1f1ea;
+  font-family: Helvetica, Arial, sans-serif; }
+  body p {
+    float: left;
+    clear: both;
+    display: inline;
+    width: 550px;
+    font-size: 120%;
+    margin-top: 18px;
+    margin-left: 25px;
+    margin-right: 25px; }
+  body #container {
+    width: 600px;
+    min-width: 600px;
+    margin: 0 auto;
+    overflow: hidden; }
+    body #container header {
+      width: 100%;
+      color: #ce3030;
+      float: left;
+      font-size: 100%; }
+      body #container header #descript {
+        float: left;
+        width: 50%; }
+        body #container header #descript img {
+          padding: 18px;
+          float: left; }
+        body #container header #descript h1 {
+          float: left;
+          padding-top: 10px;
+          font-size: 80%; }
+        body #container header #descript ul {
+          float: left;
+          list-style-type: none;
+          font-size: 65%; }
+      body #container header nav {
+        width: 50%;
+        float: right;
+        padding-top: 25px; }
+        body #container header nav ul {
+          float: right;
+          list-style-type: none; }
+          body #container header nav ul li {
+            float: left;
+            display: inline;
+            margin-left: 10px;
+            padding: 5px; }
+            body #container header nav ul li a:link, body #container header nav ul li a:visited, body #container header nav ul li a:active, body #container header nav ul li a:hover {
+              display: block;
+              color: #e3e3e3;
+              text-decoration: none; }
+            body #container header nav ul li a:hover {
+              color: #fd841f; }
+    body #container #main {
+      clear: both;
+      width: 100%;
+      margin-top: 100px;
+      float: left; }
+      body #container #main .post {
+        width: 100%;
+        float: left;
+        margin-bottom: 100px; }
+        body #container #main .post h2 {
+          float: left;
+          width: 600px;
+          font-size: 500%;
+          font-family: "SnigletRegular";
+          color: #e3e3e3;
+          text-shadow: 5px 7px 0 #f92672; }
+          body #container #main .post h2 a:link {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:visited {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:active {
+            color: #bb1c1c;
+            text-decoration: none; }
+          body #container #main .post h2 a:hover {
+            color: #e3e3e3;
+            text-decoration: none; }
+        body #container #main .post p.date {
+          color: #83a928;
+          font-size: 100%;
+          text-align: right;
+          clear: both;
+          margin-bottom: 50px; }
