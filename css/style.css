@@ -189,7 +189,8 @@ body {
         float: left; }
       body #container header nav {
         width: 50%;
-        float: left; }
+        float: right;
+        padding-top: 25px; }
         body #container header nav ul {
           float: right;
           list-style-type: none; }
