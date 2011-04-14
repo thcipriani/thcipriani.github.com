@@ -170,6 +170,7 @@ body {
     clear: both;
     display: inline;
     width: 550px;
+    font-size: 120%;
     margin-top: 18px;
     margin-left: 25px;
     margin-right: 25px; }
@@ -184,6 +185,7 @@ body {
       float: left;
       font-size: 80%; }
       body #container header ul {
+        width: 100%;
         float: right;
         list-style-type: none; }
         body #container header ul li {
@@ -222,7 +224,7 @@ body {
           text-decoration: none; }
       body #container #main p.date {
         color: #83a928;
-        font-size: 75%;
+        font-size: 100%;
         float: right;
         text-align: right;
         clear: right;
