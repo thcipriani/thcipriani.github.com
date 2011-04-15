@@ -1,0 +1,262 @@
+/* `XHTML, HTML4, HTML5 Reset
+ * ---------------------------------------------------------------------------------------------------- */
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+dialog,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+hr,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+meter,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video,
+xmp {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 100%; }
+
+html,
+body {
+  height: 100%; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  /* Override the default (display: inline) for
+   * browsers that do not recognize HTML5 tags.
+   * IE8 (and lower) requires a shiv:
+   * http://ejohn.org/blog/html5-shiv */
+  display: block; }
+
+b,
+strong {
+  /* Makes browsers agree.
+   * IE + Opera = font-weight: bold.
+   * Gecko + WebKit = font-weight: bolder. */
+  font-weight: bold; }
+
+img {
+  color: transparent;
+  font-size: 0;
+  vertical-align: middle;
+  /* For IE.
+   * http://css-tricks.com/ie-fix-bicubic-scaling-for-images */
+  -ms-interpolation-mode: bicubic; }
+
+li {
+  /* For IE6 + IE7. */
+  display: list-item; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+th,
+td,
+caption {
+  font-weight: normal;
+  vertical-align: top;
+  text-align: left; }
+
+svg {
+  /* For IE9. */
+  overflow: hidden; }
+
+@font-face {
+  font-family: "SnigletRegular";
+  src: url("Sniglet-webfont.eot");
+  src: url("Sniglet-webfont.eot?#iefix") format("eot"), url("Sniglet-webfont.woff") format("woff"), url("Sniglet-webfont.ttf") format("truetype"), url("Sniglet-webfont.svg#webfontGFFODQKC") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/*####################################################################################################
+ *
+ * Start Regular styles
+ *
+ * #################################################################################################### */
+body {
+  background: #2a2b2c url("../images/bg.png");
+  color: #f1f1ea;
+  font-family: Helvetica, Arial, sans-serif; }
+  body p {
+    float: left;
+    clear: both;
+    display: inline;
+    width: 550px;
+    font-size: 120%;
+    margin-top: 18px;
+    margin-left: 25px;
+    margin-right: 25px; }
+  body #container {
+    width: 600px;
+    min-width: 600px;
+    margin: 0 auto;
+    overflow: hidden; }
+    body #container header {
+      width: 100%;
+      color: #e3e3e3;
+      float: left;
+      font-size: 100%; }
+      body #container header #descript {
+        float: left;
+        width: 50%; }
+        body #container header #descript img {
+          padding: 18px;
+          float: left;
+          display: inline;
+          width: 73px; }
+        body #container header #descript h1 {
+          float: left;
+          display: inline;
+          padding-top: 18px; }
+        body #container header #descript ul {
+          float: left;
+          display: inline;
+          width: 50%;
+          list-style-type: none;
+          color: #fd841f;
+          font-size: 65%; }
+      body #container header nav {
+        width: 50%;
+        float: right;
+        display: inline;
+        padding-top: 25px; }
+        body #container header nav ul {
+          float: right;
+          display: inline;
+          list-style-type: none; }
+          body #container header nav ul li {
+            float: left;
+            display: inline;
+            margin-left: 10px;
+            padding: 5px; }
+            body #container header nav ul li a:link, body #container header nav ul li a:visited, body #container header nav ul li a:active {
+              display: block;
+              color: #e3e3e3;
+              text-decoration: none; }
+            body #container header nav ul li a:hover {
+              color: #fd841f; }
+    body #container #main {
+      clear: both;
+      width: 100%;
+      margin-top: 100px;
+      float: left;
+      display: inline; }
+      body #container #main .post {
+        width: 100%;
+        float: left;
+        display: inline;
+        margin-bottom: 100px; }
+        body #container #main .post h2 {
+          float: left;
+          display: inline;
+          width: 600px;
+          font-size: 500%;
+          font-family: "SnigletRegular";
+          color: #e3e3e3;
+          text-shadow: 5px 7px 0 #f92672; }
+          body #container #main .post h2 a:link {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:visited {
+            color: #e3e3e3;
+            text-decoration: none; }
+          body #container #main .post h2 a:active {
+            color: #bb1c1c;
+            text-decoration: none; }
+          body #container #main .post h2 a:hover {
+            color: #e3e3e3;
+            text-decoration: none; }
+        body #container #main .post p.date {
+          color: #83a928;
+          font-size: 100%;
+          text-align: right;
+          clear: both;
+          margin-bottom: 50px; }
