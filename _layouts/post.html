@@ -3,13 +3,14 @@ layout: default
 ---
 <div class="post">
 
-  <h2>{{ page.title }}</h2>
+  <h2>{{ post.title }}</h2>
 
     {{ content }}
 
-  <!--<p class="date">Posted {{ page.date | %B }}.</p>-->
+  <p class="date">Posted {{ post.date | %B %d, %Y }}.</p>
 
 </div>
+
 <!--{% if page.previous %}
   <a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a>
 {% endif %}

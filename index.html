@@ -2,14 +2,14 @@
 layout: default
 title: Tyler Cipriani's GitHub Shabaz
 ---
-{% for post in site.posts limit:5 %}
+{% for post in site.posts limit:1 %}
 <div class="post">
 
   <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 
   {{ post.content }}
 
-  <p class="date">Posted {{ post.date | date_to_long_string }}.</p>
+  <p class="date">Posted {{ post.date | %B %d, %Y }}.</p>
 
 </div><!--end .post-->
 {% endfor %}
