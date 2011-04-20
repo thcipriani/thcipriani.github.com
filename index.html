@@ -5,12 +5,16 @@ title: Tyler Cipriani's GitHub Shabaz
 {% for post in site.posts limit:1 %}
 <div class="post">
 
+  <div class="date">
+    {{ post.date | date:"%B" }}<br>
+    {{ post.date | date:"%d" }}<br>
+    {{ post.date | date:"%Y" }}
+  </div><!--end .date-->
+
+
   <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 
   {{ post.content }}
-
-  <p class="date">Posted {{ post.date | date:"%Y" }}.</p>
-  <p class="notDate">{{ post.date | "%d" }}</p>
 
 </div><!--end .post-->
 {% endfor %}
