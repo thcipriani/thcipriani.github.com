@@ -9,7 +9,8 @@ title: Tyler Cipriani's GitHub Shabaz
 
   {{ post.content }}
 
-  <p class="date">Posted {{ post.date | date:"%Y-%m-%d" }}.</p>
+  <p class="date">Posted {{ post.date | date:"%Y" }}.</p>
+  <p class="notDate">{{ post.date | "%d" }}</p>
 
 </div><!--end .post-->
 {% endfor %}
