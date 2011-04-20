@@ -9,7 +9,7 @@ title: Tyler Cipriani's GitHub Shabaz
 
   {{ post.content }}
 
-  <p class="date">Posted {{ post.date | date_to_string }}.</p>
+  <p class="date">Posted {{ post.date | date:"%Y-%m-%d" }}.</p>
 
 </div><!--end .post-->
 {% endfor %}
