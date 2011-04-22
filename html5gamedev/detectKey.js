@@ -29,6 +29,6 @@ window.addEventListener("keydown", function(e){
 
   }  
 
-  $("body").text("You pressed the " + pressed);
+  $("#pressed").text("You pressed the " + pressed);
   
 });
