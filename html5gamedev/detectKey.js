@@ -3,7 +3,7 @@ $(document).ready(function(){
 var watchKeys = [37,38,39,40];
 var pressed;
 
-$(window).keydown(function(e){
+$(document).keydown(function(e){
 
   var keyIndex = jQuery.inArray(e.keyCode, watchKeys);
 
