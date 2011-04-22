@@ -3,7 +3,9 @@ $(document).ready(function(){
 var watchKeys = [37,38,39,40];
 var pressed;
 
-window.addEventListener("keydown", function(e){
+document.onkeydown = keyCheck;
+
+function keyCheck(e){
 
   var keyIndex = jQuery.inArray(e.keyCode, watchKeys);
 
@@ -33,5 +35,5 @@ window.addEventListener("keydown", function(e){
 
   $("#pressed").text("You pressed the " + pressed);
   
-});
+}
 });
