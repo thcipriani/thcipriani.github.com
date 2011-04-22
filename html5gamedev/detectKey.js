@@ -1,3 +1,5 @@
+$(document).ready(function(){
+
 var watchKeys = [37,38,39,40];
 var pressed;
 
@@ -31,4 +33,5 @@ window.addEventListener("keydown", function(e){
 
   $("#pressed").text("You pressed the " + pressed);
   
+});
 });
