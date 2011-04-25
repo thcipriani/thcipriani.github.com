@@ -1,7 +1,9 @@
 $(document).ready(function(){
 
 var watchKeys = [37,38,39,40];
-var x = 0, y = 0;
+var invader = $("#container > img");
+var position = invader.position();
+var x = position.left, y = position.top;
 
   $(document).keydown(function(e){
   
@@ -35,7 +37,7 @@ var x = 0, y = 0;
 
       console.log(x+", "+y);
 
-      $("#container > img").animate({
+      invader.animate({
         "top" : x,
         "left" : y
       }, 10);
