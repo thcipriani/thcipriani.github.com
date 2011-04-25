@@ -17,8 +17,6 @@ var position = invader.offset();
 var x = position.top; 
 var y = position.left;
 
-  console.log(x+", "+y);
-
   $(document).keydown(function(e){
   
     var keyIndex = jQuery.inArray(e.keyCode, watchKeys);
@@ -44,8 +42,6 @@ var y = position.left;
           break;
     
       }  
-
-      console.log(x+", "+y);
 
       invader.animate({
         "top" : x,
