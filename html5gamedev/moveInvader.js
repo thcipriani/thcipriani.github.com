@@ -2,8 +2,20 @@ $(document).ready(function(){
 
 var watchKeys = [37,38,39,40];
 var invader = $("#container > img");
-var position = invader.position();
-var x = position.left, y = position.top;
+
+/* Easy way to set invader's position to the middle of the window - 
+   using percentages in css mess with 'animate' function */
+  invader.css({
+    "position" : "relative",
+    "top" : $(window).height()/2 - invader.height()/2 + "px",
+    "left" : $(window).width()/2 - invader.width()/2 + "px"
+    });
+
+var position = invader.offset();
+var x = position.top; 
+var y = position.left;
+
+  console.log(x+", "+y);
 
   $(document).keydown(function(e){
   
@@ -13,24 +25,21 @@ var x = position.left, y = position.top;
 
       switch( keyIndex ){
     
-        case 0:
-          (y > 0) ? y-=15 : y=0;
-          //console.log("Left Arrow");
+        case 0: //Left Arrow
+          y -= 15;
           break;
     
-        case 1:
-          (x > 0) ? x-=15 : x = 0;
-          //console.log("Up Arrow");
+        case 1: //Up Arrow
+          x -= 15;
           break;
     
-        case 2:
+        case 2: //Right Arrow
           y += 15;
-          //console.log("Right Arrow");
           break;
     
-        case 3:
+        case 3: //Down Arrow
+          console.log(x+", "+y);
           x += 15;
-          //console.log("Down Arrow");
           break;
     
       }  
@@ -40,7 +49,7 @@ var x = position.left, y = position.top;
       invader.animate({
         "top" : x,
         "left" : y
-      }, 10);
+      }, 40, 'linear');
 
     }
   
