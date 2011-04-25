@@ -11,6 +11,8 @@ var invader = $("#container > img");
     "left" : $(window).width()/2 - invader.width()/2 + "px"
     });
 
+var rightEdge = $(window).width() - invader.width();
+var bottomEdge = $(window).height() - invader.height();
 var position = invader.offset();
 var x = position.top; 
 var y = position.left;
@@ -26,20 +28,19 @@ var y = position.left;
       switch( keyIndex ){
     
         case 0: //Left Arrow
-          y -= 15;
+          (y > 0) ? y -= 15 : y = 0;
           break;
     
         case 1: //Up Arrow
-          x -= 15;
+          (x > 0) ? x -= 15 : x = 0;
           break;
     
         case 2: //Right Arrow
-          y += 15;
+          (y < rightEdge) ? y += 15 : y = rightEdge;
           break;
     
         case 3: //Down Arrow
-          console.log(x+", "+y);
-          x += 15;
+          (x < bottomEdge) ? x += 15 : x = bottomEdge;
           break;
     
       }  
