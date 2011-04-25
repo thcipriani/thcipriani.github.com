@@ -12,22 +12,22 @@ var x = 0, y = 0;
       switch( keyIndex ){
     
         case 0:
-          (y > 0) ? y-=10 : y=0;
+          (y > 0) ? y-=15 : y=0;
           //console.log("Left Arrow");
           break;
     
         case 1:
-          (x > 0) ? x-=10 : x = 0;
+          (x > 0) ? x-=15 : x = 0;
           //console.log("Up Arrow");
           break;
     
         case 2:
-          y += 10;
+          y += 15;
           //console.log("Right Arrow");
           break;
     
         case 3:
-          x += 10;
+          x += 15;
           //console.log("Down Arrow");
           break;
     
@@ -35,7 +35,7 @@ var x = 0, y = 0;
 
       console.log(x+", "+y);
 
-      $("#container > img").css({
+      $("#container > img").animate({
         "top" : x,
         "left" : y
       });
