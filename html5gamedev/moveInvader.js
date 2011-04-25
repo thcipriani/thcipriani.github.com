@@ -38,7 +38,7 @@ var x = 0, y = 0;
       $("#container > img").animate({
         "top" : x,
         "left" : y
-      });
+      }, 100);
 
     }
   
