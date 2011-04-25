@@ -12,28 +12,28 @@ var x = 0, y = 0;
       switch( keyIndex ){
     
         case 0:
-          (x > 0) ? x-=1 : x = 0;
+          x += 10;
           //console.log("Left Arrow");
           break;
     
         case 1:
-          (y > 0) ? y-=1 : y=0;
+          y += 10;
           //console.log("Up Arrow");
           break;
     
         case 2:
-          x += 1;
+          (x > 0) ? x-=10 : x = 0;
           //console.log("Right Arrow");
           break;
     
         case 3:
-          y += 1;
+          (y > 0) ? y-=10 : y=0;
           //console.log("Down Arrow");
           break;
     
       }  
 
-      console.log(x+", "+y+" | ");
+      console.log(x+", "+y);
 
       $("#container > img").css({
         "top" : x,
