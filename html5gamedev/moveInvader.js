@@ -33,7 +33,12 @@ var x = 0, y = 0;
     
       }  
 
-      $("body").append(x+", "+y);
+      console.log(x+", "+y+" | ");
+
+      $("#container > img").css({
+        "top" : x,
+        "left" : y
+      });
 
     }
   
