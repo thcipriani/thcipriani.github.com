@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """
-When called it prompts a user for his or her name and greets him or her
+P2PU Python 101- Chapter 2 Exercises
 """
 def exercise2_1():
   print '\nExercise 2.1'
