@@ -17,15 +17,21 @@ var x = position.top;
 var y = position.left;
 
 $(document).mousemove(function(e){
-  var x = e.pageX + 15 + "px";
-  var y = e.pageY + 15 + "px";
+  var x = e.pageX - invader.width()/2 + "px";
+  var y = e.pageY - invader.height()/2 + "px";
 
-  invader.animate({
-    "top" : y,
-    "left" : x
-  }, 1, 'linear');
+  setTimeout(animateInvader(x, y), 5000);
 
 });  
+
+  function animateInvader(x, y){
+  
+    invader.animate({
+      "top" : y,
+      "left" : x
+    }, 1, 'linear');
+
+  }
 
  
 });
