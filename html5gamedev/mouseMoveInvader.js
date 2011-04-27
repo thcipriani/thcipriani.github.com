@@ -21,6 +21,16 @@ $(document).mousemove(function(e){
   x = e.pageX - invader.width()/2 + "px";
   y = e.pageY - invader.height()/2 + "px";
 
+  /*Here was my initial functionality:
+
+  invader.animate({
+    "top" : y,
+    "left" : x
+  }, 10, 'linear');
+  
+  Which I think worked fairly well
+  */
+
 });  
 
 window.setInterval(function(){
