@@ -7,59 +7,51 @@ P2PU Python 101- Chapter 5 Exercises
 import sys
 
 def exercise5_1():
-  print '\nExercise 5.1'
-  hours = float(raw_input('Enter Hours: '))
-  rate = float(raw_input('Enter Rate: '))
-  total = round(hours * rate, 2)
-  if hours > 40:
-    overtime = hours - 40
-    otRate = rate * 1.5
-    total = overtime * otRate + rate * 40
-  print 'Pay:','%.2f' % total
-  exercise3_2()
-
-def exercise3_2():
-  print '\nExercise 3.2'
-  hours = raw_input('Enter Hours: ')
-  try:
-    hours = float(hours)
-  except:
-    print 'Error, Please enter numeric input'
-    sys.exit() ##To stop script execution on error
-
-  rate = raw_input('Enter Rate: ')
-  try:
-    rate = float(rate)
-  except:
-    print 'Error, Please enter numeric input'
-    sys.exit()
-
-  print 'Pay:','%.2f' % round(hours * rate, 2)
-  exercise3_3()
-
-def exercise3_3():
-  print '\nExercise 3.3'
+  print '\nExercise 5.1 - Sum, Count and Average'
+  numbers = []
+  count = 0
+  total = 0
   while True:
-    try:
-      score = float(raw_input('Enter Score: '))
-    except ValueError:
-      print 'Error, Please enter numeric input'
-      continue
-    if score > 1 or score < 0:
-      print 'Error, Enter a score between 0 and 1'
-      continue
-    else:
+    line = raw_input('Enter a Number: ')
+    if line == 'done':
+      for i in numbers:
+        count += 1
+        total += float(i)
+      print count, total, total/count
+      exercise5_2()
       break
-  if score > .9:
-    print 'A'
-  if score > .8:
-    print 'B'
-  if score > .7:
-    print 'C'
-  if score > .6:
-    print 'D'
-  if score < .6:
-    print 'F'
+    else:
+      try:
+        float(line)
+        numbers.append(line)
+        continue
+      except ValueError:
+        print 'ERROR, please enter a number'
+        continue
+
+def exercise5_2():
+  print '\nExercise 5.2 Max and Min'
+  numbers = []
+  minum = None
+  maxnum = None
+  while True:
+    line = raw_input('Enter a Number: ')
+    if line == 'done':
+      for i in numbers:
+        if minum is None or minum > float(i):
+          minum = float(i)
+        if maxnum is None or maxnum < float(i):
+          maxnum = float(i)
+      print 'Max:',maxnum,'Min:',minum
+      break
+    else:
+      try:
+        float(line)
+        numbers.append(line)
+        continue
+      except ValueError:
+        print 'ERROR, please enter a number'
+        continue
 
 def main():
   exercise5_1()
