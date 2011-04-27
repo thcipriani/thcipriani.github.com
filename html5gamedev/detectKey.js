@@ -31,7 +31,9 @@ $(document).keydown(function(e){
 
   }  
 
-  $("#pressed").text("You pressed the " + pressed);
+  if (keyIndex > -1){
+    $("#pressed").text("You pressed the " + pressed);
+  }
   
 });
 });
