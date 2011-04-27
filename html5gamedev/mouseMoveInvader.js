@@ -24,7 +24,7 @@ $(document).mousemove(function(e){
     invader.animate({
       "top" : y,
       "left" : x
-    }, 15, 'linear');
+    }, 10, 'linear');
 
 });  
  
