@@ -64,12 +64,34 @@ var Down = false;
 
   });
 
-  $(document).keyup(function(){
-    Left = false;
-    Right = false;
-    Down = false;
-    Up = false;
+  $(document).keyup(function(e){
+    
+    var keyIndex = jQuery.inArray(e.keyCode, watchKeys);    
+
+    if (keyIndex > -1 && keyIndex < 4){
+
+      switch( keyIndex ){
+    
+        case 0: //Left Arrow
+          Left = false;
+          break;
+    
+        case 1: //Up Arrow
+          Up = false;
+          break;
+    
+        case 2: //Right Arrow
+          Right = false
+          break;
+    
+        case 3: //Down Arrow
+          Down = false;
+          break;
+      }
+    }
+
     clearInterval(timer);
+
   }); 
 
   function animateInvader(){
