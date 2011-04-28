@@ -18,13 +18,13 @@ var x = position.top;
 var y = position.left;
 var moveInvader = false;
 var timer;
-var Left;
-var Right;
-var Up;
-var Down;
+var Left = false;
+var Right = false;
+var Up = false;
+var Down = false;
 
   $(document).keydown(function(e){
-  
+ 
     var keyIndex = jQuery.inArray(e.keyCode, watchKeys);
   
     if (keyIndex > -1 && keyIndex < 4){
@@ -32,23 +32,31 @@ var Down;
       switch( keyIndex ){
     
         case 0: //Left Arrow
-          Left = true;
-          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          if (Left == false){
+            Left = true;
+            timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          }
           break;
     
         case 1: //Up Arrow
-          Up = true;
-          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          if (Up == false){
+            Up = true;
+            timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          }
           break;
     
         case 2: //Right Arrow
-          Right = true;
-          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          if (Right == false){
+            Right = true;
+            timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          }
           break;
     
         case 3: //Down Arrow
-          Down = true;
-          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          if (Down == false){
+            Down = true;
+            timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
+          }
           break;
     
       }
@@ -66,16 +74,16 @@ var Down;
 
   function animateInvader(){
     if (Left){
-      (y > 0) ? y -= 2 : y = 0; //Generate a new 'y' coordinate
+      (y > 0) ? y -= 15 : y = 0; //Generate a new 'y' coordinate
     }
     if (Right){
-      (y < rightEdge) ? y += 2 : y = rightEdge;
+      (y < rightEdge) ? y += 15 : y = rightEdge;
     }
     if (Up){
-      (x > 0) ? x -= 2 : x = 0;
+      (x > 0) ? x -= 15 : x = 0;
     }
     if (Down){
-      (x < bottomEdge) ? x += 2 : x = bottomEdge;
+      (x < bottomEdge) ? x += 15 : x = bottomEdge;
     }
     invader.css({
       "top" : x,
