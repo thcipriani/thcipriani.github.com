@@ -16,6 +16,12 @@ var bottomEdge = $(window).height() - invader.height();
 var position = invader.offset();
 var x = position.top; 
 var y = position.left;
+var moveInvader = false;
+var timer;
+var Left;
+var Right;
+var Up;
+var Down;
 
   $(document).keydown(function(e){
   
@@ -26,29 +32,56 @@ var y = position.left;
       switch( keyIndex ){
     
         case 0: //Left Arrow
-          (y > 0) ? y -= 15 : y = 0;
+          Left = true;
+          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
           break;
     
         case 1: //Up Arrow
-          (x > 0) ? x -= 15 : x = 0;
+          Up = true;
+          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
           break;
     
         case 2: //Right Arrow
-          (y < rightEdge) ? y += 15 : y = rightEdge;
+          Right = true;
+          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
           break;
     
         case 3: //Down Arrow
-          (x < bottomEdge) ? x += 15 : x = bottomEdge;
+          Down = true;
+          timer = setInterval(animateInvader, 10); //Call the animateInvader function every 100ms
           break;
     
-      }  
+      }
+    }  
 
-      invader.animate({
-        "top" : x,
-        "left" : y
-      }, 40, 'linear');
-
-    }
-  
   });
+
+  $(document).keyup(function(){
+    Left = false;
+    Right = false;
+    Down = false;
+    Up = false;
+    clearInterval(timer);
+  }); 
+
+  function animateInvader(){
+    if (Left){
+      (y > 0) ? y -= 2 : y = 0; //Generate a new 'y' coordinate
+    }
+    if (Right){
+      (y < rightEdge) ? y += 2 : y = rightEdge;
+    }
+    if (Up){
+      (x > 0) ? x -= 2 : x = 0;
+    }
+    if (Down){
+      (x < bottomEdge) ? x += 2 : x = bottomEdge;
+    }
+    invader.css({
+      "top" : x,
+      "left" : y
+    });
+  }
+
+  
 });
