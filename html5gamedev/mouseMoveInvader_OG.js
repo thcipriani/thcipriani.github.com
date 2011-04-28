@@ -17,19 +17,28 @@ var x = position.top;
 var y = position.left;
 
 $(document).mousemove(function(e){
-  invader.stop();
 
   x = e.pageX - invader.width()/2 + "px";
   y = e.pageY - invader.height()/2 + "px";
 
+  /*Here was my initial functionality:
 
   invader.animate({
     "top" : y,
     "left" : x
   }, 10, 'linear');
   
+  Which I think worked fairly well
+  */
 
 });  
+
+window.setInterval(function(){
+  invader.animate({
+    "top" : y,
+    "left" : x
+  }, 1, 'linear');
+  }, 1);
 
 
 });
