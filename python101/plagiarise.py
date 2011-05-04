@@ -3,8 +3,6 @@
 #date: 5/4/11
 
 import sys
-import os
-import re
 import urllib2
 from urllib import urlretrieve
 
