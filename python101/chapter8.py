@@ -106,7 +106,13 @@ def exercise8_6():
         continue
 
 def main():
-  exercise8_1(sys.argv[1:])
+  args = sys.argv[1:]
+
+  if not args:
+    print 'usage: python ./chapter8.py [list of stuff to pass to exercise 8.1]'
+    sys.exit(1)
+
+  exercise8_1(args)
   
 if __name__ == '__main__':
   main()
