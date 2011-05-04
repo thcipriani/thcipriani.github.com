@@ -16,14 +16,14 @@ def exercise5_1():
     if line == 'done':
       for i in numbers:
         count += 1
-        total += float(i)
+        total += i
       print count, total, total/count
       exercise5_2()
       break
     else:
       try:
-        float(line)
-        numbers.append(line)
+        num = float(line)
+        numbers.append(num)
         continue
       except ValueError:
         print 'ERROR, please enter a number'
@@ -38,16 +38,16 @@ def exercise5_2():
     line = raw_input('Enter a Number: ')
     if line == 'done':
       for i in numbers:
-        if minum is None or minum > float(i):
-          minum = float(i)
-        if maxnum is None or maxnum < float(i):
-          maxnum = float(i)
+        if minum is None or minum > i:
+          minum = i
+        if maxnum is None or maxnum < i:
+          maxnum = i
       print 'Max:',maxnum,'Min:',minum
       break
     else:
       try:
-        float(line)
-        numbers.append(line)
+        num = float(line)
+        numbers.append(num)
         continue
       except ValueError:
         print 'ERROR, please enter a number'
