@@ -31,7 +31,6 @@ def bookem(file):
       words = line.split()
       for word in words:
         if word in theirwords:
-          count += 1
           if word in stolenwords:
             continue
           else:
@@ -41,7 +40,8 @@ def bookem(file):
     print 'Enter a valid file'
 
   for word in stolenwords:
-    print 'The word',word,'is stolen'
+    print 'The word \''+word+'\' is stolen'
+    count += 1
   print 'YOUR SCRIPT CONTAINS',count,'WORDS THAT APPEAR ON http://docs.python.org/tutorial/controlflow.html - SCANDALOUS!'
 
 def main():
@@ -55,3 +55,26 @@ def main():
 
 if __name__ == '__main__':
   main()
+
+
+
+# FOR ALL Y'ALL HATERS - HERE THE RESULTS FROM MY CHAPTER 5 HOMEWORK
+# ============================================================================================================+
+# The word 'Python' is stolen                                                                                 |
+# The word '5' is stolen                                                                                      |
+# The word 'print' is stolen                                                                                  |
+# The word 'and' is stolen                                                                                    |
+# The word 'numbers' is stolen                                                                                |
+# The word '=' is stolen                                                                                      |
+# The word 'line' is stolen                                                                                   |
+# The word 'a' is stolen                                                                                      |
+# The word 'if' is stolen                                                                                     |
+# The word 'for' is stolen                                                                                    |
+# The word 'in' is stolen                                                                                     |
+# The word '1' is stolen                                                                                      |
+# The word 'except' is stolen                                                                                 |
+# The word 'enter' is stolen                                                                                  |
+# The word 'is' is stolen                                                                                     |
+# The word 'or' is stolen                                                                                     |
+# The word '>' is stolen                                                                                      |
+# YOUR SCRIPT CONTAINS 17 WORDS THAT APPEAR ON http://docs.python.org/tutorial/controlflow.html - SCANDALOUS! |
