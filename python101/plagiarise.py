@@ -14,6 +14,7 @@ def bookem(file):
   word = []
   yourwords = []
   theirwords = []
+  stolenwords = []
 
   #Retrieve the flow control page from the python site and create a list with all words
   pythonFlowControl = "http://docs.python.org/tutorial/controlflow.html"
@@ -30,13 +31,18 @@ def bookem(file):
       words = line.split()
       for word in words:
         if word in theirwords:
-          print 'You stole',word
           count += 1
+          if word in stolenwords:
+            continue
+          else:
+            stolenwords.append(word)
 
   except IOError:
     print 'Enter a valid file'
 
-  print 'IN ALL YOU\'VE STOLEN',count,'WORDS'
+  for word in stolenwords:
+    print 'The word',word,'is stolen'
+  print 'YOUR SCRIPT CONTAINS',count,'WORDS THAT APPEAR ON http://docs.python.org/tutorial/controlflow.html - SCANDALOUS!'
 
 def main():
   args = sys.argv[1:]
