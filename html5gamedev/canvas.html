@@ -35,16 +35,18 @@
 
       var cntxt = $("canvas")[0].getContext('2d');
 
+      cntxt.fillStyle = "#FF00FF"
       cntxt.beginPath();
-      cntxt.moveTo(400, 80);
+      cntxt.moveTo(400, 150);
+      cntxt.lineTo(500, 150);
+      cntxt.lineTo(500, 40);
+      cntxt.lineTo(480, 40);
+      cntxt.lineTo(480, 50);
+      cntxt.lineTo(420, 50);
+      cntxt.lineTo(420, 40);
+      cntxt.lineTo(400, 40);
       cntxt.lineTo(400, 50);
-      cntxt.lineTo(450, 50);
-      cntxt.lineTo(450, 10);
-      cntxt.lineTo(455, 10);
-      cntxt.lineTo(455, 5);
-      cntxt.lineTo(460, 5);
-      cntxt.lineTo(460, 10);
-      cntxt.lineTo(465, 10);
+      cntxt.lineTo(400, 150);
       cntxt.fill();
 
     </script>
