@@ -29,14 +29,13 @@ GamePiece.prototype = {
   },
 
   move : function(dx, dy){
-    ctx.clearRect(this.x - this.size, this.y - this.size, this.size * 4, this.size * 4);
+    ctx.clearRect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
     this.x = dx;
     this.y = dy;
     this.draw();
   },
 
   draw : function(){
-    drawBoard();
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, Math.PI * 2, false);
@@ -59,9 +58,10 @@ GamePiece.prototype = {
     }
   }
 
+  drawBoard();
   var player1 = new GamePiece(15, 75, 50, "Purple");
   var player2 = new GamePiece(15, 75, 150, "Green");
-  var playerArray = [player1, player2]
+  var playerArray = [player1, player2];
 
  $("canvas").mousedown(function(e){
 
@@ -83,6 +83,7 @@ GamePiece.prototype = {
   $("canvas").mousemove(function(e){
     for (var i = 0; i < playerArray.length; i++){
       if (playerArray[i].dragging){
+        drawBoard();
         var x = e.pageX - this.offsetLeft;
         var y = e.pageY- this.offsetTop;
 
