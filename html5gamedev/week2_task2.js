@@ -6,10 +6,11 @@ $(document).ready(function(){
   var width = 600;
 
 //########## Player Object ############//
-function GamePiece(size, x, y){
+function GamePiece(size, x, y, color){
   this.size = size;
   this.x = x;
   this.y = y;
+  this.color = color;
   this.init();
 }
 
@@ -19,7 +20,7 @@ GamePiece.prototype = {
 
   init : function(){
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, Math.PI * 2, false);
     ctx.closePath();
@@ -35,12 +36,12 @@ GamePiece.prototype = {
   },
 
   draw : function(){
-    ctx.fillStyle = "white";
+    drawBoard();
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, Math.PI * 2, false);
     ctx.closePath();
     ctx.fill();
-    drawBoard();
   }
 
 };
@@ -58,37 +59,47 @@ GamePiece.prototype = {
     }
   }
 
-  drawBoard();
-  var player1 = new GamePiece(15, 75, 50);
+  var player1 = new GamePiece(15, 75, 50, "Purple");
+  var player2 = new GamePiece(15, 75, 150, "Green");
+  var playerArray = [player1, player2]
 
  $("canvas").mousedown(function(e){
 
     var x = e.pageX - this.offsetLeft;
     var y = e.pageY- this.offsetTop;
 
-    if (x > player1.x - player1.size && x < player1.x + player1.size && y > player1.y - player1.size && y < player1.y + player1.size)
-    {
-      player1.dragging = true;
-      console.log(player1.dragging);
+    for (var i = 0; i < playerArray.length; i++){
+      if (x > playerArray[i].x - playerArray[i].size && x < playerArray[i].x + playerArray[i].size && y > playerArray[i].y - playerArray[i].size && y < playerArray[i].y + playerArray[i].size)
+      {
+        playerArray[i].dragging = true;
+        console.log(playerArray[i].dragging);
+      }
     }
+
+    
 
   });
 
   $("canvas").mousemove(function(e){
-    if (player1.dragging){
-      var x = e.pageX - this.offsetLeft;
-      var y = e.pageY- this.offsetTop;
+    for (var i = 0; i < playerArray.length; i++){
+      if (playerArray[i].dragging){
+        var x = e.pageX - this.offsetLeft;
+        var y = e.pageY- this.offsetTop;
 
-      player1.move(x, y);
-      console.log(x, y);
+        playerArray[i].move(x, y);
+        console.log(x, y);
+      }
+        playerArray[i].draw();
     }
 
   });
 
  $("canvas").mouseup(function(e){
 
-    player1.dragging = false;
-    console.log(player1.dragging);
+    for (var i = 0; i < playerArray.length; i++){
+      playerArray[i].dragging = false;
+      console.log(playerArray[i].dragging);
+    }
 
 
   });
