@@ -3,9 +3,9 @@ $(document).ready(function(){
 //################## Global Variables ###############################|
 var watchKeys = [37,38,39,40];
 
-var left, right, up, down;
-
 var ctx = $("canvas")[0].getContext("2d");
+
+var up, down, left, right;
 
 //################## Invader Prototype/Object #######################|
 function Invader(x, y, w, h){
@@ -13,11 +13,24 @@ function Invader(x, y, w, h){
   this.y = y;
   this.w = w;
   this.h = h;
+  this.init();
 }
 
 Invader.prototype = {
+  imgLoaded : false,
 
-  img : 'images/Invader.png',
+  init : function(){
+    this.img = new Image();
+
+    var self = this;
+
+    this.img.onload = function(){
+      self.imgLoaded = true; 
+      self.draw();
+    };
+
+    this.img.src = 'images/Invader.png';
+  },
 
   move : function(dx, dy){
     ctx.clearRect(this.x, this.y, this.w, this.h);
@@ -27,22 +40,47 @@ Invader.prototype = {
   },
 
   draw : function(){
-    var img = new Image();
-
-    var self = this;
-
-    img.onload = function(){
-      ctx.drawImage(img, self.x, self.y, self.w, self.h);
-    };
-
-    img.src = this.img;
-
+    if (this.imgLoaded) {
+      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    }
   }
+
 };
 
-var pinkInvader = new Invader(70, 70, 50, 50);
-pinkInvader.draw();
+// ################# Background ##############################|
+function setStars(){
+  var starWxH = 2;
+  var ctxWidth = 600;
+  var ctxHeight = 400;
+  var starNum = Math.floor(Math.random() * 50) + 50; //Between 50 and 100 Stars
+  var starPos = [];
 
+  for (var i = 0; i < starNum; i++){
+    var posX = Math.floor(Math.random() * ctxWidth) - starWxH;
+    var posY = Math.floor(Math.random() * ctxHeight) - starWxH;
+    starPos.push(posX, posY, starWxH, starWxH);
+  }
+
+  return starPos;
+}
+
+function outerSpace(starPos){
+  ctx.fillStyle = "white";
+
+  for (i = 0; i < starPos.length; i = i + 4){
+      ctx.fillRect(starPos[i], starPos[i + 1], starPos[i + 2], starPos[i + 3]);
+  }
+
+}
+
+
+//################ Initialize ################################|
+
+var pinkInvader = new Invader(100, 100, 50, 50);
+var sPos = setStars();
+outerSpace(sPos);
+
+// ################ Keydown sets Timer #####################|
   $(document).keydown(function(e){
  
     var keyIndex = jQuery.inArray(e.keyCode, watchKeys);
@@ -52,26 +90,34 @@ pinkInvader.draw();
       switch(keyIndex){
     
         case 0: //Left Arrow
+          clearInterval(left);
           left = setInterval(function(){
-            pinkInvader.move(-10,0);
+            outerSpace(sPos);
+            (pinkInvader.x > 0) ? pinkInvader.move(-10, 0) : 0;
           }, 10);
           break;
     
         case 1: //Up Arrow
+          clearInterval(up);
           up = setInterval(function(){
-            pinkInvader.move(0, -10);
+            outerSpace(sPos);
+            (pinkInvader.y > 0) ? pinkInvader.move(0, -10) : 0;
           }, 10);
           break;
     
         case 2: //Right Arrow
+          clearInterval(right);
           right = setInterval(function(){
-            pinkInvader.move(10, 0);
+            outerSpace(sPos);
+            (pinkInvader.x < 600 - pinkInvader.w) ? pinkInvader.move(10, 0) : 0;
           }, 10);
           break;
     
         case 3: //Down Arrow
+          clearInterval(down);
           down = setInterval(function(){
-            pinkInvader.move(0, 10);
+            outerSpace(sPos);
+            (pinkInvader.y < 400 - pinkInvader.h) ? pinkInvader.move(0, 10) : 0;
           }, 10);
           break;
       }
@@ -79,6 +125,8 @@ pinkInvader.draw();
     }  
 
   });
+
+//########################## Keyup clears timer ###################################|
 
   $(document).keyup(function(e){
  
@@ -89,27 +137,19 @@ pinkInvader.draw();
       switch(keyIndex){
     
         case 0: //Left Arrow
-          if (left){
-            clearInterval(left);
-          }
+          clearInterval(left);
           break;
     
         case 1: //Up Arrow
-          if (up){
-            clearInterval(up); 
-          }
+          clearInterval(up); 
           break;
     
         case 2: //Right Arrow
-          if (right){
-            clearInterval(right); 
-          }
+          clearInterval(right); 
           break;
     
         case 3: //Down Arrow
-          if (down){
-            clearInterval(down); 
-          }
+          clearInterval(down); 
           break;
       }
 
