@@ -1,39 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
   <head>
-    <title>My Google API Application</title>
-    <script src="https://www.google.com/jsapi?key=ABQIAAAA0oVd7fzR1K0fE72bpEV8HhRLpFEtXTCI0uNgUKEKGhpx_UPWHRRPb_bGaRprL2P0zRXxe8gE5-NfQg" type="text/javascript"></script>
-    <script language="Javascript" type="text/javascript">
-    //<![CDATA[
 
-    google.load("search", "1");
+    <title>Muzak Player</title>
 
-    function OnLoad() {
-      // Create a search control
-      var searchControl = new google.search.SearchControl();
 
-      // Add in a full set of searchers
-      var localSearch = new google.search.LocalSearch();
-      searchControl.addSearcher(localSearch);
-      searchControl.addSearcher(new google.search.WebSearch());
-      searchControl.addSearcher(new google.search.VideoSearch());
-      searchControl.addSearcher(new google.search.BlogSearch());
+    <style type="text/css">
 
-      // Set the Local Search center point
-      localSearch.setCenterPoint("New York, NY");
+      body, html{ width: 100%; height: 100%; margin: 0; padding: 0; }
 
-      // Tell the searcher to draw itself and tell it where to attach
-      searchControl.draw(document.getElementById("searchcontrol"));
+      #backgroundContainer{ position: absolute; top: 0; bottom: 0; }
 
-      // Execute an inital search
-      searchControl.execute("Google");
-    }
-    google.setOnLoadCallback(OnLoad);
+      #background{ position: fixed; top: 0; left: 0; overflow: hidden; }
 
-    //]]>
-    </script>
+        #background img { margin: 0; }
+
+    </style>
+
+
   </head>
+
   <body>
-    <div id="searchcontrol">Loading...</div>
+
+    <div id="backgroundContainer">
+      <div id="background"><div>
+    </div>
+
+    <script src="https://www.google.com/jsapi?key=ABQIAAAA0oVd7fzR1K0fE72bpEV8HhRLpFEtXTCI0uNgUKEKGhpx_UPWHRRPb_bGaRprL2P0zRXxe8gE5-NfQg" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js" type="text/javascript"></script>
+    <script src="player.js" type="text/javascript"></script>
+
   </body>
 </html>
