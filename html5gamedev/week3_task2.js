@@ -13,6 +13,7 @@ function SubZero(x, y) {
   this.movementDirection = STAND_STILL;
   this.init('images/subZero.png');
 }
+
 SubZero.prototype = {
   imgLoaded: false,
 
@@ -26,23 +27,10 @@ SubZero.prototype = {
   },
 
   draw: function(ctx) {
-    /* This is the key function to understand - define the region from within 
-     * running_human_frames.png to clip out and plot to the screen. */
     if (this.imgLoaded) {
-      /* animation frame 0 is at x-offset 0, animation frame 1 is at x-offset +64, etc. */
       var spriteOffsetX = 60 * this.animationFrame;
-
-      /* when running left, take first row (y-offset 0) of frames from running_human_frames.png.
-       * when running right, take the second row (y-offset 64) and when standing still take
-       * the third row (y-offset 2 * 64) */
       var spriteOffsetY = 110 * this.movementDirection;
 
-
-      /* context.drawImage with nine arguments = draw with clipping.  The arguments are, in order:
-       * the image; the left side of the region in the source image to start clipping; the top side
-       * of the region in the source image to start clipping; the width and height of the rectangle in
-       * the source image to clip; the x and y position on the canvas to plot the clipping; and the
-       * width and height of the plotted clipping. */
       ctx.drawImage(this.img, spriteOffsetX, spriteOffsetY, this.width, this.height, this.x, this.y, this.width, this.height);
     }
   },
@@ -74,13 +62,10 @@ SubZero.prototype = {
 };
 
 function Background() {
-
   this.init();
-
 }
 
 Background.prototype = {
-
   bgImgLoaded: false,
 
   fgImgLoaded: false,
@@ -108,7 +93,7 @@ Background.prototype = {
 
   drawfg: function(ctx) {
     if (this.fgImgLoaded) {
-      ctx.drawImage(this.fgImg, 0, 230, 420, 40);
+      ctx.drawImage(this.fgImg, 0, 227, 420, 40);
     }
   }
 }

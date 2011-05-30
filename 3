@@ -6,11 +6,8 @@ var left, right;
 
 
 var ctx = $("canvas")[0].getContext("2d");
-var idealH = $(window).height() - 30;
-var idealW = idealH/9 * 6;
 
-ctx.canvas.height = idealH;
-ctx.canvas.width = idealW;
+ctx.canvas.height = $(window).height() - 30;
 
 //################## Invader Prototype/Object #######################|
 function Starship(x, y, w, h){
@@ -103,11 +100,11 @@ Outerspace.prototype = {
 
 
 //################ Initialize ################################|
-var theVoid = new Outerspace(idealW, idealH); //Background
+var theVoid = new Outerspace(563, 750); //Background
 
 var theMiddle = theVoid.width/2 - 20 //20 is half the ship size
 
-var theBottom = ctx.canvas.height - 45 //20 is half the ship size
+var theBottom = ctx.canvas.height - 50 //20 is half the ship size
 
 var metaDefender = new Starship(theMiddle, theBottom, 40, 40); //Player
 
