@@ -519,11 +519,13 @@ img {
 }
 
 h1 {
+    font-size: 1.5625em;
     margin: 0.67em 0 0 0;
     font-weight: 400;
 }
 
 h2 {
+    font-size: 1.25em;
     margin: 0 0 0.83em 0;
     font-weight: 400;
 }
