@@ -1,0 +1,25 @@
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: url("../images/noise_bg.jpg") repeat 0 0; }
+
+canvas {
+  margin: 10px 0 0 200px;
+  background: black;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.35); }
+
+img#logo {
+  width: 350px;
+  position: absolute;
+  top: -50px;
+  left: -15px; }
+
+#container_week3 {
+  width: 420px;
+  margin: 50px auto; }
+  #container_week3 canvas {
+    margin: 0;
+    background: black;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 1px rgba(255, 255, 255, 0.35); }

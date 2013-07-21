@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <title>Canvas Invader</title>
+    
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <style type="text/css">
+
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #292929;
+       }
+
+      canvas {
+        margin: 50px auto 0;
+       }
+
+    </style>
+
+  </head>
+
+  <body>
+  
+    <canvas width="600" height="600"></canvas>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+      var cntxt = $("canvas")[0].getContext('2d');
+
+      cntxt.fillStyle = "#FF00FF"
+      cntxt.beginPath();
+      cntxt.moveTo(400, 150);
+      cntxt.lineTo(500, 150);
+      cntxt.lineTo(500, 40);
+      cntxt.lineTo(480, 40);
+      cntxt.lineTo(480, 50);
+      cntxt.lineTo(420, 50);
+      cntxt.lineTo(420, 40);
+      cntxt.lineTo(400, 40);
+      cntxt.lineTo(400, 50);
+      cntxt.lineTo(400, 150);
+      cntxt.fill();
+
+    </script>
+
+  </body>
+
+</html>

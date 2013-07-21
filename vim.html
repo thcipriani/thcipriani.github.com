@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Vim. Live it.</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <style type="text/css" media="screen">
+            img {
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+      </head>
+    <body>
+        <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+        <img src="http://tylercipriani.s3.amazonaws.com/blog/vim_thing.png" alt="Vim. Live it." />
+        <script type="text/javascript">
+            // Hehe.
+            if (window.addEventListener) {
+                    var kkeys  = [],
+                        konami = "38,38,40,40,37,39,37,39,66,65";
+
+                    window.addEventListener("keydown", function(e){
+                        kkeys.push( e.keyCode );
+                        if (kkeys.toString().indexOf(konami) >= 0) {
+                            window.location = "https://github.com/thcipriani/dotfiles/blob/master/vimrc";
+                        }
+                    }, true);
+            }
+        </script>
+    </body>
+</html>
