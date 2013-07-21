@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Installing Vim from source on CentOS 6</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/styles/main.css" />
+
+        <!--Le Typekit -->
+        <script type="text/javascript" src="//use.typekit.net/kyl1abf.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" alt="Logo Home">
+                    <img src="http://tylercipriani.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" alt="Home">Home</a></li>
+                    <li><a href="/blog/" alt="Weblog">Weblog</a></li>
+                    <li><a href="/hireme/" alt="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+        <h1>Installing Vim from source on CentOS 6</h1>
+        <h2>Posted on: <span>February 24, 2013</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    
+
+    <p>…or, I suppose, other Linux-es…Linuxi…Linux distributions.</p>
+
+<p>Many of the Vim features on which I&#8217;ve come to depend simply aren't available in Vim pre-7.3.3. That&#8217;s fine if I&#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&#8217;t so great if I&#8217;m working on a shared host that uses CentOS <strong><em>five point something dumb</em></strong> because the hosting-providers weren&#8217;t hugged as children (I&#8217;d guess).</p>
+
+<h2>New OS, Old Repo</h2>
+
+<p>The only thing worse than working on an old OS, with an old version of Vim is working on a <em>new</em> OS with an old version of Vim. I recently disovered that the yum-installable Vim (vim-enhanced) version on CentOS 6.3 is v.7.2.411—WTF CentOS? What&#8217;s your deal, guy?</p>
+
+<p><strong>Some plugins that depend on version 7.3:</strong></p>
+
+<ul>
+<li>&shy;<a href="http://majutsushi.github.com/tagbar/" target="_blank">Tagbar</a></li>
+<li>&shy;<a href="http://myusuf3.github.com/numbers.vim/" target="_blank">Numbers.vim</a></li>
+<li>&shy;<a href="http://valloric.github.com/YouCompleteMe/" target="_blank">YouCompleteMe</a></li>
+</ul>
+
+
+<p>And, really, those are just the plugins that fail <em>loudly</em> for me. Like the ones that vomit, &#8220;Hey, WTF, guy?&#8221; to stdout every rootin&#8217; tootin&#8217; time I fire up Vim. There would likely be other functionality that I&#8217;d loose by not using Vim 7.3.3+.</p>
+
+<p>I don&#8217;t have to take this kind of guff from CentOS. No. I think that, instead, I&#8217;m going to do something awesome.</p>
+
+<p>Compiling Vim from source means you don&#8217;t have to get pushed around by crummy distro repos and you look like a 1970s-era Fred Williams-level badass…so…bonus points…</p>
+
+<h2>Retrieving Vim source</h2>
+
+<p>Vim keeps its source in a Mercurial repo on googlcode so you need to download it. To do that you should have Mercurial installed (which you can, somewhat ironically, install from via yum <code>yum install mercurial</code>). You should switch to the root user for this install and for your sanity so use <code>su</code> or <code>sudo bash</code>:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> <span class="nv">$ </span>sudo bash
+<span class="lineno">2</span> <span class="nv">$ </span><span class="nb">cd</span> /usr/local/src/
+<span class="lineno">3</span> <span class="nv">$ </span>hg clone https://vim.googlecode.com/hg/ vim
+<span class="lineno">4</span> <span class="nv">$ </span><span class="nb">cd </span>vim
+</code></pre></div>
+
+
+<h2>Configuration options</h2>
+
+<p>There are quite a few configuration options (which you can view by running <code>./configure --help</code> in your newly created <code>vim</code> directory)—with respect to Vim installs I support going nuclear. Even at it&#8217;s most ginormous Vim will still be a small install relative to other IDEs—Vim is my primary editor and IDE, so I&#8217;m down to do it big. I&#8217;m also going to use the <code>/usr</code> prefix so that Vim is installed system-wide.</p>
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> <span class="nv">$ </span>./configure --prefix<span class="o">=</span>/usr --with-compiledby<span class="o">=</span><span class="s2">&quot;Tyler the Compiler&quot;</span> --with-features<span class="o">=</span>huge --enable-rubyinterp --enable-pythoninterp
+</code></pre></div>
+
+
+<h2>make &amp;&amp; make install</h2>
+
+<p>Srsly, that&#8217;s it&#8212;</p>
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> make <span class="o">&amp;&amp;</span> make install
+</code></pre></div>
+
+
+<p>Congrats! You&#8217;re one bad mother Vim compiler.</p>
+
+<p>So… <code>which vim</code>? <code>/usr/bin/vim</code>. Boom. Yeah, that&#8217;s right.</p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+        <script type="text/javascript">
+            var disqus_shortname = 'tylercipriani';
+
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            <footer>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" alt="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+        </main>
+    </body>
+</html>

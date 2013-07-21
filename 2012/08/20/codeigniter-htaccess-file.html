@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Using .htaccess to remove Codeigniter&#8217;s index.php file</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/styles/main.css" />
+
+        <!--Le Typekit -->
+        <script type="text/javascript" src="//use.typekit.net/kyl1abf.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" alt="Logo Home">
+                    <img src="http://tylercipriani.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" alt="Home">Home</a></li>
+                    <li><a href="/blog/" alt="Weblog">Weblog</a></li>
+                    <li><a href="/hireme/" alt="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+        <h1>Using .htaccess to remove Codeigniter&#8217;s index.php file</h1>
+        <h2>Posted on: <span>August 20, 2012</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    
+
+    <p>Quick post today. I was just finishing up a codeigniter project and saw an error in the docs
+in the <a href="http://codeigniter.com/user_guide/general/urls.html" title="CI URLs">CodeIgniter User Guide Ver. 2.1.2 &sect; CodeIgniter URLs</a>
+under the section heading, &#8220;Removing the index.php file&#8221; it shows an .htaccess file example:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
+<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php|images|robots<span class="se">\.</span>txt<span class="o">)</span>
+<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>/index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
+</code></pre></div>
+
+
+<p>The <code>RewriteRule</code> should not have the forward slash (<code>/</code>) before <code>index.php</code>.</p>
+
+<p>To function as expected the <code>RewriteRule</code> should read:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
+<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php|images|js|css|robots<span class="se">\.</span>txt<span class="o">)</span>
+<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
+</code></pre></div>
+
+
+
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+        <script type="text/javascript">
+            var disqus_shortname = 'tylercipriani';
+
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            <footer>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" alt="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+        </main>
+    </body>
+</html>

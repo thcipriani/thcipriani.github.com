@@ -1,0 +1,361 @@
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro:700);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+/* Based in the unholy union of Eric Myer Reset (http://meyerweb.com/eric/tools/css/reset/), 
+ * HTML5/Mobile Boilerplate (http://html5boilerplate.com/mobile/, http://html5boilerplate.com)
+ * & Thierry Koblentz base.css (http://tjkdesign.com/ez-css/css/base.css) */
+html, body, div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+pre {
+  page-break-inside: avoid; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* accessability http://people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active {
+  outline: none; }
+
+/* Webkit text size 100% allows desktop resize */
+html {
+  font-size: 100%;
+  line-height: 1.5em;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-tap-highlight-color: #ff5e99;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  /* http://maxvoltar.com/archive/-Webkit-font-smoothing */
+  -webkit-font-smoothing: antialiased; }
+
+body, select, input, textarea {
+  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+  color: #444444;
+  font: 16px/1.5 "Droid Sans", "Helvetica Neue", arial, helvetica, clean, sans-serif; }
+
+h1, h2 {
+  margin: 0.5em 0; }
+
+h1, h2, h3, h4, h5, h6, strong, dt {
+  font-weight: bold; }
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.05em; }
+
+h1 {
+  font: 900 5em/0.66em "Helvetica Neue", arial, helvetica, clean, sans-serif;
+  color: #383a3f;
+  letter-spacing: -0.06em; }
+
+h2 {
+  font-size: 1.5em;
+  font-weight: 300; }
+
+h3 {
+  font-size: 1.2em;
+  margin: 5px 0 0 42px;
+  line-height: 1.5em; }
+
+p {
+  margin: 5px 0 0 42px;
+  line-height: 1em; }
+
+ul, ol {
+  margin: 1em 0;
+  padding: 0 0 0 40px;
+  clear: left; }
+
+nav ul, nav ol {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+/* Classic Hot Pink */
+::-moz-selection {
+  background: #ff5e99;
+  color: white;
+  text-shadow: none; }
+
+::selection {
+  background: #ff5e99;
+  color: white;
+  text-shadow: none; }
+
+/* Improve image quality when scaled in IE7
+ * code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+ * -AND-
+ * https://developer.mozilla.org/en/Images,_Tables,_and_Mysterious_Gaps  */
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: bottom; }
+
+.edu {
+  float: left;
+  width: 42px;
+  height: 100%;
+  margin-right: 10px; }
+
+.work {
+  float: left;
+  width: 42px;
+  height: 100%;
+  margin-right: 10px; }
+
+.acomplish {
+  float: left;
+  width: 42px;
+  height: 100%;
+  margin-right: 10px; }
+
+.pink {
+  color: #ec008c; }
+
+.blue {
+  color: #00aeef; }
+
+.green {
+  color: #69bd45; }
+
+.yellow {
+  color: #dcc175; }
+
+html {
+  background: #babbbf; }
+  html body {
+    background: #f8f8f8;
+    margin: 20px;
+    *margin: 0;
+    -webkit-box-shadow: 0 0 10px rgba(0, 20, 50, 0.25);
+    -moz-box-shadow: 0 0 10px rgba(0, 20, 50, 0.25);
+    -o-box-shadow: 0 0 10px rgba(0, 20, 50, 0.25);
+    box-shadow: 0 0 10px rgba(0, 20, 50, 0.25); }
+    html body #container {
+      width: 960px;
+      padding-top: 25px;
+      margin: 0 auto; }
+      html body #container header {
+        margin: 0 10px;
+        overflow: hidden; }
+        html body #container header nav {
+          float: right;
+          margin-top: -7.5em; }
+          html body #container header nav ul li {
+            float: left;
+            padding-left: 10px; }
+            html body #container header nav ul li p {
+              margin: 0 0 0 42px; }
+      html body #container #main {
+        overflow: hidden;
+        margin-top: 18px; }
+        html body #container #main .col {
+          float: left;
+          width: 50%; }
+        html body #container #main .no_col {
+          float: left;
+          width: 100%; }
+          html body #container #main .no_col ul {
+            margin: 1em 2em 1em 1em; }
+        html body #container #main #subway {
+          height: 410px;
+          border: 5px solid #e5e5e5;
+          position: relative;
+          margin-bottom: 28px; }
+          html body #container #main #subway #a_line {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: url("../images/a_line.png") 0 0 no-repeat;
+            width: 100%;
+            height: 100%;
+            _display: none; }
+          html body #container #main #subway #e_line {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: url("../images/e_line.png") 0 0 no-repeat;
+            width: 100%;
+            height: 100%;
+            _display: none; }
+          html body #container #main #subway #w_line {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: url("../images/w_line.png") 0 0 no-repeat;
+            width: 100%;
+            height: 100%;
+            _display: none; }
+        html body #container #main #chart {
+          width: 100%; }
+          html body #container #main #chart article {
+            margin: 1em 1em 0 0; }
+          html body #container #main #chart #work_experience {
+            overflow: hidden;
+            width: 640px;
+            float: left; }
+            html body #container #main #chart #work_experience h2 {
+              display: none; }
+          html body #container #main #chart #geek_cred {
+            color: #e0e1e3;
+            width: 260px;
+            float: right;
+            background: #383a3f;
+            overflow: hidden;
+            font-family: "Anonymous Pro", sans-serif;
+            margin-top: 18px;
+            padding: 20px 20px 5px; }
+            html body #container #main #chart #geek_cred ol {
+              padding: 0 0 0 2em; }
+              html body #container #main #chart #geek_cred ol a:link, html body #container #main #chart #geek_cred ol a:active, html body #container #main #chart #geek_cred ol a:visited {
+                color: #f1f1f1; }
+          html body #container #main #chart #believe_to_achieve {
+            clear: both;
+            width: 50%;
+            float: left;
+            color: #444444; }
+            html body #container #main #chart #believe_to_achieve h2 {
+              display: none; }
+          html body #container #main #chart #Edutopia {
+            float: left;
+            width: 45%;
+            color: #444444;
+            padding-left: 5%; }
+            html body #container #main #chart #Edutopia h2 {
+              display: none; }
+      html body #container footer {
+        clear: both;
+        text-align: right;
+        padding: 35px 0 55px;
+        font-size: 65%;
+        color: #444444; }
+
+@media only screen and (max-width: 1023px) {
+  html body {
+    margin: 0; }
+    html body #container {
+      width: 480px;
+      padding-top: 10px;
+      margin: 0 auto; }
+      html body #container header {
+        overflow: hidden;
+        margin: 0 10px; }
+        html body #container header #title {
+          float: none;
+          display: block; }
+        html body #container header nav {
+          float: none;
+          margin-top: 1.5em; }
+          html body #container header nav ul li {
+            float: none;
+            width: 100%;
+            height: 50px; }
+            html body #container header nav ul li p {
+              margin: 0 0 0 42px; }
+      html body #container #main #subway {
+        -webkit-transform: translate(-250px) rotate(90deg);
+        -moz-transform: translate(-250px) rotate(90deg);
+        -o-transform: translate(-250px) rotate(90deg);
+        -ms-transform: translate(-250px) rotate(90deg);
+        transform: translate(-250px) rotate(90deg);
+        width: 950px;
+        margin-top: 278px; }
+      html body #container #main #chart {
+        margin: 300px 0 28px 0; }
+        html body #container #main #chart #work_experience {
+          width: 100%;
+          float: none; }
+        html body #container #main #chart #geek_cred {
+          float: none;
+          width: auto;
+          clear: left;
+          margin-top: 18px; }
+          html body #container #main #chart #geek_cred ol {
+            padding: 0 0 0 2em; }
+            html body #container #main #chart #geek_cred ol a:link, html body #container #main #chart #geek_cred ol a:active, html body #container #main #chart #geek_cred ol a:visited {
+              color: #f1f1f1; }
+        html body #container #main #chart #believe_to_achieve {
+          width: 100%;
+          float: none; }
+        html body #container #main #chart #Edutopia {
+          width: 100%;
+          float: none;
+          padding-left: 0; }
+      html body #container footer {
+        text-align: center;
+        padding: 10px 0; } }
+/* Print styles.
+ * Inlined to avoid required HTTP connection: h5bp.com/r */
+@media print {
+  .edu {
+    display: none; }
+
+  .work {
+    display: none; }
+
+  .acomplish {
+    display: none; }
+
+  nav {
+    display: none !important; }
+
+  * {
+    background: transparent !important;
+    /* Black prints faster: h5bp.com/s */
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -ms-filter: none !important; }
+
+  a, a:visited {
+    text-decoration: underline; }
+
+  img {
+    max-width: 100% !important; }
+
+  @page {
+    margin: 0.5cm; }
+
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3; }
+
+  h2, h3 {
+    page-break-after: avoid; }
+
+  #main #subway {
+    display: none !important; }
+  #main #chart {
+    margin: 0 0 28px 0; }
+    #main #chart #work_experience {
+      width: 100%;
+      float: none; }
+      #main #chart #work_experience h2 {
+        display: block !important; }
+    #main #chart #geek_cred {
+      width: 100%;
+      float: none;
+      margin-top: 18px; }
+      #main #chart #geek_cred ol {
+        padding: 0 0 0 2em; }
+        #main #chart #geek_cred ol a:link, #main #chart #geek_cred ol a:active, #main #chart #geek_cred ol a:visited {
+          color: #f1f1f1; }
+    #main #chart #believe_to_achieve {
+      width: 100%;
+      float: none; }
+      #main #chart #believe_to_achieve h2 {
+        display: block !important; }
+    #main #chart #Edutopia {
+      width: 100%;
+      float: none; }
+      #main #chart #Edutopia h2 {
+        display: block !important; }
+  #main footer {
+    text-align: center; } }

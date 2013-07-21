@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Integrating git with your existing website</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/styles/main.css" />
+
+        <!--Le Typekit -->
+        <script type="text/javascript" src="//use.typekit.net/kyl1abf.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" alt="Logo Home">
+                    <img src="http://tylercipriani.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" alt="Home">Home</a></li>
+                    <li><a href="/blog/" alt="Weblog">Weblog</a></li>
+                    <li><a href="/hireme/" alt="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+        <h1>Integrating git with your existing website</h1>
+        <h2>Posted on: <span>October 21, 2012</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    
+
+    <p>Better git it in your soul<a href="http://www.youtube.com/watch?v=SPoK1lryfh4" target="_blank">*</a>.</p>
+
+<p>Git has a <a href="https://bitly.com/bundles/matthewmccullough/1" target="_blank">lot</a>
+of <a href="http://try.github.com/levels/1/challenges/1" target="blank">great</a>
+<a href="https://peepcode.com/products/git" target="_blank">tutorials</a>
+for getting started. There are also a number of great articles on
+<a href="http://daneden.github.com/github-workflow/" target="_blank">how to
+use git and github</a> for your workflow.</p>
+
+<p>What I haven&#8217;t seen is an article on how to integrate git with your
+current site without storing any code on github. I&#8217;m writing this blog
+to create a quick reference for how to get up and running using git on your
+existing site.</p>
+
+<h2>Needed</h2>
+
+
+<p>I&#8217;m making the assumption that you have the following:
+ * Knowledge of Linux
+ * &shy;<a href="http://library.linode.com/lamp-guides/ubuntu-12.04-precise-pangolin" target="_blank">
+     A local development environment
+   </a>
+ * git-core installed both locally and on your webserver
+ * rsync installed both locally and on your webserver
+ * &shy;<a href="http://www.commandlinefu.com/commands/view/771/copy-your-ssh-public-key-on-a-remote-machine-for-passwordless-login-the-easy-way" target="_blank">
+     Keyless SSH access to your webserver
+   </a></p>
+
+<p>I&#8217;m using Ubuntu 12.04 locally, but I&#8217;d assume that most of this
+won&#8217;t be too different on a different distribution or on a Mac&#8212;but
+I&#8217;m probably totally wrong about that &#9786;</p>
+
+<hr>
+
+
+
+
+<h2>Step One:</h2>
+
+
+<p><strong>RSync your site to your local development environment.</strong></p>
+
+<p>In order to begin to develop locally (and break the old <a href="http://www.bnj.com/cowboy-coding-pink-sombrero/" target="_blank">cowboy-coding</a> habits
+that you&#8217;ve undoubtedly developed over the years) you need a local
+copy of your site.</p>
+
+<ol>
+<li>Open your terminal emulator and <code>cd</code> to the directory in which
+you will be storing these files (i.e. <code>cd /srv&shy;/www&shy;/tylercipriani.com&shy;/public_html</code>)</li>
+<li>Rsync the <code>htdocs</code> or <code>public_html</code> from your webserver
+into this local directory:</li>
+</ol>
+
+
+<p><figure>
+$ rsync -av -e "ssh -p <port>" <rsync-username>@<webserver>:/path/to/htdocs/ .
+</figure></p>
+
+<p>The command breaks down like this:</p>
+
+<ul>
+    <li><code>a</code> means &#8220;Archive&#8221;&#8212;keeps permissions, mtimes, etc the same</li>
+    <li><code>v</code> means &#8220;Verbose&#8221;&#8212;increases verbosity of the command</li>
+    <li><code>e</code> means &#8220;RSH&#8221;&#8212;allows you to use remote shell (same as RSH=command)</li>
+    <li><code>:/path/to/htdocs/</code>&#8212;the path to you htdocs folder. 
+      The trailing <code>/</code> is significant&#8212;it means copy the 
+      content of the htdocs directory rather than the directory by name</li>
+    <li><code>.</code> is the current directory</li>
+</ul>
+
+
+
+
+<hr>
+
+
+
+
+<h2>Step Two:</h2>
+
+
+<p><strong>Initialize git in local development environment.</strong></p>
+
+<p>This step will create a new git repository on your local machine and add all
+the code that you&#8217;ve rsynced in the previous step to that repo.</p>
+
+<ol>
+<li>&shy;<code>cd</code> to the directory to which you previously rsynced
+your site and initialize a git repository by running <code>git init</code></li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd</span> /srv/www/tylercipriani.com/public_html/
+<span class="nv">$ </span>git init
+</code></pre></div>
+
+
+<ol>
+<li>Add the contents of the current directory to the git repository by running
+<code>git add .</code></li>
+<li>Commit all your newly added files to the repo by running your first
+commit <code>git commit -m &#8220;First Commit&#8221;</code></li>
+</ol>
+
+
+<hr>
+
+
+
+
+<h2>Step Three:</h2>
+
+
+<p><strong>Setup a bare repo on your web server.</strong></p>
+
+<p>You need a bare repo out on your webserver that will act as a mirror to your
+local development environment.</p>
+
+<ol>
+<li>ssh into your webserver and make a new directory, I usually make it above
+the webroot (i.e. <code>htdocs</code>)</li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>mkdir tylercipriani.com.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>tylercipriani.com.git
+</code></pre></div>
+
+
+<ol>
+<li>Once inside the new directory initialize a bare repository by using the
+<code>--bare</code> flag:</li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git init --bare
+</code></pre></div>
+
+
+<ol>
+<li>Now we can define a new post-receive hook that will be triggered whenever
+an update is pushed to this new bare repository. The post-receive hook
+can be any type of script you want, the script below is written in bash.
+<code>cd</code> into the <code>.git/hooks</code> directory and create a
+file called &#8220;post-receive&#8221;. Copy the code below into the file:</li>
+</ol>
+
+
+<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> <span class="c">#!/bin/bash</span>
+<span class="lineno">2</span> <span class="nv">GIT_WORK_TREE</span><span class="o">=</span>/path/to/your/htdocs/direcotry git checkout -f
+</code></pre></div>
+
+
+<pre><code>make sure that this code is executable by running 
+&lt;code&gt;chmod +x .git/hooks/post-receive&lt;/code&gt;
+</code></pre>
+
+<hr>
+
+
+
+
+<h2>You&#8217;re Done!</h2>
+
+
+<p><strong>Push to your new repo, you beautiful command-line ninja, you!</strong></p>
+
+<p>Back on your local machine, in the webroot of your local development environment,
+add your bare webserver repo as your <code>remote</code> and push your git
+repo up to your server. The post-receive hook will take care of the rest!</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
+<span class="nv">$ </span>git push -u origin master
+</code></pre></div>
+
+
+<p>By using the <code>-u</code> flag you&#8217;re setting the upstream which means
+you can just run <code>git pull</code> without further arguments to merge
+origin and master.</p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+        <script type="text/javascript">
+            var disqus_shortname = 'tylercipriani';
+
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            <footer>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" alt="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+        </main>
+    </body>
+</html>

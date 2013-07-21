@@ -1,0 +1,513 @@
+@font-face {
+    font-family: 'video-game'; /* 04b03 */
+    src: url('../fonts/04b_03__-webfont.eot');
+    src: url('../fonts/04b_03__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/04b_03__-webfont.woff') format('woff'),
+         url('../fonts/04b_03__-webfont.ttf') format('truetype'),
+         url('../fonts/04b_03__-webfont.svg#04b03Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*
+ * Famous 100-line reset – trimmed normalize.css (
+ * ------------
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden] {
+  display: none;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+ol, ul {
+  list-style: none; 
+}
+
+strong {
+  font-weight: bold;
+}
+
+blockquote {
+  margin: 1em 40px;
+}
+
+table {
+  border-collapse: collapse;
+	border-spacing: 0; 
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin: 0.83em 0;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: 1em 0;
+}
+
+h4 {
+    font-size: 1em;
+    margin: 1.33em 0;
+}
+
+h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0;
+}
+
+h6 {
+    font-size: 0.75em;
+    margin: 2.33em 0;
+}
+
+p { 
+  margin: 1em 0; 
+}
+
+/*
+ * Regular styles
+ */
+body {
+  margin: 0;
+  background: black;
+  font: 100%/1.5em 'video-game';
+  color: white;
+}
+
+
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+
+    .scroller {
+      margin: -2005px auto;
+      width: 520px;
+    }
+
+      .legend {
+        background: url(../images/sec-bg.png) 0 -20px no-repeat;
+        padding: 0 60px;
+        height: 600px;
+      }
+
+        .headline {
+          color: #D0162C;
+          font-weight: 300;
+          text-align: center;
+        }
+
+      
+        .body {
+          color: #fff;
+          text-align: justify;
+          font-size: 1.5em;
+          line-height: 1.5em;
+          text-transform: uppercase;
+        }
+          
+          em {
+            color: #D0162C;
+            font-style: normal;
+          }
+
+          strong {
+            color: #49aad5;
+            font-weight: normal;
+          }
+
+          .body.important {
+            color: #D0162C;
+            text-align: center;
+            padding: 0 30px;
+          }
+
+          .link {
+            color: rgba(0, 200, 0, 1);
+          }
+
+        .divider:before {
+          content:"";
+          display: block;
+          height: 30px;
+          background: url(../images/divider.png) 0 0 no-repeat;
+          margin-bottom: -20px;
+        }
+
+        .col {
+          display: inline-block;
+          vertical-align: top;
+          width: 49%;
+          text-align: center;
+        }
+
+      .game { 
+        position: relative;
+      }
+      
+        .game-field {
+          background: url(../images/background.png) 0 0 no-repeat;
+          position: relative;
+          height: 480px;
+        }
+
+          .character {
+            background: url(../images/reese.png);
+            background-position: -80px -78px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 38px;
+            height: 41px;
+            /*margin-top: -16px;
+            margin-left: -16px;*/
+            -webkit-transition: margin-top 0s 999999s, margin-left 0s 999999s; 
+               -moz-transition: margin-top 0s 999999s, margin-left 0s 999999s; 
+                 -o-transition: margin-top 0s 999999s, margin-left 0s 999999s; 
+                    transition: margin-top 0s 999999s, margin-left 0s 999999s; 
+          }
+
+          .character:after {
+            content: "Reese the cat →"; 
+            position: absolute;
+            left: -60px;
+            top: -20px;
+          }
+
+
+/*
+ * Controls
+ */
+
+.up-button, .down-button, .left-button, .right-button {
+  z-index: 10000;
+  position: absolute;
+  top: 80px;
+  height: 45px;
+  width: 45px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 23px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3) inset, 
+              0 3px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 0 0 1px black;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.5em;
+  font-size: 2em;
+}
+
+.up-button { 
+  margin: -50px 0 0 65px;
+}
+
+  .up-button:before {
+    content: "↑";
+  }
+
+.left-button { 
+  margin: -16px 0 0 30px;
+}
+
+  .left-button:before {
+    content: "←";
+  }
+
+.down-button { 
+  margin: 21px 0 0 65px;
+}
+
+  .down-button:before {
+    content: "↓";
+  }
+
+.right-button { 
+  margin: -16px 0 0 100px;
+}
+
+  .right-button:before {
+    content: "→";
+  }
+
+  .up-button:hover, .left-button:hover, .down-button:hover, .right-button:hover{ 
+    background: transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset, 
+                0 3px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .up-button:active, .left-button:active, .down-button:active, .right-button:active{ 
+    background: transparent;
+    box-shadow: 0 3px 1px rgba(0, 0, 0, 0.7) inset,
+                0 1px 1px white;
+  }
+
+  .up-button:active ~ .character, 
+  .right-button:active ~ .character, 
+  .down-button:active ~ .character, 
+  .left-button:active ~ .character { 
+    -webkit-transition: margin-top 3s 0s,
+                        margin-left 3s 0s; 
+                        background-position: 0.3s 0s linear;
+       -moz-transition: margin-top 3s 0s,  
+                        margin-left 3s 0s; 
+                        background-position: 0.3s 0s linear;
+         -o-transition: margin-top 3s 0s, 
+                        margin-left 3s 0s; 
+                        background-position: 0.3s 0s linear;
+            transition: margin-top 3s 0s, 
+                        margin-left 3s 0s; 
+                        background-position: 0.3s 0s linear;
+  }
+
+  .up-button:active ~ .character { 
+    margin-top: -210px;
+    -webkit-animation: walk-up 0.5s infinite;
+       -moz-animation: walk-up 0.5s infinite;
+         -o-animation: walk-up 0.5s infinite;
+            animation: walk-up 0.5s infinite;
+    /*background-position: -86px -39px;*/ 
+  }
+
+  .left-button:active ~ .character { 
+    margin-left: -225px;
+    -webkit-animation: walk-left 0.5s infinite;
+       -moz-animation: walk-left 0.5s infinite;
+         -o-animation: walk-left 0.5s infinite;
+            animation: walk-left 0.5s infinite;
+    /*background-position: -39px -79px;*/ 
+  }
+
+  .right-button:active ~ .character { 
+    margin-left: 185px;
+    -webkit-animation: walk-right 0.5s infinite;
+       -moz-animation: walk-right 0.5s infinite;
+         -o-animation: walk-right 0.5s infinite;
+            animation: walk-right 0.5s infinite;
+    /*background-position: -119px -79px;*/ 
+  }
+
+  .down-button:active ~ .character { 
+      margin-top: 165px;
+      -webkit-animation: walk-down 0.5s infinite;
+         -moz-animation: walk-down 0.5s infinite;
+           -o-animation: walk-down 0.5s infinite;
+              animation: walk-down 0.5s infinite;
+      /*background-position: -86px -118px;*/ 
+  }
+
+
+/*
+* Animation
+*/
+  /*
+   * Walk Up 
+   */
+  @-webkit-keyframes walk-up {
+    0%, 65.99% { background-position: -86px -39px; }
+    66%, 99.99% { background-position: -86px 1px; }
+    100%   { background-position: -86px -39px; }
+  }
+  @-moz-keyframes walk-up {
+    0%, 65.99% { background-position: -86px -39px; }
+    66%, 99.99% { background-position: -86px 1px; }
+    100%   { background-position: -86px -39px; }
+  }
+  @-o-keyframes walk-up {
+    0%, 65.99% { background-position: -86px -39px; }
+    66%, 99.99% { background-position: -86px 1px; }
+    100%   { background-position: -86px -39px; }
+  }
+  @keyframes walk-up {
+    0%, 65.99% { background-position: -86px -39px; }
+    66%, 99.99% { background-position: -86px 1px; }
+    100%   { background-position: -86px -39px; }
+  }
+
+  /*
+   * Walk Down
+   */
+  @-webkit-keyframes walk-down {
+    0%, 65.99% { background-position: -86px -120px; }
+    66%, 99.99% { background-position: -86px -164px; }
+    100%   { background-position: -86px -120px; }
+  }
+  @-moz-keyframes walk-down {
+    0%, 65.99% { background-position: -86px -120px; }
+    66%, 99.99% { background-position: -86px -164px; }
+    100%   { background-position: -86px -120px; }
+  }
+  @-o-keyframes walk-down {
+    0%, 65.99% { background-position: -86px -120px; }
+    66%, 99.99% { background-position: -86px -164px; }
+    100%   { background-position: -86px -120px; }
+  }
+  @keyframes walk-down {
+    0%, 65.99% { background-position: -86px -120px; }
+    66%, 99.99% { background-position: -86px -164px; }
+    100%   { background-position: -86px -120px; }
+  }
+ 
+  /*
+   * Walk left 
+   */
+  @-webkit-keyframes walk-left {
+    0%, 65.99% { background-position: -39px -79px; }
+    66%, 99.99% { background-position: 0 -79px; }
+    100% { background-position: -39px -79px; }
+  }
+  @-moz-keyframes walk-left {
+    0%, 65.99% { background-position: -39px -79px; }
+    66%, 99.99% { background-position: 0 -79px; }
+    100% { background-position: -39px -79px; }
+  }
+  @-o-keyframes walk-left {
+    0%, 65.99% { background-position: -39px -79px; }
+    66%, 99.99% { background-position: 0 -79px; }
+    100% { background-position: -39px -79px; }
+  }
+  @keyframes walk-left {
+    0%, 65.99% { background-position: -39px -79px; }
+    66%, 99.99% { background-position: 0 -79px; }
+    100% { background-position: -39px -79px; }
+  }
+
+  /*
+   * Walk right 
+   */
+  @-webkit-keyframes walk-right {
+    0%, 65.99% { background-position: -119px -79px; }
+    66%, 99.99% { background-position: -158px -79px; }
+    100% { background-position: -119px -79px; }
+  }
+  @-moz-keyframes walk-right {
+    0%, 65.99% { background-position: -119px -79px; }
+    66%, 99.99% { background-position: -158px -79px; }
+    100% { background-position: -119px -79px; }
+  }
+  @-o-keyframes walk-right {
+    0%, 65.99% { background-position: -119px -79px; }
+    66%, 99.99% { background-position: -158px -79px; }
+    100% { background-position: -119px -79px; }
+  }
+  @keyframes walk-right {
+    0%, 65.99% { background-position: -119px -79px; }
+    66%, 99.99% { background-position: -158px -79px; }
+    100% { background-position: -119px -79px; }
+  }
+
+#scroll1 {
+  -webkit-transition: all 0.1s; 
+     -moz-transition: all 0.1s;
+       -o-transition: all 0.1s;
+          transition: all 0.1s;
+
+  -webkit-animation: scroll1 60s 1;
+     -moz-animation: scroll1 60s 1;
+       -o-animation: scroll1 60s 1;
+          animation: scroll1 60s 1;
+}
+
+  @-webkit-keyframes scroll1 {
+    0%   { margin: 50% auto 0; }
+    25%  { margin: 0 auto; }
+    35%   { margin: -395px auto 0; }
+    100% { margin: -2005px auto 0; }
+  }
+  @-moz-keyframes scroll1 {
+    0%   { margin: 50% auto 0; }
+    25%  { margin: 0 auto; }
+    35%   { margin: -395px auto 0; }
+    100% { margin: -2005px auto 0; }
+  }
+  @-o-keyframes scroll1 {
+    0%   { margin: 50% auto 0; }
+    25%  { margin: 0 auto 0; }
+    35%   { margin: -395px auto 0; }
+    100% { margin: -2005px auto 0; }
+  }
+  @keyframes scroll1 {
+    0%   { margin: 50% auto 0; }
+    25%  { margin: 0 auto; }
+    35%   { margin: -395px auto 0; }
+    100% { margin: -2005px auto 0; }
+  }
+
+#answer {
+  opacity: 0;
+  -webkit-transition: all 0.3s linear; 
+     -moz-transition: all 0.3s linear;
+       -o-transition: all 0.3s linear;
+          transition: all 0.3s linear;
+
+  /* without mouse action you're dependant on animation...*/
+  -webkit-animation: showAnswer 999999s 45s 1;
+     -moz-animation: showAnswer 999999s 45s 1;
+       -o-animation: showAnswer 999999s 45s 1;
+          animation: showAnswer 999999s 45s 1;
+}
+
+  @-webkit-keyframes showAnswer {
+    0%   { opacity: 1; }
+  }
+  @-moz-keyframes showAnswer {
+    0%   { opacity: 1; }
+  }
+  @-o-keyframes showAnswer {
+    0%   { opacity: 1; }
+  }
+  @keyframes showAnswer {
+    0%   { opacity: 1; }
+  }

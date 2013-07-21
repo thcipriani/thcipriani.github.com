@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Website Contrast Ratio in Practice</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/styles/main.css" />
+
+        <!--Le Typekit -->
+        <script type="text/javascript" src="//use.typekit.net/kyl1abf.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" alt="Logo Home">
+                    <img src="http://tylercipriani.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" alt="Home">Home</a></li>
+                    <li><a href="/blog/" alt="Weblog">Weblog</a></li>
+                    <li><a href="/hireme/" alt="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+        <h1>Website Contrast Ratio in Practice</h1>
+        <h2>Posted on: <span>July 27, 2012</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    
+
+    <p>While perusing <a href="http://news.ycombinator.com/" title="Hacker News">Hacker News</a> I ran across a single-page site called
+<a href="http://contrastrebellion.com/" title="Contrast Rebellion">Contrast Rebellion</a>&#8212;
+which I understand has created a bit of controversy.</p>
+
+<p>I think the point espoused by Contrast Rebellion is both well-made and
+well-taken (despite the host of straw-man style arguments to the contrary);
+however, I feel that&#8212;in <em>most</em> designs&#8212;contrast arises fairly
+organically. If I can&#8217;t read my font, or there isn&#8217;t enough
+contrast in my color palate, then I know that the people from whom I
+solicit opinions are going to mention that before saying anything else.</p>
+
+<p>If only we were all so lucky. &#9786;</p>
+
+<p>On the <a href="http://www.w3.org/TR/WCAG10-CSS-TECHS/#style-color-contrast" title="CSS Techniques for Web Content Accessibility Guidelines 1.0">topic of color contrast</a>
+the W3C defines <a href="http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html" title="Success Criterion 1.4.3">Success Criterion 1.4.3</a>
+saying:</p>
+
+<blockquote><p><strong>Contrast (Minimum)</strong>: The visual presentation of text and images of text has a contrast ratio of at least 4.5:1, except for the following: (Level AA)
+* <strong>Large Text</strong>: Large-scale text and images of large-scale text have a contrast ratio of at least 3:1;
+* <strong>Incidental</strong>: Text or images of text that are part of an inactive user interface component, that are pure decoration, that are not visible to anyone, or that are part of a picture that contains significant other visual content, have no contrast requirement.
+* <strong>Logotypes</strong>: Text that is part of a logo or brand name has no minimum contrast requirement.</p></blockquote>
+
+<p>There is a formula for calculating the contrast of two colors available at
+<a href="http://www.paciellogroup.com/resources/contrast-analyser.html," title="Contrast Analyser">the paciello group</a>&#8212;
+they also have a Contrast Analyser that you can download for Mac and Windows.</p>
+
+<p>Alternately, you could skip the download and the hand-cranking of numbers
+and enter your hex codes into the
+<a href="http://juicystudio.com/services/luminositycontrastratio.php," title="Luminosity Colour Contrast Ratio Analyser">Luminosity Colour Contrast Ratio Analyser</a></p>
+
+<blockquote><p><strong>edit</strong>&#8212;11/23/2012</p>
+
+<p>My new favorite tool for contrast checking is <a href="http://leaverou.github.com/contrast-ratio/">Lea Verou&#8217;s constrast checker</a></p></blockquote>
+
+<hr>
+
+
+<p><strong>Looking at popular websites contrast</strong></p>
+
+<p>The genesis of this exercise was to review websites I have built and to
+review some other popular sites so lets do that &#8230;</p>
+
+<hr>
+
+
+<p><strong>The contrast on this site</strong></p>
+
+<p>It&#8217;s pretty good right? The text you&#8217;re reading I mean&#8212;
+it&#8217;easy to read, contrast-wise anyway.</p>
+
+<ul>
+<li><strong>Text color</strong>: <a href="http://www.colourlovers.com/color/444444">#444444</a></li>
+<li><strong>Background color</strong>: <a href="http://www.colourlovers.com/color/F8F8F8">#f8f8f8</a></li>
+<li><strong>Contrast-ratio</strong>: 9.17:1</li>
+<li><strong>Analysis</strong>: Pretty amazing.</li>
+</ul>
+
+
+<blockquote><p><strong>edit</strong>&#8212;11/23/2012</p>
+
+<p>You&#8217;re looking at Text color: <a href="http://www.colourlovers.com/color/8f8d80">#8f8d80</a>
+which means that the contrast ratio here has dropped to 3.1:1&#8212;which
+meets the success cirterion for the current text-size of 24px!
+(which is, admittedly, very large, but whatever, I ain&#8217;t scared).</p></blockquote>
+
+<hr>
+
+
+<p><strong>Apple&#8217;s nav bar</strong></p>
+
+<p><img class="blogImg" src="http://tylercipriani.s3.amazonaws.com/blog/Apple-nav-bar.png" alt="Apple's nav bar"></p>
+
+<p>Apple&#8217;s nav bar is a gradient, so this analysis is for the color at
+the lightest point of the gradient versus the text</p>
+
+<ul>
+<li><strong>Text color</strong>:  <a href="http://www.colourlovers.com/color/FFFFFF">#FFFFFF</a></li>
+<li><strong>Background color</strong> (again, at the lightest part of the gradient): <a href="http://www.colourlovers.com/color/727272">#727272</a></li>
+<li><strong>Contrast-ratio</strong>: 4.81:1</li>
+<li><strong>Analysis</strong>: Passed at Level AA for regular text, and pass at Level AAA for large text (18pt or 14pt bold)&#8212;Apple&#8217;s nav text is SVG (ostensibly for the new retina displays), but it seems to be about 13pt&#8211;14pt. A little low-contrast perhaps, but not too drastic.</li>
+</ul>
+
+
+<hr>
+
+
+<p><strong>Google&#8217;s account settings bar</strong></p>
+
+<p><img class="blogImg" src="http://tylercipriani.s3.amazonaws.com/blog/google-account-settings.png" alt="Google's account settings bar"></p>
+
+<p>The Google account settings bar has always seemed to be fairly low-contrast
+to me&#8212;let&#8217;s test a theory.</p>
+
+<ul>
+<li><strong>Text color</strong>:  <a href="http://www.colourlovers.com/color/666666">#666666</a></li>
+<li><strong>Background color</strong>: <a href="http://www.colourlovers.com/color/F1F1F1">#F1F1F1</a></li>
+<li><strong>Contrast-ratio</strong>: 5.08:1</li>
+<li><strong>Analysis</strong>: Passed at Level AA for regular text, and pass at Level AAA for large text (18pt or 14pt bold)&#8212;better contrast than Apple; however, the text in this image above is 13px/27px Arial,sans-serif at the default font-weight which is close, but not quite ideal.</li>
+</ul>
+
+
+<p>Out of curiousity I decided to see what these recommendations would look like for Google in practice&#8212;answer: more readable, arguably less aesthetically appealing (see below).</p>
+
+<p><img class="blogImg" src="http://tylercipriani.s3.amazonaws.com/blog/google-account-settings_large.png" alt="Google's account settings bar—larger font"></p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+        <script type="text/javascript">
+            var disqus_shortname = 'tylercipriani';
+
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            <footer>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" alt="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+        </main>
+    </body>
+</html>
