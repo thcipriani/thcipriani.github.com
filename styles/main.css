@@ -498,12 +498,6 @@ body {
          -o-font-feature-settings: "liga", "dlig";
             font-feature-settings: "liga", "dlig";
 
-    -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-        -ms-hyphens: auto;
-         -o-hyphens: auto;
-            hyphens: auto;
-
     -webkit-font-smoothing: antialiased;
 }
 
