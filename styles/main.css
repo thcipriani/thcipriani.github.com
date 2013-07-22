@@ -592,6 +592,10 @@ header h2 {
     font-style: italic;
 }
 
+header h2 span {
+    font-variant: small-caps;
+}
+
 /* base body styles */
 p {
     margin: 0 auto 1em;
