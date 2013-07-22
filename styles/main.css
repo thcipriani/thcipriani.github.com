@@ -484,7 +484,7 @@ code {
    ========================================================================== */
 
 body {
-    padding: 5em 0 0 0;
+    padding: 5em 0 8em;
     color: #222222;
     background: #FEFEFE;
     font: normal normal 400 120%/1.5 "adobe-caslon-pro", Baskerville;
@@ -759,7 +759,7 @@ article h2 {
 
 @media (max-width: 600px) {
     body {
-        padding: 3em 0 0 0;
+        padding: 3em 0 5em 0;
     }
 
     figure ul li {
