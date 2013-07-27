@@ -638,6 +638,7 @@ hr {
 
 figure {
     margin: 1.8em auto 0;
+    overflow: hidden;
     *zoom: 1;
 }
 
@@ -649,13 +650,34 @@ figure img {
 figure ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 0 -2.3333%;
+    margin: 0;
+    width: 300%;
+    transition: all 0.5s ease;
 }
 
 figure ul li {
     float: left;
-    margin-left: 2.3333%;
-    width: 30%;
+    width: 33.3333%;
+    text-align: center;
+}
+
+figure ul li button {
+    float: right;
+    border: none;
+    background: none;
+    margin-top: 0.5em;
+    opacity: 1;
+    transition: all 0.25s ease;
+    font-size: 0.83em;
+    font-variant: small-caps;
+}
+
+figure ul li button:first-of-type { float: left; }
+
+figure ul li figcaption {
+    margin: 0 9em 0;
+    font-size: 0.83em;
+    text-align: left;
 }
 
 figure:before,
@@ -667,6 +689,21 @@ figure:after {
 figure:after {
     clear: both;
 }
+
+/* slideshow */
+figure aside {
+    display: none;
+}
+
+aside:nth-of-type(1):target ~ ul { margin-left: 0; }
+aside:nth-of-type(2):target ~ ul li:nth-of-type(1) button { opacity: 0; }
+
+aside:nth-of-type(2):target ~ ul { margin-left: -100%; }
+aside:nth-of-type(3):target ~ ul li:nth-of-type(2) button { opacity: 0; }
+aside:nth-of-type(1):target ~ ul li:nth-of-type(2) button { opacity: 0; }
+
+aside:nth-of-type(3):target ~ ul { margin-left: -200%; }
+aside:nth-of-type(2):target ~ ul li:nth-of-type(3) button { opacity: 0; }
 
 /* nav */
 nav ul {
@@ -748,9 +785,7 @@ article h2 {
         padding: 3em 0 5em 0;
     }
 
-    figure ul li {
-        float: left;
-        margin-left: 0;
-        width: 100%;
+    figcaption {
+        display: none;
     }
 }
