@@ -725,13 +725,13 @@ aside:nth-of-type(2):target ~ ul li:nth-of-type(3) button { opacity: 0; }
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0 1em;
     text-align: center;
+    margin-left: -1.25em;
 }
 
 nav ul li {
     display: inline-block;
-    margin-right: 1.25em;
+    margin-left: 1.25em;
 }
 
 /* section */
