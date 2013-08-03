@@ -631,10 +631,15 @@ aside span {
 }
 
 footer {
-    text-align: center;
-    font-size: 0.8em;
+    font-size: 0.83em;
+    text-align: left;
+    margin-left: 40%;
     color: #444444;
-    margin-top: 3.5em;
+}
+
+article footer {
+    margin-left: 0;
+    text-align: center;
 }
 
 hr {
@@ -645,7 +650,7 @@ hr {
 }
 
 figure {
-    margin: 1.8em auto 0;
+    margin: 0 auto;
     overflow: hidden;
     *zoom: 1;
 }
@@ -675,12 +680,14 @@ figure ul li {
 
 figure ul li button {
     float: right;
-    border: none;
-    background: none;
-    margin-top: 0.5em;
+    border: 0;
+    background: 0;
+    margin: 0;
+    padding-top: 0;
     opacity: 1;
-    font-size: 0.83em;
-    font-variant: small-caps;
+    font-size: 0.81em;
+    line-height: 1.4;
+    border-bottom: thin solid #DCDCDC;
 
     -webkit-transition: all 0.3s ease-out; 
        -moz-transition: all 0.3s ease-out; 
@@ -688,21 +695,22 @@ figure ul li button {
             transition: all 0.3s ease-out; 
 }
 
-figure ul li button:first-of-type { float: left; }
-
 figure ul li figcaption {
-    margin: 0 9em 0;
+    margin: 0 12em 0 0;
     font-size: 0.83em;
     text-align: left;
 }
 
 figure:before,
-figure:after {
+figure:after,
+section:before,
+section:after {
     content: " ";
     display: table;
 }
 
-figure:after {
+figure:after,
+section:after {
     clear: both;
 }
 
@@ -722,6 +730,10 @@ aside:nth-of-type(3):target ~ ul { margin-left: -200%; }
 aside:nth-of-type(2):target ~ ul li:nth-of-type(3) button { opacity: 0; }
 
 /* nav */
+nav { 
+    margin-bottom: 4em;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
@@ -736,22 +748,46 @@ nav ul li {
 
 /* section */
 section {
-    margin: 1.8em auto 0;
-    width: 66.666%;
+    margin: 1.8em auto 4em;
+    width: 100%;
+    *zoom: 1;
 }
 
-section header h1 {
-    font-size: 1.5em;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
+section header {
+    float: left;
+    width: 40%;
+}
+
+section header h1,
+section header h2 {
+    text-align: right;
+    margin: 0 20% 0 0;
+    letter-spacing: 0;
+}
+
+section header hr {
+    margin: 5% 20% 5% 0;
+    border-top: thin solid #3498DB;
+}
+
+section header h2 {
+    color: #444;
+    font-size: 1em;
+    margin-top: 0.5em;
+}
+
+section div {
+    float: right;
+    width: 60%;
 }
 
 section footer {
-    text-align: center;
+    float: left;
+    text-align: left;
+    width: 60%;
     font-size: 1em;
     color: #222222;
-    margin-top: 0;
+    margin: 0;
 }
 
 section footer span {
@@ -791,8 +827,45 @@ article h2 {
         width: 85%;
     }
 
+    section header {
+        float: none;
+        width: 100%;
+    }
+
+    section header h1 {
+        text-align: center;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+    }
+
+    section header hr {
+        display: none;
+    }
+
+    section header h2 {
+        text-align: center;
+        margin: 0 0 0.83em 0;
+        font-size: 1.2em;
+    }
+
+    section div,
+    section footer {
+        float: none;
+        width: 100%;
+    }
+
+    section footer {
+        text-align: center;
+    }
+
     article {
         width: 85%;
+    }
+
+    footer {
+        margin-left: 0;
+        text-align: center;
     }
 }
 
