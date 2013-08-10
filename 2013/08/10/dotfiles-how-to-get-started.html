@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Dotfile Boilerplate</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="/styles/main-min.css" />
+
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="/scripts/html5shiv-min.js"></script>
+        <![endif]-->
+
+        <!--Le Typekit -->
+        <script type="text/javascript" src="//use.typekit.net/kyl1abf.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" title="Logo Home">
+                    <img src="http://tylercipriani.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                    <li><a href="/blog/" title="Weblog">Weblog</a></li>
+                    <li><a href="https://github.com/thcipriani/links" title="Links">Links</a></li>
+                    <li><a href="/hireme/" title="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+        <h1>Dotfile Boilerplate</h1>
+        <h2>Posted on: <span>August 10, 2013</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    
+
+    <p>Earlier today I made a tweak to one of my ever-growing collection of
+<a href="https://github.com/thcipriani/dotfiles/">dotfiles</a> and it reminded me
+that I&#8217;m not too happy with my dotfile&#8217;s <code>bootstrap</code> script.</p>
+
+<p>The <code>bootstrap</code> file that I have in my repo is from <a href="http://errtheblog.com/posts/89-huba-huba">a 2008 blog post</a>
+and I&#8217;ve never been too thrilled with it.</p>
+
+<p>The problems my old <code>boostrap</code> were</p>
+
+<ol>
+<li>It required that Ruby be installed&#8212;which was a pain on production
+servers where I never intended to have Ruby installed.</li>
+<li>It overwrote any existing dotfiles in <code>$HOME</code> without warning</li>
+<li>It added every sub-directory/file in the .dotfiles directory&#8212;you couldn&#8217;t
+add a README.md file without it being symlinked in the <code>$HOME</code> directory as
+<code>.README.md</code>&#8212;silly, right?!</li>
+</ol>
+
+
+<p>So I started perusing dotfile repos on github&#8212;which is always exciting
+to me (because I&#8217;m super nerdy) and there are some amazing dotfile resources
+on github:</p>
+
+<ul>
+<li><a href="http://dotfiles.github.io/">Github &#10084; ~/</a></li>
+<li><a href="https://github.com/mathiasbynens/dotfiles">Mathias Bynens&#8217; Sensible Hacker Defaults for OSX</a></li>
+<li><a href="https://github.com/gf3/dotfiles">gf3&#8217;s Sexy Bash Prompt</a></li>
+<li><a href="http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/">Zach Holman&#8217;s Bootstrap script</a></li>
+<li><a href="https://github.com/addyosmani/dotfiles/blob/master/.aliases">Addy Osmani&#8217;s Handy Aliases</a></li>
+</ul>
+
+
+<p>And the truly insane:</p>
+
+<ul>
+<li><a href="https://github.com/pengwynn/dotfiles">pengwynn&#8217;s There&#8217;s no place like ~/</a></li>
+</ul>
+
+
+<p>Seeing all of this got me to thinking&#8212;wouldn&#8217;t it be great if there
+were a project that amalgamated all of this fun stuff? Like HTML5 Boilerplate
+for dotfiles.</p>
+
+<h2>Dotfile Boilerplate</h2>
+
+<p>So there&#8217;s the starting point: <a href="https://github.com/thcipriani/dotfile-boilerplate">Dotfile Boilerplate</a></p>
+
+<p>At the very least it&#8217;s a solidly structured start with an amazing
+bootstrap script that I modfied based off of Zach Holman&#8217;s setup.</p>
+
+<p>So that&#8217;s the whole idea&#8212;the hope is that this repository can grow
+and collect great ideas, functions, and well-considered dotfiles from
+interesting discussions and people around the internet.</p>
+
+<p>Beginners will have an amazing starting point and advanced users will have
+a wellspring of ideas.</p>
+
+<p>Fork &#8216;em if ya got &#8216;em.</p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'tylercipriani';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            
+            <article> 
+            
+            <footer >
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani<br />
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" title="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+            
+        </main>
+
+        <script type="text/javascript">
+            var _gaq=[['_setAccount','UA-25103397-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
