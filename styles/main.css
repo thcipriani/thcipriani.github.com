@@ -485,14 +485,14 @@ pre {
 
 body {
     padding: 5em 0 8em;
-    color: #222222;
+    color: #333;
     background: #FEFEFE;
     /*font: normal normal 400 120%/1.5 "adobe-caslon-pro", Baskerville;*/
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
-    font-size: 120%;
-    line-height: 1.4;
+    font-size: 130%;
+    line-height: 1.5;
     font-family: "adobe-caslon-pro", "Baskerville";
     overflow-y: scroll;
     text-rendering: optimizeLegibility;
@@ -519,12 +519,14 @@ img {
 }
 
 h1 {
+    color: #000;
     font-size: 1.5625em;
     margin: 0.67em 0 0 0;
     font-weight: 400;
 }
 
 h2 {
+    color: #000;
     font-size: 1.25em;
     margin: 0 0 0.83em 0;
     font-weight: 400;
@@ -534,6 +536,7 @@ h3,
 h4,
 h5,
 h6 {
+    color: #000;
     font-weight: 400;
 }
 
@@ -786,7 +789,7 @@ section footer {
     text-align: left;
     width: 60%;
     font-size: 1em;
-    color: #222222;
+    color: #333;
     margin: 0;
 }
 
@@ -818,7 +821,7 @@ article header h2 span {
 }
 
 article h2 {
-    margin: 1.8em 0 0 0;
+    margin: 1.8em 0 0.5em 0;
     text-align: left;
 }
 
