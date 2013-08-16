@@ -602,6 +602,12 @@ header h2 span {
 /* base body styles */
 p {
     margin: 0 auto 1em;
+
+    -webkit-font-feature-settings: "liga";
+       -moz-font-feature-settings: "liga=1, dlig=0";
+        -ms-font-feature-settings: "liga";
+         -o-font-feature-settings: "liga";
+            font-feature-settings: "liga";
 }
 
 p code {
