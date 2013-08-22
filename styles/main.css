@@ -601,7 +601,7 @@ header h2 span {
 
 /* base body styles */
 p {
-    margin: 0 auto 1em;
+    margin: 0 auto 1.5em;
 
     -webkit-font-feature-settings: "liga";
        -moz-font-feature-settings: "liga=1, dlig=0";
@@ -689,15 +689,16 @@ figure ul li {
 
 figure ul li button {
     float: right;
-    border: 0;
     background: 0;
     margin: 0;
-    padding-top: 0;
+    padding: 0.5em 0.5em 0.25em;
     opacity: 1;
-    font-size: 0.81em;
-    line-height: 1.4;
-    border-bottom: thin solid #DCDCDC;
+    font-size: 0.75em;
+    line-height: 1.5;
 
+    border: 0;
+    border-top: thin solid #DCDCDC;
+    border-bottom: thin solid #DCDCDC;
     -webkit-transition: all 0.3s ease-out; 
        -moz-transition: all 0.3s ease-out; 
          -o-transition: all 0.3s ease-out; 
@@ -705,8 +706,7 @@ figure ul li button {
 }
 
 figure ul li figcaption {
-    margin: 0 12em 0 0;
-    font-size: 0.83em;
+    margin: 0 8.5em 0 0;
     text-align: left;
 }
 
@@ -782,7 +782,6 @@ section header hr {
 section header h2 {
     color: #444;
     font-size: 1em;
-    margin-top: 0.5em;
 }
 
 section div {
