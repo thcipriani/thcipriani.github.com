@@ -485,28 +485,30 @@ pre {
 
 body {
     padding: 5em 0 8em;
-    color: #333;
+    color: #444;
     background: #FEFEFE;
     /*font: normal normal 400 120%/1.5 "adobe-caslon-pro", Baskerville;*/
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
-    font-size: 130%;
-    line-height: 1.5;
+    font-size: 1.3125em;
+    line-height: 1.52381;
     font-family: "adobe-caslon-pro", "Baskerville";
     overflow-y: scroll;
     text-rendering: optimizeLegibility;
 
     font-variant-ligatures: common-ligatures additionalligatures;
-    -webkit-font-feature-settings: "liga", "dlig";
-       -moz-font-feature-settings: "liga=1, dlig=1";
-        -ms-font-feature-settings: "liga", "dlig";
-         -o-font-feature-settings: "liga", "dlig";
-            font-feature-settings: "liga", "dlig";
+
+    -webkit-font-feature-settings: "liga";
+       -moz-font-feature-settings: "liga=1, dlig=0";
+        -ms-font-feature-settings: "liga";
+         -o-font-feature-settings: "liga";
+            font-feature-settings: "liga";
 
     -webkit-font-smoothing: antialiased;
 }
 
+/* Higlighter colors */
 ::selection {
     background: #c0f541;
 }
@@ -520,35 +522,38 @@ img {
 
 h1 {
     margin: 1em 0 0;
-    color: #000;
     font-size: 1.5625em;
-    font-weight: 400;
 }
 
 h2 {
-    color: #000;
     font-size: 1.25em;
     margin: 0 0 1em;
-    font-weight: 400;
 }
 
+h1,
+h2,
 h3,
 h4,
 h5,
 h6 {
     color: #000;
     font-weight: 400;
+    -webkit-font-feature-settings: "liga", "dlig";
+       -moz-font-feature-settings: "liga=1, dlig=1";
+        -ms-font-feature-settings: "liga", "dlig";
+         -o-font-feature-settings: "liga", "dlig";
+            font-feature-settings: "liga", "dlig";
 }
 
-a:link, 
-a:visited {
-    color: #3498DB;
-    text-decoration: none;
-}
-
+a:link
+a:visited,
 a:hover {
     text-decoration: underline;
 }
+
+a:link { color: #3498DB; }
+a:visited { color: #6a4c96; }
+a:hover { color: #463263; }
 
 main {
     width: 98%;
@@ -602,12 +607,12 @@ header h2 span {
 /* base body styles */
 p {
     margin: 0 auto 1.5em;
+}
 
-    -webkit-font-feature-settings: "liga";
-       -moz-font-feature-settings: "liga=1, dlig=0";
-        -ms-font-feature-settings: "liga";
-         -o-font-feature-settings: "liga";
-            font-feature-settings: "liga";
+b,
+strong {
+    font-weight: 400;
+    color: #000;
 }
 
 p code {
@@ -615,7 +620,7 @@ p code {
     white-space: no-wrap;
     background: #FFF;
     font-size: .8em;
-    line-height: 1.5em;
+    line-height: 1.52381;
     color: #555;
 
     border: 1px solid #DDD;
@@ -694,7 +699,7 @@ figure ul li button {
     padding: 0.5em 0.5em 0.25em;
     opacity: 1;
     font-size: 0.75em;
-    line-height: 1.5;
+    line-height: 1.52381;
 
     border: 0;
     border-top: thin solid #DCDCDC;
@@ -755,6 +760,15 @@ nav ul li {
     margin-left: 1.25em;
 }
 
+a:link
+a:visited,
+a:hover {
+    text-decoration: none;
+    color: #3498DB;
+}
+
+a:hover { text-decoration: underline; }
+
 /* section */
 section {
     margin: 2em auto 4em;
@@ -772,6 +786,7 @@ section header h2 {
     text-align: right;
     margin: 0 20% 0 0;
     letter-spacing: 0;
+    line-height: 1.52381;
 }
 
 section header hr {
