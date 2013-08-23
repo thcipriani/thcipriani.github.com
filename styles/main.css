@@ -759,14 +759,14 @@ nav ul li {
     margin-left: 1.25em;
 }
 
-a:link
-a:visited,
-a:hover {
+nav a:link
+nav a:visited,
+nav a:hover {
     text-decoration: none;
     color: #3498DB;
 }
 
-a:hover { text-decoration: underline; }
+nav a:hover { text-decoration: underline; }
 
 /* section */
 section {
@@ -826,6 +826,16 @@ article header h1 {
     text-align: left;
     letter-spacing: 0px;
 }
+
+article header h1 a:link
+article header h1 a:visited,
+article header h1 a:hover {
+    text-decoration: none;
+    color: #3498DB;
+}
+
+article header h1 a:hover { text-decoration: underline; }
+
 
 article header h2 {
     margin: 0 0 1.8em 0;
