@@ -109,7 +109,7 @@ a:hover {
 
 h1 {
     font-size: 2em;
-    margin: 1em 0;
+    margin: 0.67em 0;
 }
 
 /**
@@ -519,6 +519,7 @@ img {
 }
 
 h1 {
+    margin: 1em 0 0;
     color: #000;
     font-size: 1.5625em;
     font-weight: 400;
