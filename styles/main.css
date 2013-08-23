@@ -757,7 +757,7 @@ nav ul li {
 
 /* section */
 section {
-    margin: 4em auto;
+    margin: 2em auto 4em;
     width: 100%;
     *zoom: 1;
 }
