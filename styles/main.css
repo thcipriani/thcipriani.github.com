@@ -759,7 +759,7 @@ nav ul li {
     margin-left: 1.25em;
 }
 
-nav a:link
+nav a:link,
 nav a:visited,
 nav a:hover {
     text-decoration: none;
@@ -827,7 +827,7 @@ article header h1 {
     letter-spacing: 0px;
 }
 
-article header h1 a:link
+article header h1 a:link,
 article header h1 a:visited,
 article header h1 a:hover {
     text-decoration: none;
