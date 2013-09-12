@@ -45,8 +45,8 @@
 
     
 
-    <p>When I switched from GNU Screen to Tmux I was just jazzed that Tmux <em>had</em> a
-status bar. In Screen, to achieve that same effect I had a cryptic
+    <p>When I switched from GNU Screen to Tmux, I was just jazzed that Tmux <em>had</em> a
+status bar. To achieve that same effect in Screen I had a cryptic
 115-character <code>hardstatus</code> string that I copy&#8211;pasted from someplace
 lost to the annals of the Internet Archive.</p>
 
@@ -60,7 +60,7 @@ hacker itch and began scouring Github for Tmux tips.</p>
 <code>Ctrl</code>-<code>f</code> Meta is for super stars</p>
 
 <p>I used to always bind <code>Ctrl</code>-<code>a</code> to Meta to make Tmux behave like Screen;
-however, when you use Screen inside Tmux, (as I often do with our AWS servers)
+however, when you use Screen inside Tmux (as I often do with our AWS servers),
 hitting <code>Ctrl</code>-<code>a</code> <code>a</code> can get pretty tiresome. Plus, you can&#8217;t use
 Readline very effectively without <code>Ctrl</code>-<code>a</code></p>
 
@@ -100,7 +100,7 @@ This line will let you hit <code>Ctrl</code>-<code>|</code> to maximize a single
 <p><li>
 Vim-esque system clipboard copy&#8211;paste</p>
 
-<p>Sometimes system clipboard support from vim isn&#8217;t enough. It&#8217;s
+<p>Sometimes system clipboard support from Vim isn&#8217;t enough. It&#8217;s
 convenient to be able to pull whatever is in your Tmux buffer onto your
 system clipboard (preferably without having to memorize any new keybindings
 and without overwriting any existing keybindings).</p>
@@ -110,7 +110,7 @@ and without overwriting any existing keybindings).</p>
 <p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-window-option -g mode-keys vi
 </code></pre></div></p>
 
-<p>Next, I bind <code>Esc</code> to copy mode:</p>
+<p>Next, I bind <code>Meta Esc</code> to enter Tmux copy-mode:</p>
 
 <p><div class="highlight"><pre><code class="bash">unbind-key <span class="o">[</span>
 <span class="nb">bind</span>-key Escape copy-mode
@@ -124,7 +124,7 @@ their Vim equivalents:</p>
 </code></pre></div></p>
 
 <p>Finally, I bind <code>Meta y</code> to execute a shell command. This should work on either
-Linux or OSX although, I&#8217;ve only tested this on OSX:</p>
+Linux or OSX, although I&#8217;ve only tested this on OSX:</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | pbcopy&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
 <span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Linux&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | xclip -sel clip -i&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
