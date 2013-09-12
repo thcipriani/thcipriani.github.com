@@ -51,7 +51,7 @@ status bar. In Screen, to achieve that same effect I had a cryptic
 lost to the annals of the Internet Archive.</p>
 
 <p>It wasn&#8217;t too long after I made the switch until I felt that old
-hacker itch and began scouring Github for tmux tips.</p>
+hacker itch and began scouring Github for Tmux tips.</p>
 
 <h2>Tmux Tips for the Uninitiated</h2>
 
@@ -75,7 +75,7 @@ Readline very effectively without <code>Ctrl</code>-<code>a</code></p>
 <p><li>
 Faster escape</p>
 
-<p>When I first started using tmux I couldn&#8217;t stand the amount of time it
+<p>When I first started using Tmux I couldn&#8217;t stand the amount of time it
 took to enter copy-mode. Then I realized&#8212;I didn&#8217;t have to.</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-option -sg escape-time 0
@@ -105,7 +105,7 @@ convenient to be able to pull whatever is in your Tmux buffer onto your
 system clipboard (preferably without having to memorize any new keybindings
 and without overwriting any existing keybindings).</p>
 
-<p>First, I set the window mode-keys to use VI bindings:</p>
+<p>First, I set the window mode-keys to use Vi bindings:</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-window-option -g mode-keys vi
 </code></pre></div></p>
@@ -116,7 +116,8 @@ and without overwriting any existing keybindings).</p>
 <span class="nb">bind</span>-key Escape copy-mode
 </code></pre></div></p>
 
-<p>After that, I bind the visual-selection and yank keys INSIDE vi-copy mode:</p>
+<p>After that, I bind visual-selection and copy keys inside vi-copy mode to
+their Vim equivalents:</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
 <span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection
