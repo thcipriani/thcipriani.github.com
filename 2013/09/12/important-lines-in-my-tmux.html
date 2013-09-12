@@ -59,29 +59,27 @@ hacker itch and began scouring Github for tmux tips.</p>
 <li>
 <code>Ctrl</code>-<code>f</code> Meta is for super stars</p>
 
-<p>I used to always bound <code>Ctrl</code>-<code>a</code> to Meta to make Tmux behave like Screen;
+<p>I used to always bind <code>Ctrl</code>-<code>a</code> to Meta to make Tmux behave like Screen;
 however, when you use Screen inside Tmux, (as I often do with our AWS servers)
 hitting <code>Ctrl</code>-<code>a</code> <code>a</code> can get pretty tiresome. Plus, you can&#8217;t use
 Readline very effectively without <code>Ctrl</code>-<code>a</code></p>
 
-<p>```Shell
-unbind-key C-b #no more C<sup>b</sup></p>
+<p><div class="highlight"><pre><code class="bash">unbind-key C-b <span class="c">#no more Ctrl-b</span>
+<span class="c"># Switch me to ^f, thanks</span>
+<span class="nb">set</span>-option -g prefix C-f
+<span class="nb">bind</span>-key f send-prefix
+</code></pre></div></p>
 
-<h1>Switch me to ^f, thanks</h1>
-
-<p>set-option -g prefix C-f
-bind-key f send-prefix
-```
-</li></p>
+<p></li></p>
 
 <p><li>
 Faster escape</p>
 
-<p>When I first started using tmux I couldn&amp;#8217t stand the amount of time it
-took to enter copy-mode. Then I realized&amp;#8212I didn&amp;#8217t have to.</p>
+<p>When I first started using tmux I couldn&#8217;t stand the amount of time it
+took to enter copy-mode. Then I realized&#8212;I didn&#8217;t have to.</p>
 
-<pre><code>set-option -sg escape-time 0
-</code></pre>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-option -sg escape-time 0
+</code></pre></div></p>
 
 <p></li></p>
 
@@ -94,10 +92,10 @@ split. Bringing that functionality to Tmux is very powerful and super easy.
 This line will let you hit <code>Ctrl</code>-<code>|</code> to maximize a single pane and then hit
 <code>Ctrl</code>-<code>|</code> again to bring it back to the original split.</p>
 
-<p><code>Shell
-bind-key | resize-pane -Z \; display-message "Zoom zoom zoom"
-</code>
-</li></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key | resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
+</code></pre></div></p>
+
+<p></li></p>
 
 <p><li>
 Vim-esque system clipboard copy&#8211;paste</p>
@@ -109,32 +107,29 @@ and without overwriting any existing keybindings).</p>
 
 <p>First, I set the window mode-keys to use VI bindings:</p>
 
-<p><code>Shell
-set-window-option -g mode-keys vi
-</code></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-window-option -g mode-keys vi
+</code></pre></div></p>
 
 <p>Next, I bind <code>Esc</code> to copy mode:</p>
 
-<p><code>Shell
-unbind-key [
-bind-key Escape copy-mode
-</code></p>
+<p><div class="highlight"><pre><code class="bash">unbind-key <span class="o">[</span>
+<span class="nb">bind</span>-key Escape copy-mode
+</code></pre></div></p>
 
 <p>After that, I bind the visual-selection and yank keys INSIDE vi-copy mode:</p>
 
-<p><code>Shell
-bind-key -t vi-copy 'v' begin-selection
-bind-key -t vi-copy 'y' copy-selection
-</code></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
+<span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection
+</code></pre></div></p>
 
 <p>Finally, I bind <code>Meta y</code> to execute a shell command. This should work on either
 Linux or OSX although, I&#8217;ve only tested this on OSX:</p>
 
-<p><code>Shell
-if-shell 'test "$(uname -s)" = "Darwin"' 'bind-key y run-shell "tmux show-buffer | pbcopy" \; display-message "Copied tmux buffer to system clipboard"'
-if-shell 'test "$(uname -s)" = "Linux"' 'bind-key y run-shell "tmux show-buffer | xclip -sel clip -i" \; display-message "Copied tmux buffer to system clipboard"'
-</code>
-</li></p>
+<p><div class="highlight"><pre><code class="bash"><span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | pbcopy&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
+<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Linux&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | xclip -sel clip -i&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
+</code></pre></div></p>
+
+<p></li></p>
 
 <p><li>
 OSX Specific Tmux file</p>
@@ -145,13 +140,11 @@ Vim&#8217;s clipboard to play nicely inside Tmux. This mess makes your
 <code>tmux.conf</code> look more cluttered and makes your dotfiles a little less portable.
 To fix this I keep an OSX Specific <code>tmux.conf</code>.</p>
 
-<p>```Shell</p>
+<p><div class="highlight"><pre><code class="bash"><span class="c">#dumb osx</span>
+<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;source ~/.tmux-osx.conf&#39;</span>
+</code></pre></div></p>
 
-<h1>dumb osx</h1>
-
-<p>if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux-osx.conf'
-```
-</li></p>
+<p></li></p>
 
 <p><li>
 Steve Losh&#8217;s Bad Wolf Status Bar</p>
@@ -161,42 +154,34 @@ of this he uses a small script to get his unread email count from his local
 offlineimap folder. In the version below I use a little bash script I wrote
 to grab weather info (that I call weathermajig).</p>
 
-<p>```Shell</p>
+<p><div class="highlight"><pre><code class="bash"><span class="c"># Bad Wolf by Steve Losh</span>
+<span class="c"># =====================</span>
+<span class="nb">set</span> -g status-fg white
+<span class="nb">set</span> -g status-bg colour234
+<span class="c"># set -g status-bg default #set for transparent background</span>
+<span class="nb">set</span> -g window-status-activity-attr bold
+<span class="nb">set</span> -g pane-border-fg colour245
+<span class="nb">set</span> -g pane-active-border-fg colour39
+<span class="nb">set</span> -g message-fg colour16
+<span class="nb">set</span> -g message-bg colour221
+<span class="nb">set</span> -g message-attr bold</p>
 
-<h1>Bad Wolf by Steve Losh</h1>
+<p><span class="c"># Custom status bar</span>
+<span class="c"># Powerline symbols: ⮂ ⮃ ⮀ ⮁ ⭤</span>
+<span class="nb">set</span> -g status-left-length 32
+<span class="nb">set</span> -g status-right-length 150
+<span class="nb">set</span> -g status-interval 5</p>
 
-<h1>=====================</h1>
+<p><span class="c"># Lets add the current weather to our status bar—why? Well Why the french-toast not?</span>
+<span class="nb">set</span> -g status-left <span class="s1">&#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]⮀#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]⮀&#39;</span></p>
 
-<p>set -g status-fg white
-set -g status-bg colour234</p>
+<p><span class="nb">set</span> -g status-right <span class="s1">&#39;#[fg=colour245]⮃ %R ⮃ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)⮂#[fg=colour16,bg=colour254,bold] #h &#39;</span></p>
 
-<h1>set -g status-bg default #set for transparent background</h1>
+<p><span class="nb">set</span> -g window-status-format <span class="s2">&quot;#[fg=white,bg=colour234] #I #W &quot;</span>
+<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]⮀#[fg=colour16,bg=colour39,noreverse,bold] #I ⮁ #W #[fg=colour39,bg=colour234,nobold]⮀&quot;</span>
+</code></pre></div></p>
 
-<p>set -g window-status-activity-attr bold
-set -g pane-border-fg colour245
-set -g pane-active-border-fg colour39
-set -g message-fg colour16
-set -g message-bg colour221
-set -g message-attr bold</p>
-
-<h1>Custom status bar</h1>
-
-<h1>Powerline symbols: ⮂ ⮃ ⮀ ⮁ ⭤</h1>
-
-<p>set -g status-left-length 32
-set -g status-right-length 150
-set -g status-interval 5</p>
-
-<h1>Lets add the current weather to our status bar—why? Well Why the french-toast not?</h1>
-
-<p>set -g status-left '#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]⮀#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]⮀'</p>
-
-<p>set -g status-right '#[fg=colour245]⮃ %R ⮃ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)⮂#[fg=colour16,bg=colour254,bold] #h '</p>
-
-<p>set -g window-status-format "#[fg=white,bg=colour234] #I #W "
-set -g window-status-current-format "#[fg=colour234,bg=colour39]⮀#[fg=colour16,bg=colour39,noreverse,bold] #I ⮁ #W #[fg=colour39,bg=colour234,nobold]⮀"
-```
-</li></p>
+<p></li></p>
 
 
     <hr />
