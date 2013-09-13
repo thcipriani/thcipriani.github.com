@@ -86,11 +86,11 @@ took to enter copy-mode. Then I realized&#8212;I didn&#8217;t have to.</p>
 <p><li>
 Maximize Panes</p>
 
-<p>One of the things I love about Vim splits is that you can hit <code>Ctrl</code>-<code>|</code> to
-maximize the current  pane and hit <code>Ctrl</code>-<code>=</code> to bring it back to an even
+<p>One of the things I love about Vim splits is that you can hit <code>Ctrl-w</code> <code>|</code> to
+maximize the current  pane and hit <code>Ctrl-w</code> <code>=</code> to bring it back to an even
 split. Bringing that functionality to Tmux is very powerful and super easy.
-This line will let you hit <code>Ctrl</code>-<code>|</code> to maximize a single pane and then hit
-<code>Ctrl</code>-<code>|</code> again to bring it back to the original split.</p>
+This line will let you hit <code>Meta</code> <code>|</code> to maximize a single pane and then hit
+<code>Meta</code> <code>|</code> again to bring it back to the original split.</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key | resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
 </code></pre></div></p>
