@@ -771,25 +771,31 @@ a:visited {
 @media screen and (max-width: 625px) {
   /* line 15, ../sass/_media.scss */
 
+  body {
+    font-size: 14px;
+  }
+
+  /* line 19, ../sass/_media.scss */
+
   .figlet {
     display: none;
   }
 }
 
 @media screen and (max-width: 750px) {
-  /* line 21, ../sass/_media.scss */
+  /* line 25, ../sass/_media.scss */
 
   .container {
     width: 98%;
   }
 
-  /* line 23, ../sass/_media.scss */
+  /* line 27, ../sass/_media.scss */
 
   .container .column-1 {
     display: none;
   }
 
-  /* line 26, ../sass/_media.scss */
+  /* line 30, ../sass/_media.scss */
 
   .container .column-2 {
     width: 100%;
@@ -798,25 +804,25 @@ a:visited {
 }
 
 @media screen and (max-width: 480px) {
-  /* line 34, ../sass/_media.scss */
+  /* line 38, ../sass/_media.scss */
 
   .indent-1 {
     padding-left: 1em;
   }
 
-  /* line 38, ../sass/_media.scss */
+  /* line 42, ../sass/_media.scss */
 
   .indent-2 {
     padding-left: 2em;
   }
 
-  /* line 42, ../sass/_media.scss */
+  /* line 46, ../sass/_media.scss */
 
   .indent-3 {
     padding-left: 3em;
   }
 
-  /* line 46, ../sass/_media.scss */
+  /* line 50, ../sass/_media.scss */
 
   .indent-4 {
     padding-left: 4em;
@@ -824,7 +830,7 @@ a:visited {
 }
 
 @media print {
-  /* line 52, ../sass/_media.scss */
+  /* line 56, ../sass/_media.scss */
 
   * {
     background: transparent !important;
@@ -834,51 +840,51 @@ a:visited {
     text-shadow: none !important;
   }
 
-  /* line 59, ../sass/_media.scss */
+  /* line 63, ../sass/_media.scss */
 
   body {
     font-size: 12px;
   }
 
-  /* line 63, ../sass/_media.scss */
+  /* line 67, ../sass/_media.scss */
 
   .container {
     width: 70%;
   }
 
-  /* line 65, ../sass/_media.scss */
+  /* line 69, ../sass/_media.scss */
 
   .container .column-1 {
     display: none;
   }
 
-  /* line 68, ../sass/_media.scss */
+  /* line 72, ../sass/_media.scss */
 
   .container .column-2 {
     width: 100%;
     margin-right: 0;
   }
 
-  /* line 74, ../sass/_media.scss */
+  /* line 78, ../sass/_media.scss */
 
   .figlet {
     display: none;
   }
 
-  /* line 79, ../sass/_media.scss */
+  /* line 83, ../sass/_media.scss */
 
   a,
   a:visited {
     text-decoration: underline;
   }
 
-  /* line 83, ../sass/_media.scss */
+  /* line 87, ../sass/_media.scss */
 
   a[href]:after {
     content: " (" attr(href) ")";
   }
 
-  /* line 87, ../sass/_media.scss */
+  /* line 91, ../sass/_media.scss */
 
   abbr[title]:after {
     content: " (" attr(title) ")";
@@ -888,7 +894,7 @@ a:visited {
    * Don't show links for images, or javascript/internal links
    */
 
-  /* line 97, ../sass/_media.scss */
+  /* line 101, ../sass/_media.scss */
 
   .ir a:after,
   a[href^="javascript:"]:after,
@@ -896,7 +902,7 @@ a:visited {
     content: "";
   }
 
-  /* line 102, ../sass/_media.scss */
+  /* line 106, ../sass/_media.scss */
 
   pre,
   blockquote {
@@ -904,21 +910,21 @@ a:visited {
     page-break-inside: avoid;
   }
 
-  /* line 107, ../sass/_media.scss */
+  /* line 111, ../sass/_media.scss */
 
   thead {
     display: table-header-group;
     /* h5bp.com/t */
   }
 
-  /* line 112, ../sass/_media.scss */
+  /* line 116, ../sass/_media.scss */
 
   tr,
   img {
     page-break-inside: avoid;
   }
 
-  /* line 116, ../sass/_media.scss */
+  /* line 120, ../sass/_media.scss */
 
   img {
     max-width: 100% !important;
@@ -928,7 +934,7 @@ a:visited {
     margin: 0.5cm;
 }
 
-  /* line 126, ../sass/_media.scss */
+  /* line 130, ../sass/_media.scss */
 
   p,
   h2,
@@ -937,7 +943,7 @@ a:visited {
     widows: 3;
   }
 
-  /* line 132, ../sass/_media.scss */
+  /* line 136, ../sass/_media.scss */
 
   h2,
   h3 {
