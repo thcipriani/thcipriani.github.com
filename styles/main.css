@@ -491,9 +491,9 @@ body {
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
-    font-size: 1.3125em;
+    font-size: 1.5125em;
     line-height: 1.52381;
-    font-family: "Libre Baskerville", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    font-family: "Old Standard TT", Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
     overflow-y: scroll;
     text-rendering: optimizeLegibility;
 
@@ -645,15 +645,13 @@ aside span {
 }
 
 footer {
+    text-align: center;
     font-size: 0.83em;
-    text-align: left;
-    margin-left: 40%;
     color: #444444;
 }
 
 article footer {
     margin-left: 0;
-    text-align: center;
 }
 
 hr {
@@ -771,27 +769,14 @@ nav a:hover { text-decoration: underline; }
 
 /* section */
 section {
-    margin: 2em auto 4em;
-    width: 100%;
     *zoom: 1;
-}
-
-section header {
-    float: left;
-    width: 40%;
 }
 
 section header h1,
 section header h2 {
-    text-align: right;
-    margin: 0 20% 0 0;
+    text-align: center;
     letter-spacing: 0;
     line-height: 1.52381;
-}
-
-section header hr {
-    margin: 5% 20% 5% 0;
-    border-top: thin solid #3498DB;
 }
 
 section header h2 {
@@ -800,17 +785,14 @@ section header h2 {
 }
 
 section div {
-    float: right;
+    margin: 0 auto;
     width: 60%;
 }
 
 section footer {
-    float: left;
-    text-align: left;
-    width: 60%;
     font-size: 1em;
     color: #333;
-    margin: 0;
+    margin: 0 0 2em;
 }
 
 section footer span {
@@ -863,6 +845,7 @@ ul {
 @media (max-width: 800px) {
     section {
         width: 85%;
+        margin: 0 auto 2em;
     }
 
     section header {
@@ -889,22 +872,13 @@ ul {
 
     section div,
     section footer {
-        float: none;
         width: 100%;
-    }
-
-    section footer {
-        text-align: center;
     }
 
     article {
         width: 85%;
     }
 
-    footer {
-        margin-left: 0;
-        text-align: center;
-    }
 }
 
 @media (max-width: 600px) {
