@@ -884,6 +884,7 @@ ul {
 @media (max-width: 600px) {
     body {
         padding: 3em 0 5em 0;
+        font-size: 1.25em;
     }
 
     figcaption {
