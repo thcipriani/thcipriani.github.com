@@ -398,7 +398,7 @@ table {
     font-size: 0.8em;
     background-color: #efefef;
     padding: 0 1em;
-    margin: 1.8em -25%;
+    margin: 1.8em -50%;
     overflow-y: hidden;
     overflow-x: auto;
 }
@@ -565,7 +565,7 @@ main {
 blockquote {
     background: #F2F2F2;
     padding: 1.8em 0.83em 0.83em 1.8em;
-    margin: 0 -25% 1.8em;
+    margin: 0 -50% 1.8em;
     border-left: 2px solid #FF6347;
 }
 
@@ -846,14 +846,14 @@ ul {
     padding-left: 0;
 }
 
-@media (max-width: 900px) {
-    .highlight {
-        margin: 1.8em 0;
-    }
+@media (max-width: 1200px) {
+    .highlight { margin: 1.8em -25%; }
+    blockquote { margin: 0 -25% 1.8em; }
+}
 
-    blockquote {
-      margin: 0 0 1.8em;
-    }
+@media (max-width: 900px) {
+    .highlight { margin: 1.8em 0; }
+    blockquote { margin: 0 0 1.8em; }
 }
 
 @media (max-width: 800px) {
