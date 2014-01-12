@@ -90,7 +90,7 @@ split. Bringing that functionality to Tmux is very powerful and super easy.
 This line will let you hit <code>Meta</code> <code>|</code> to maximize a single pane and then hit
 <code>Meta</code> <code>|</code> again to bring it back to the original split.</p>
 
-<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key | resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key <span class="p">|</span> resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
 </code></pre></div></p>
 
 <p></li></p>
@@ -163,21 +163,17 @@ to grab weather info (that I call weathermajig).</p>
 <span class="nb">set</span> -g pane-active-border-fg colour39
 <span class="nb">set</span> -g message-fg colour16
 <span class="nb">set</span> -g message-bg colour221
-<span class="nb">set</span> -g message-attr bold</p>
-
-<p><span class="c"># Custom status bar</span>
-<span class="c"># Powerline symbols: ⮂ ⮃ ⮀ ⮁ ⭤</span>
+<span class="nb">set</span> -g message-attr bold
+<span class="c"># Custom status bar</span>
+<span class="c"># Powerline</span>
 <span class="nb">set</span> -g status-left-length 32
 <span class="nb">set</span> -g status-right-length 150
-<span class="nb">set</span> -g status-interval 5</p>
-
-<p><span class="c"># Lets add the current weather to our status bar—why? Well Why the french-toast not?</span>
-<span class="nb">set</span> -g status-left <span class="s1">&#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]⮀#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]⮀&#39;</span></p>
-
-<p><span class="nb">set</span> -g status-right <span class="s1">&#39;#[fg=colour245]⮃ %R ⮃ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)⮂#[fg=colour16,bg=colour254,bold] #h &#39;</span></p>
-
-<p><span class="nb">set</span> -g window-status-format <span class="s2">&quot;#[fg=white,bg=colour234] #I #W &quot;</span>
-<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]⮀#[fg=colour16,bg=colour39,noreverse,bold] #I ⮁ #W #[fg=colour39,bg=colour234,nobold]⮀&quot;</span>
+<span class="nb">set</span> -g status-interval 5
+<span class="c"># Lets add the current weather to our status bar—why? Well Why the french-toast not?</span>
+<span class="nb">set</span> -g status-left <span class="s1">&#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]&#39;</span>
+<span class="nb">set</span> -g status-right <span class="s1">&#39;#[fg=colour245]❬ %R ❬ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)#[fg=colour16,bg=colour254,bold] #h &#39;</span>
+<span class="nb">set</span> -g window-status-format <span class="s2">&quot;#[fg=white,bg=colour234] #I #W &quot;</span>
+<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&quot;</span>
 </code></pre></div></p>
 
 <p></li></p>

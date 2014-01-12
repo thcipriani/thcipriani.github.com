@@ -48,7 +48,7 @@ in the <a href="http://codeigniter.com/user_guide/general/urls.html" title="CI U
 under the section heading, &#8220;Removing the index.php file&#8221; it shows an .htaccess file example:</p>
 
 <div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
-<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php|images|robots<span class="se">\.</span>txt<span class="o">)</span>
+<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php<span class="p">|</span>images<span class="p">|</span>robots<span class="se">\.</span>txt<span class="o">)</span>
 <span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>/index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
 </code></pre></div>
 
@@ -58,7 +58,7 @@ under the section heading, &#8220;Removing the index.php file&#8221; it shows an
 <p>To function as expected the <code>RewriteRule</code> should read:</p>
 
 <div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
-<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php|images|js|css|robots<span class="se">\.</span>txt<span class="o">)</span>
+<span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php<span class="p">|</span>images<span class="p">|</span>js<span class="p">|</span>css<span class="p">|</span>robots<span class="se">\.</span>txt<span class="o">)</span>
 <span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
 </code></pre></div>
 
