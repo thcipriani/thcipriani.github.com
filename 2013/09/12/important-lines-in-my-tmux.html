@@ -38,10 +38,6 @@
             <article>
     <header>
       
-        <figure>
-            <img src="http://farm4.staticflickr.com/3778/9539539885_425d048245_h.jpg" alt="doc" />
-        </figure>
-      
 
         <h1>Knowledge Nuggets From My Tmux.conf</h1>
         <h2>Posted on: <span>September 12, 2013</span> by <span>Tyler H.T. Cipriani</span></h2>
@@ -54,6 +50,8 @@ lost to the annals of the Internet Archive.</p>
 
 <p>It wasn&#8217;t too long after I made the switch until I felt that old
 hacker itch and began scouring Github for Tmux tips.</p>
+
+<p>You can view my complete <code>tmux.conf</code> on <a href="https://github.com/thcipriani/dotfiles/blob/master/tmux.conf">my github</a></p>
 
 <h2>Tmux Tips for the Uninitiated</h2>
 
@@ -93,6 +91,8 @@ maximize the current  pane and hit <code>Ctrl-w</code> <code>=</code> to bring i
 split. Bringing that functionality to Tmux is very powerful and super easy.
 This line will let you hit <code>Meta</code> <code>|</code> to maximize a single pane and then hit
 <code>Meta</code> <code>|</code> again to bring it back to the original split.</p>
+
+<p>Warning: this is a tip that will only work with tmux 1.8+ (check your version via <code>tmux -V</code>)</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key <span class="p">|</span> resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
 </code></pre></div></p>
