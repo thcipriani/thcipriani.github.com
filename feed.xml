@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tyler Cipriani</title>
+    <description>Gentleman, Scholar, Web Hacker</description>    
+    <link>http://www.tylercipriani.com</link>
+    <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Knowledge Nuggets From My Tmux.conf</title>
+        <description>&lt;p&gt;When I switched from GNU Screen to Tmux, I was just jazzed that Tmux &lt;em&gt;had&lt;/em&gt; a
+status bar. To achieve that same effect in Screen I had a cryptic
+115-character &lt;code&gt;hardstatus&lt;/code&gt; string that I copy&amp;#8211;pasted from someplace
+lost to the annals of the Internet Archive.&lt;/p&gt;
+
+&lt;p&gt;It wasn&amp;#8217;t too long after I made the switch until I felt that old
+hacker itch and began scouring Github for Tmux tips.&lt;/p&gt;
+
+&lt;p&gt;You can view my complete &lt;code&gt;tmux.conf&lt;/code&gt; on &lt;a href=&quot;https://github.com/thcipriani/dotfiles/blob/master/tmux.conf&quot;&gt;my github&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;Tmux Tips for the Uninitiated&lt;/h2&gt;
+
+&lt;p&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;f&lt;/code&gt; Meta is for super stars&lt;/p&gt;
+
+&lt;p&gt;I used to always bind &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt;/code&gt; to Meta to make Tmux behave like Screen;
+however, when you use Screen inside Tmux (as I often do with our AWS servers),
+hitting &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt;/code&gt; &lt;code&gt;a&lt;/code&gt; can get pretty tiresome. Plus, you can&amp;#8217;t use
+Readline very effectively without &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key C-b &lt;span class=&quot;c&quot;&gt;#no more Ctrl-b&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Switch me to ^f, thanks&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -g prefix C-f
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key f send-prefix
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;li&gt;
+Faster escape&lt;/p&gt;
+
+&lt;p&gt;When I first started using Tmux I couldn&amp;#8217;t stand the amount of time it
+took to enter copy-mode. Then I realized&amp;#8212;I didn&amp;#8217;t have to.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -sg escape-time 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;li&gt;
+Maximize Panes&lt;/p&gt;
+
+&lt;p&gt;One of the things I love about Vim splits is that you can hit &lt;code&gt;Ctrl-w&lt;/code&gt; &lt;code&gt;|&lt;/code&gt; to
+maximize the current  pane and hit &lt;code&gt;Ctrl-w&lt;/code&gt; &lt;code&gt;=&lt;/code&gt; to bring it back to an even
+split. Bringing that functionality to Tmux is very powerful and super easy.
+This line will let you hit &lt;code&gt;Meta&lt;/code&gt; &lt;code&gt;|&lt;/code&gt; to maximize a single pane and then hit
+&lt;code&gt;Meta&lt;/code&gt; &lt;code&gt;|&lt;/code&gt; again to bring it back to the original split.&lt;/p&gt;
+
+&lt;p&gt;Warning: this is a tip that will only work with tmux 1.8+ (check your version via &lt;code&gt;tmux -V&lt;/code&gt;)&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; resize-pane -Z &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; display-message &lt;span class=&quot;s2&quot;&gt;&amp;quot;Zoom zoom zoom&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;li&gt;
+Vim-esque system clipboard copy&amp;#8211;paste&lt;/p&gt;
+
+&lt;p&gt;Sometimes system clipboard support from Vim isn&amp;#8217;t enough. It&amp;#8217;s
+convenient to be able to pull whatever is in your Tmux buffer onto your
+system clipboard (preferably without having to memorize any new keybindings
+and without overwriting any existing keybindings).&lt;/p&gt;
+
+&lt;p&gt;First, I set the window mode-keys to use Vi bindings:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-window-option -g mode-keys vi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, I bind &lt;code&gt;Meta Esc&lt;/code&gt; to enter Tmux copy-mode:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key Escape copy-mode
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;After that, I bind visual-selection and copy keys inside vi-copy mode to
+their Vim equivalents:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt; begin-selection
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt; copy-selection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally, I bind &lt;code&gt;Meta y&lt;/code&gt; to execute a shell command. This should work on either
+Linux or OSX, although I&amp;#8217;ve only tested this on OSX:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | pbcopy&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | xclip -sel clip -i&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;li&gt;
+OSX Specific Tmux file&lt;/p&gt;
+
+&lt;p&gt;Even though Tmux and Vim are really popular on OSX&amp;#8212;they are, essentially,
+broken. You have to do the whole &lt;code&gt;reattach-to-user-namespace&lt;/code&gt; thing to get
+Vim&amp;#8217;s clipboard to play nicely inside Tmux. This mess makes your
+&lt;code&gt;tmux.conf&lt;/code&gt; look more cluttered and makes your dotfiles a little less portable.
+To fix this I keep an OSX Specific &lt;code&gt;tmux.conf&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#dumb osx&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;source ~/.tmux-osx.conf&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;li&gt;
+Steve Losh&amp;#8217;s Bad Wolf Status Bar&lt;/p&gt;
+
+&lt;p&gt;News Flash: Steve Losh makes cool looking stuff. In Steve&amp;#8217;s version
+of this he uses a small script to get his unread email count from his local
+offlineimap folder. In the version below I use a little bash script I wrote
+to grab weather info (that I call weathermajig).&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Bad Wolf by Steve Losh&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# =====================&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-fg white
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-bg colour234
+&lt;span class=&quot;c&quot;&gt;# set -g status-bg default #set for transparent background&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-activity-attr bold
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g pane-border-fg colour245
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g pane-active-border-fg colour39
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g message-fg colour16
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g message-bg colour221
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g message-attr bold
+&lt;span class=&quot;c&quot;&gt;# Custom status bar&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Powerline&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-left-length 32
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-right-length 150
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-interval 5
+&lt;span class=&quot;c&quot;&gt;# Lets add the current weather to our status bar—why? Well Why the french-toast not?&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-left &lt;span class=&quot;s1&quot;&gt;&amp;#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-right &lt;span class=&quot;s1&quot;&gt;&amp;#39;#[fg=colour245]❬ %R ❬ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)#[fg=colour16,bg=colour254,bold] #h &amp;#39;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-format &lt;span class=&quot;s2&quot;&gt;&amp;quot;#[fg=white,bg=colour234] #I #W &amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-current-format &lt;span class=&quot;s2&quot;&gt;&amp;quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/li&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 Sep 2013 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2013/09/12/important-lines-in-my-tmux.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2013/09/12/important-lines-in-my-tmux.html</guid>
+      </item>
+    
+      <item>
+        <title>Dotfile Boilerplate</title>
+        <description>&lt;p&gt;Earlier today I made a tweak to one of my ever-growing collection of
+&lt;a href=&quot;https://github.com/thcipriani/dotfiles/&quot;&gt;dotfiles&lt;/a&gt; and it reminded me
+that I&amp;#8217;m not too happy with my dotfile&amp;#8217;s &lt;code&gt;bootstrap&lt;/code&gt; script.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;bootstrap&lt;/code&gt; file that I have in my repo is from &lt;a href=&quot;http://errtheblog.com/posts/89-huba-huba&quot;&gt;a 2008 blog post&lt;/a&gt;
+and I&amp;#8217;ve never been too thrilled with it.&lt;/p&gt;
+
+&lt;p&gt;The problems my old &lt;code&gt;boostrap&lt;/code&gt; were&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It required that Ruby be installed&amp;#8212;which was a pain on production
+servers where I never intended to have Ruby installed.&lt;/li&gt;
+&lt;li&gt;It overwrote any existing dotfiles in &lt;code&gt;$HOME&lt;/code&gt; without warning&lt;/li&gt;
+&lt;li&gt;It added every sub-directory/file in the .dotfiles directory&amp;#8212;you couldn&amp;#8217;t
+add a README.md file without it being symlinked in the &lt;code&gt;$HOME&lt;/code&gt; directory as
+&lt;code&gt;.README.md&lt;/code&gt;&amp;#8212;silly, right?!&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Long story short&amp;#8212;I needed a new &lt;code&gt;bootstrap&lt;/code&gt; file. I&amp;#8217;m a big
+believer in not reinventing the wheel, so I went looking for the canonical
+example of the dotfile bootstrap file.&lt;/p&gt;
+
+&lt;p&gt;I started perusing dotfile repos on github&amp;#8212;which is always exciting
+to me (because I&amp;#8217;m super nerdy) and there are some amazing dotfile resources
+on github:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://dotfiles.github.io/&quot;&gt;Github &amp;#10084; ~/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mathiasbynens/dotfiles&quot;&gt;Mathias Bynens&amp;#8217; Sensible Hacker Defaults for OSX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/gf3/dotfiles&quot;&gt;gf3&amp;#8217;s Sexy Bash Prompt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked/&quot;&gt;Zach Holman&amp;#8217;s Bootstrap script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/addyosmani/dotfiles/blob/master/.aliases&quot;&gt;Addy Osmani&amp;#8217;s Handy Aliases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/pengwynn/dotfiles&quot;&gt;pengwynn&amp;#8217;s There&amp;#8217;s no place like ~/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Seeing all of this got me to thinking&amp;#8212;wouldn&amp;#8217;t it be great if there
+were a project that amalgamated all of this fun stuff? Like HTML5 Boilerplate
+for dotfiles.&lt;/p&gt;
+
+&lt;p&gt;The project will keep canonical examples of files like the &lt;code&gt;bootstrap&lt;/code&gt; script.
+It would also keep an opinionated list of functions, aliases and
+configurations that could help beginners get a great start and normalize
+dotfile distribution in the same way that pathogen normalized vim plugins
+into bundles.&lt;/p&gt;
+
+&lt;h2&gt;Dotfile Boilerplate&lt;/h2&gt;
+
+&lt;p&gt;So there&amp;#8217;s the starting point: &lt;a href=&quot;https://github.com/thcipriani/dotfile-boilerplate&quot;&gt;Dotfile Boilerplate&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;At the very least it&amp;#8217;s a solidly structured start with an amazing
+bootstrap script that I modfied based off of Zach Holman&amp;#8217;s setup.&lt;/p&gt;
+
+&lt;p&gt;So that&amp;#8217;s the whole idea&amp;#8212;the hope is that this repository can grow
+and collect great ideas, functions, and well-considered dotfiles from
+interesting discussions and people around the internet.&lt;/p&gt;
+
+&lt;p&gt;Beginners will have an amazing starting point and advanced users will have
+a wellspring of ideas.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://help.github.com/articles/using-pull-requests/&quot;&gt;Fork &amp;#8216;em if ya got &amp;#8216;em.&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Aug 2013 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2013/08/10/dotfiles-how-to-get-started.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2013/08/10/dotfiles-how-to-get-started.html</guid>
+      </item>
+    
+      <item>
+        <title>Installing Vim from source on CentOS&amp;nbsp;6.3</title>
+        <description>&lt;p&gt;…or, I suppose, other Linux-es…Linuxi…Linux distributions.&lt;/p&gt;
+
+&lt;p&gt;Many of the Vim features on which I&amp;#8217;ve come to depend simply aren&#39;t available in Vim pre-7.3.3. That&amp;#8217;s fine if I&amp;#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&amp;#8217;t so great if I&amp;#8217;m working on a shared host that uses CentOS &lt;strong&gt;&lt;em&gt;five point something dumb&lt;/em&gt;&lt;/strong&gt; because the hosting-providers weren&amp;#8217;t hugged as children (I&amp;#8217;d guess).&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;edit&lt;/strong&gt;&amp;#8212;10/01/2013&lt;/p&gt;
+
+&lt;p&gt;For installing on Ubuntu and additional source install tips see this little
+&lt;a href=&quot;https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source&quot;&gt;post&lt;/a&gt;
+on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;h2&gt;New OS, Old Repo&lt;/h2&gt;
+
+&lt;p&gt;The only thing worse than working on an old OS, with an old version of Vim is working on a &lt;em&gt;new&lt;/em&gt; OS with an old version of Vim. I recently disovered that the yum-installable Vim (vim-enhanced) version on CentOS 6.3 is v.7.2.411—WTF CentOS? What&amp;#8217;s your deal, guy?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Some plugins that depend on version 7.3:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;shy;&lt;a href=&quot;http://majutsushi.github.com/tagbar/&quot; target=&quot;_blank&quot;&gt;Tagbar&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&amp;shy;&lt;a href=&quot;http://myusuf3.github.com/numbers.vim/&quot; target=&quot;_blank&quot;&gt;Numbers.vim&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&amp;shy;&lt;a href=&quot;http://valloric.github.com/YouCompleteMe/&quot; target=&quot;_blank&quot;&gt;YouCompleteMe&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;And, really, those are just the plugins that fail &lt;em&gt;loudly&lt;/em&gt; for me. Like the ones that vomit, &amp;#8220;Hey, WTF, guy?&amp;#8221; to stdout every rootin&amp;#8217; tootin&amp;#8217; time I fire up Vim. There would likely be other functionality that I&amp;#8217;d loose by not using Vim 7.3.3+.&lt;/p&gt;
+
+&lt;p&gt;I don&amp;#8217;t have to take this kind of guff from CentOS. No. I think that, instead, I&amp;#8217;m going to do something awesome.&lt;/p&gt;
+
+&lt;p&gt;Compiling Vim from source means you don&amp;#8217;t have to get pushed around by crummy distro repos and you look like a 1970s-era Fred Williams-level badass…so…bonus points…&lt;/p&gt;
+
+&lt;h2&gt;Retrieving Vim source&lt;/h2&gt;
+
+&lt;p&gt;Vim keeps its source in a Mercurial repo on googlcode so you need to download it. To do that you should have Mercurial installed (which you can, somewhat ironically, install from via yum &lt;code&gt;yum install mercurial&lt;/code&gt;). You should switch to the root user for this install and for your sanity so use &lt;code&gt;su&lt;/code&gt; or &lt;code&gt;sudo bash&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo bash
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/local/src/
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hg clone https://vim.googlecode.com/hg/ vim
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Configuration options&lt;/h2&gt;
+
+&lt;p&gt;There are quite a few configuration options (which you can view by running &lt;code&gt;./configure --help&lt;/code&gt; in your newly created &lt;code&gt;vim&lt;/code&gt; directory)—with respect to Vim installs I support going nuclear. Even at it&amp;#8217;s most ginormous Vim will still be a small install relative to other IDEs—Vim is my primary editor and IDE, so I&amp;#8217;m down to do it big. I&amp;#8217;m also going to use the &lt;code&gt;/usr&lt;/code&gt; prefix so that Vim is installed system-wide.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr --with-compiledby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Tyler the Compiler&amp;quot;&lt;/span&gt; --with-features&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;huge --enable-rubyinterp --enable-pythoninterp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;make &amp;amp;&amp;amp; make install&lt;/h2&gt;
+
+&lt;p&gt;Srsly, that&amp;#8217;s it&amp;#8212;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Congrats! You&amp;#8217;re one bad mother Vim compiler.&lt;/p&gt;
+
+&lt;p&gt;So… &lt;code&gt;which vim&lt;/code&gt;? &lt;code&gt;/usr/bin/vim&lt;/code&gt;. Boom. Yeah, that&amp;#8217;s right.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Feb 2013 00:00:00 -0700</pubDate>
+        <link>http://www.tylercipriani.com/2013/02/24/install-vim-from-source.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2013/02/24/install-vim-from-source.html</guid>
+      </item>
+    
+      <item>
+        <title>Vim, the OSX clipboard and Tmux</title>
+        <description>&lt;p&gt;I&amp;#8217;ve been an Ubuntu user for 4 years now. Since I started working at Upsync 3 months ago, I&amp;#8217;ve found myself a very lonely desktop Linux user. Also, since this job is my first heavy-duty exposure to back-end web development, I&amp;#8217;ve found myself a very confused desktop Linux user.&lt;/p&gt;
+
+&lt;p&gt;While there are many tools for working on a website backend available in Ubuntu, few are as shiny as those available in OSX (Charles Proxy, usable in Chrome. I want that. I want it hard.). Also, want to do any iOS work? (you know I do)&amp;mdash;then you &lt;em&gt;must&lt;/em&gt; have a mac.&lt;/p&gt;
+
+&lt;p&gt;On the flip side there is my natural inclination to be a bit of a contrarian and principles and such&amp;#8230;&lt;/p&gt;
+
+&lt;h2&gt;&amp;#8230;but it&amp;#8217;s so shiny!&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#8217;ve caved. I&amp;#8217;m a sell-out. I&amp;#8217;m not the cool hardcore ideologue I once believed myself to be. You know those hypothetical, &lt;em&gt;which-side-of-history-would-you-be-on-type&lt;/em&gt;, questions? Well, I can now safely say that I would &lt;em&gt;not&lt;/em&gt; have been in the French Resistance.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;m typing this on the beautiful back-lit keyboard of a brand-new, core-i7-having, 8GB-RAM-possesing, 256GB-SSD-not-spinning monster that is a 13&amp;#8243; MacBook Air.&lt;/p&gt;
+
+&lt;h2&gt;I thought this was supposed to be easy&lt;/h2&gt;
+
+&lt;p&gt;The first thing I did was get iTerm 2 up and running and then install Homebrew. After removing the dumb &amp;#8220;Natural&amp;#8221; scrolling and using PCKeyboard hack to remap some keys, I&amp;#8217;m working exactly as I was before. I really can&amp;#8217;t tell a difference. Which is a little anti-climactic for a computer that cost as much as my first car (oh, how I miss that purple Taurus!).&lt;/p&gt;
+
+&lt;p&gt;It was really easy to get everything set up as it was before, except&amp;#8230;Vim&amp;#8230;my clipboard&amp;#8230;Tmux&amp;#8230;they didn&amp;#8217;t work together and that was CRIPPLING! Seriously, I depend on those things working together.&lt;/p&gt;
+
+&lt;p&gt;This post is written as a little reminder to myself of how I got it all up and running again.&lt;/p&gt;
+
+&lt;h2&gt;The process&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install Homebrew:&lt;/strong&gt;&lt;br /&gt;Instructions are available on &lt;a href=&quot;http://mxcl.github.com/homebrew/&quot; target=&quot;_blank&quot; title=&quot;Homebrew&quot;&gt;Github&lt;/a&gt; but really all it boils down to is: &lt;code&gt;ruby -e &quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install MacVim:&lt;/strong&gt;&lt;br /&gt;And make sure it overrides the system default Vim, which is pre-7.3 Vim and sucks (or it was last week when my MacBook got here) use: &lt;code&gt;brew install macvim --override-system-vim&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install Tmux:&lt;/strong&gt;&lt;br /&gt;Easy peesy lemon squeezy: &lt;code&gt;brew install tmux&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Thank the good, sweet lord for Paul Hinze:&lt;/strong&gt;&lt;br /&gt; Install Paul&amp;#8217;s reattach-to-user-namespace hack via homebrew: &lt;code&gt;brew install reattach-to-user-namespace --wrap-pbcopy-and-pbpaste&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Append your &lt;code&gt;~/.tmux.conf&lt;/code&gt; file&lt;/strong&gt;:&lt;br /&gt;With this lovely gem: &lt;code&gt;set-option -g default-command &quot;reattach-to-user-namespace -l zsh&quot;&lt;/code&gt; or you can use bash, I guess, I don&amp;#8217;t know because I use ZSH. That should be a step somewhere&amp;#8230;&lt;code&gt;chsh -s /bin/zsh&lt;/code&gt;. Done.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Now if only OSX Mountain Lion possessed the awesome power of moving windows between workspaces using keyboard shortcuts. Someday&amp;#8230; someday.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 09 Feb 2013 00:00:00 -0700</pubDate>
+        <link>http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</guid>
+      </item>
+    
+      <item>
+        <title>My ZSH (and bash) prompt</title>
+        <description>&lt;p&gt;In order to become a card-carrying Linux user, I feel like you &lt;em&gt;need&lt;/em&gt; to
+have spent a truly astounding amount of time fiddling with your
+&lt;a href=&quot;https://github.com/thcipriani/dotfiles&quot; target=&quot;_blank&quot;&gt;dotfiles.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Me? I&amp;#8217;ve gone way beyond the point of diminishing returns. Past the
+point where anyone who loves me can even feign interest.
+And now I&amp;#8217;m quaffing the sweet nectar of victory, and that victory
+nectar &lt;em&gt;is&lt;/em&gt; sweet. Oh yes, that&amp;#8217;s right: my insanely customized
+prompt is now a part of &lt;a href=&quot;http://github.com/robbyrussell/oh-my-zsh&quot; target=&quot;_blank&quot;&gt;Bobby Russell&amp;#8217;s Oh-My-ZSH&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;m feeling the pride, joy, and anxiety that can only come from watching
+my little utf-8 baby move beyond my home directory and march deep into
+the uncharted home directories of what I can only assume are &lt;strong&gt;BILLIONS&lt;/strong&gt; of users.&lt;/p&gt;
+
+&lt;h2&gt;All your Oh-My-ZSH are belong to us!
+&lt;a href=&quot;http://knowyourmeme.com/memes/all-your-base-are-belong-to-us&quot; target=&quot;_blank&quot;&gt;*&lt;/a&gt;&lt;/h2&gt;
+
+
+&lt;p&gt;&amp;#8230;or it will when you update your theme. See, cause, oh-my-zsh uses
+&lt;a href=&quot;http://github.com/robbyrussell/oh-my-zsh/tree/master/themes/&quot; target=&quot;_blank&quot;&gt;themes&lt;/a&gt;
+to specify how your prompt looks. You can define what theme you&amp;#8217;d like to use
+in your &lt;code&gt;~/.zshrc&lt;/code&gt; file. On or around line 8 you&amp;#8217;ll want to
+update the line that starts with &lt;code&gt;ZSH_THEME=&amp;#8230;&lt;/code&gt; to look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set name of the theme to load.&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Look in ~/.oh-my-zsh/themes/&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Optionally, if you set this to &amp;quot;random&amp;quot;, it&amp;#39;ll load a random theme each&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# time that oh-my-zsh is loaded.&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ZSH_THEME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;junkfood&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;h2&gt;Almost, not quite&amp;#8230;&lt;/h2&gt;
+
+
+&lt;p&gt;Like any good dotfile obsessive, I&amp;#8217;ve continued to make changes to this
+prompt since I made my pull request to ole Robby! I&amp;#8217;ve modified the prompt
+to show the same sort of branch information about SVN repos that it currently
+displays for git repos (e.g., current branch name and local modifications).
+That little code chestnut is available over on
+&lt;a href=&quot;https://github.com/thcipriani/oh-my-zsh&quot; target=&quot;_blank&quot;&gt;my fork of the oh-my-zsh build&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Bash Junkfood theme&lt;/h2&gt;
+
+
+&lt;p&gt;I also have a version of this prompt for Bash that I&amp;#8217;ve made in preperation
+for the undoubted overwhelming demand that I expect to begin any time now:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;prompt &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 30m - Black&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 31m - Red&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 32m - Green&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 33m - Yellow&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 34m - Blue&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 35m - Purple&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 36m - Cyan&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 37m - White&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 0 - Normal&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 1 - Bold&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLACK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;30m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLACKBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;30m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;RED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;31m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;REDBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;31m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GREEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;32m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GREENBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;32m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YELLOW&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;33m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YELLOWBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;33m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;34m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLUEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;34m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PURPLE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;35m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PURPLEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;35m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CYAN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;36m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CYANBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;36m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WHITE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;37m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WHITEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;37m\]&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$WHITEBOLD# $GREEN\u$WHITEBOLD. $BLUE\h$WHITEBOLD. $YELLOW\d$WHITE at $PURPLE\@$WHITEBOLD. $CYAN\w\n  $WHITE&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; prompt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;h2&gt;Prompt Inspiration&lt;/h2&gt;
+
+
+&lt;p&gt;Most of the inspiration for moving to ZSH and for creating this &lt;em&gt;extravagant&lt;/em&gt;
+(to borrow a phrase) prompt came from a blog post written by Mr. Steve Losh
+called, &lt;a href=&quot;http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/#oh-my-zsh&quot; target=&quot;_blank&quot;&gt;
+&amp;#8220;My Extravagant ZSH Prompt&amp;#8221;&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 18 Dec 2012 00:00:00 -0700</pubDate>
+        <link>http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</guid>
+      </item>
+    
+      <item>
+        <title>Integrating git with your existing website</title>
+        <description>&lt;p&gt;Better git it in your soul&lt;a href=&quot;http://www.youtube.com/watch?v=SPoK1lryfh4&quot; target=&quot;_blank&quot;&gt;*&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Git has a &lt;a href=&quot;https://bitly.com/bundles/matthewmccullough/1&quot; target=&quot;_blank&quot;&gt;lot&lt;/a&gt;
+of &lt;a href=&quot;http://try.github.com/levels/1/challenges/1&quot; target=&quot;blank&quot;&gt;great&lt;/a&gt;
+&lt;a href=&quot;https://peepcode.com/products/git&quot; target=&quot;_blank&quot;&gt;tutorials&lt;/a&gt;
+for getting started. There are also a number of great articles on
+&lt;a href=&quot;http://daneden.github.com/github-workflow/&quot; target=&quot;_blank&quot;&gt;how to
+use git and github&lt;/a&gt; for your workflow.&lt;/p&gt;
+
+&lt;p&gt;What I haven&amp;#8217;t seen is an article on how to integrate git with your
+current site without storing any code on github. I&amp;#8217;m writing this blog
+to create a quick reference for how to get up and running using git on your
+existing site.&lt;/p&gt;
+
+&lt;h2&gt;Needed&lt;/h2&gt;
+
+
+&lt;p&gt;I&amp;#8217;m making the assumption that you have the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Knowledge of Linux&lt;/li&gt;
+&lt;li&gt;&amp;shy;&lt;a href=&quot;http://library.linode.com/lamp-guides/ubuntu-12.04-precise-pangolin&quot; target=&quot;_blank&quot;&gt;
+A local development environment
+&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;git-core installed both locally and on your webserver&lt;/li&gt;
+&lt;li&gt;rsync installed both locally and on your webserver&lt;/li&gt;
+&lt;li&gt;&amp;shy;&lt;a href=&quot;http://www.commandlinefu.com/commands/view/771/copy-your-ssh-public-key-on-a-remote-machine-for-passwordless-login-the-easy-way&quot; target=&quot;_blank&quot;&gt;
+  Keyless SSH access to your webserver
+&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;I&amp;#8217;m using Ubuntu 12.04 locally, but I&amp;#8217;d assume that most of this
+won&amp;#8217;t be too different on a different distribution or on a Mac&amp;#8212;but
+I&amp;#8217;m probably totally wrong about that &amp;#9786;&lt;/p&gt;
+
+&lt;hr&gt;
+
+
+
+
+&lt;h2&gt;Step One:&lt;/h2&gt;
+
+
+&lt;p&gt;&lt;strong&gt;RSync your site to your local development environment.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to begin to develop locally (and break the old &lt;a href=&quot;http://www.bnj.com/cowboy-coding-pink-sombrero/&quot; target=&quot;_blank&quot;&gt;cowboy-coding&lt;/a&gt; habits
+that you&amp;#8217;ve undoubtedly developed over the years) you need a local
+copy of your site.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open your terminal emulator and &lt;code&gt;cd&lt;/code&gt; to the directory in which
+you will be storing these files (i.e. &lt;code&gt;cd /srv&amp;shy;/www&amp;shy;/tylercipriani.com&amp;shy;/public_html&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Rsync the &lt;code&gt;htdocs&lt;/code&gt; or &lt;code&gt;public_html&lt;/code&gt; from your webserver
+into this local directory:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The command breaks down like this:&lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;&lt;code&gt;a&lt;/code&gt; means &amp;#8220;Archive&amp;#8221;&amp;#8212;keeps permissions, mtimes, etc the same&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;v&lt;/code&gt; means &amp;#8220;Verbose&amp;#8221;&amp;#8212;increases verbosity of the command&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;e&lt;/code&gt; means &amp;#8220;RSH&amp;#8221;&amp;#8212;allows you to use remote shell (same as RSH=command)&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;:/path/to/htdocs/&lt;/code&gt;&amp;#8212;the path to you htdocs folder. 
+      The trailing &lt;code&gt;/&lt;/code&gt; is significant&amp;#8212;it means copy the 
+      content of the htdocs directory rather than the directory by name&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.&lt;/code&gt; is the current directory&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;hr&gt;
+
+
+
+
+&lt;h2&gt;Step Two:&lt;/h2&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Initialize git in local development environment.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This step will create a new git repository on your local machine and add all
+the code that you&amp;#8217;ve rsynced in the previous step to that repo.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&amp;shy;&lt;code&gt;cd&lt;/code&gt; to the directory to which you previously rsynced
+your site and initialize a git repository by running &lt;code&gt;git init&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /srv/www/tylercipriani.com/public_html/
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Add the contents of the current directory to the git repository by running
+&lt;code&gt;git add .&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Commit all your newly added files to the repo by running your first
+commit &lt;code&gt;git commit -m &amp;#8220;First Commit&amp;#8221;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;hr&gt;
+
+
+
+
+&lt;h2&gt;Step Three:&lt;/h2&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Setup a bare repo on your web server.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You need a bare repo out on your webserver that will act as a mirror to your
+local development environment.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;ssh into your webserver and make a new directory, I usually make it above
+the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Once inside the new directory initialize a bare repository by using the
+&lt;code&gt;--bare&lt;/code&gt; flag:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ol&gt;
+&lt;li&gt;Now we can define a new post-receive hook that will be triggered whenever
+an update is pushed to this new bare repository. The post-receive hook
+can be any type of script you want, the script below is written in bash.
+&lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;.git/hooks&lt;/code&gt; directory and create a
+file called &amp;#8220;post-receive&amp;#8221;. Copy the code below into the file:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GIT_WORK_TREE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/your/htdocs/direcotry git checkout -f
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code&gt;make sure that this code is executable by running 
+&amp;lt;code&amp;gt;chmod +x .git/hooks/post-receive&amp;lt;/code&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr&gt;
+
+
+
+
+&lt;h2&gt;You&amp;#8217;re Done!&lt;/h2&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Push to your new repo, you beautiful command-line ninja, you!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Back on your local machine, in the webroot of your local development environment,
+add your bare webserver repo as your &lt;code&gt;remote&lt;/code&gt; and push your git
+repo up to your server. The post-receive hook will take care of the rest!&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By using the &lt;code&gt;-u&lt;/code&gt; flag you&amp;#8217;re setting the upstream which means
+you can just run &lt;code&gt;git pull&lt;/code&gt; without further arguments to merge
+origin and master.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 21 Oct 2012 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2012/10/21/move-existing-website-to-git.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/10/21/move-existing-website-to-git.html</guid>
+      </item>
+    
+      <item>
+        <title>Using .htaccess to remove Codeigniter&amp;#8217;s index.php file</title>
+        <description>&lt;p&gt;Quick post today. I was just finishing up a codeigniter project and saw an error in the docs
+in the &lt;a href=&quot;http://codeigniter.com/user_guide/general/urls.html&quot; title=&quot;CI URLs&quot;&gt;CodeIgniter User Guide Ver. 2.1.2 &amp;sect; CodeIgniter URLs&lt;/a&gt;
+under the section heading, &amp;#8220;Removing the index.php file&amp;#8221; it shows an .htaccess file example:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; RewriteEngine on
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; RewriteCond &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; !^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;index&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;php&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;images&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;robots&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;txt&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;RewriteRule&lt;/code&gt; should not have the forward slash (&lt;code&gt;/&lt;/code&gt;) before &lt;code&gt;index.php&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To function as expected the &lt;code&gt;RewriteRule&lt;/code&gt; should read:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; RewriteEngine on
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; RewriteCond &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; !^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;index&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;php&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;images&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;js&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;css&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;robots&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;txt&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+</description>
+        <pubDate>Mon, 20 Aug 2012 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2012/08/20/codeigniter-htaccess-file.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/20/codeigniter-htaccess-file.html</guid>
+      </item>
+    
+      <item>
+        <title>Using Amazon Product Advertising API to Grab Album Art</title>
+        <description>&lt;p&gt;At Custom Channels we have our own API for Album Art. Our Album Art API was designed
+before I got here, it was designed for the single use-case of the Custom Channels standard flash player
+(i.e. 125×125 gif) and isn&#39;t what you&#39;d call “future proof”.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ANYWAY&lt;/strong&gt;, we&#39;re revisiting some of the Custom Channels&#39; site design and
+one idea I had is to show a handful of recently played albums from a few channels
+on our homepage. And a 125×125 gif ain&#39;t gonna to cut the mustard!&lt;/p&gt;
+
+&lt;p&gt;This brings us to the topic of this post—&lt;strong&gt;the Amazon Product Advertising API&lt;/strong&gt;—Step-by-Step.&lt;/p&gt;
+
+&lt;p&gt;This assumes you&#39;ve already got a development environment that runs PHP5.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The first thing to do, if you haven&#39;t already, is to &lt;a href=&quot;http://aws.amazon.com/&quot; title=&quot;AWS Register&quot;&gt;register&lt;/a&gt; for Amazon Web Services&lt;/li&gt;
+&lt;li&gt;After you&#39;ve registered for a AWS account, login to your account and go to the “My Account/Console” pulldown at the top and
+click, “Security Credentials”&lt;/li&gt;
+&lt;li&gt;Scroll down to “Access Credentials”&lt;br&gt;&lt;img src=&quot;http://tylercipriani-files.s3.amazonaws.com/blog/access_credentials.png&quot; alt=&quot;Access Credentials&quot;&gt;&lt;/li&gt;
+&lt;li&gt;Copy your &quot;Access Key ID&quot;, click &quot;Show&quot; and copy your &quot;Secret Access Key&quot;&lt;/li&gt;
+&lt;li&gt;Go ahead and clone the &lt;a href=&quot;https://github.com/Exeu/Amazon-ECS-PHP-Library&quot; title=&quot;Amazon ECS PHP Library&quot;&gt;Amazon ECS PHP Library&lt;/a&gt; to your development environment&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/Exeu/Amazon-ECS-PHP-Library.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;You&#39;ll only be using the file &lt;code&gt;lib/AmazonECS.class.php&lt;/code&gt; so copy that wherever you&#39;d like&lt;/li&gt;
+&lt;li&gt;Once you&#39;ve got that file it&#39;s easy-peasy-lemon-squeezy:&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;script src=&quot;https://gist.github.com/3364600.js?file=amazon-album-art.php&quot;&gt; &lt;/script&gt;
+
+
+&lt;p&gt;The code above will take the argument from the “track” url parameter and
+search Amazon&#39;s digital music store and output the large-format album art for the top match.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 15 Aug 2012 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</guid>
+      </item>
+    
+      <item>
+        <title>CSS display inline-block Extra Margin/Space</title>
+        <description>&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;: The margin isn&amp;#8217;t a margin&amp;#8212;it&amp;#8217;s a space. Try
+using display: block; float: left; instead.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ALSO:&lt;/strong&gt; Checkout the amazing list of techniques to combat inline-block
+space-margins at &lt;a href=&quot;http://css-tricks.com/fighting-the-space-between-inline-block-elements/&quot; title=&quot;Fighting the Space Between inline-block Elements&quot;&gt;CSS Tricks&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+
+&lt;p&gt;I&amp;#8217;ve made a weird discovery about using the inline-block display.
+I use inline-block elements on my
+&lt;a href=&quot;http://www.tylercipriani.com,&quot; title=&quot;Tyler Cipriani&quot;&gt;homepage&lt;/a&gt;
+in the &lt;em&gt;Recent Work&lt;/em&gt; section.&lt;/p&gt;
+
+&lt;p&gt;I noticed that the math for these block elements wasn&amp;#8217;t quite adding
+up&amp;#8212;the element width + padding + margin + border should&amp;#8217;ve enabled
+three items on one line; however, the elements were wrapping.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#8217;s an example of what I&amp;#8217;m talking about:&lt;/p&gt;
+
+&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px;&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
+
+
+&lt;p&gt;Even though the margin of each element is set to zero there is seemingly, a margin, between each element.&lt;/p&gt;
+
+&lt;p&gt;This problem could be easily solved by removing the display property, floating each gallery item and using a clearfix on the parent:&lt;/p&gt;
+
+&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px;&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/2/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
+
+
+&lt;p&gt;That solution, however, ignores &lt;em&gt;why&lt;/em&gt; that space is being added.&lt;/p&gt;
+
+&lt;p&gt;The inline-block display property treats block level elements
+(e.g. &amp;lt;div&amp;gt;) as an inline element (e.g. &amp;lt;span&amp;gt;) &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt;,
+just like if you had a line break between two &amp;lt;span&amp;gt; elements, the
+line-break between the &amp;lt;div&amp;gt;s is creating a space between the &amp;lt;div&amp;gt;s.
+&lt;strong&gt;That extra margin is actually a space&amp;#8212;not a margin&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Knowing what is creating an inline-block displayed &amp;lt;div&amp;gt;&amp;#8217;s
+&amp;#8220;margin&amp;#8221; enables you to create a couple of different solutions.
+* &lt;strong&gt;First&lt;/strong&gt;, the dumb and breakable solution, you could remove the spaces
+and line-breaks in your html
+* &lt;strong&gt;Second&lt;/strong&gt;, directly address the space by setting a negative right margin or negative word-spacing for those elements
+* Or, &lt;strong&gt;Finally&lt;/strong&gt;, just use display: block; float: left;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#8217;s an example of what the second solution would look like:&lt;/p&gt;
+
+&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/3/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
+
+</description>
+        <pubDate>Wed, 01 Aug 2012 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2012/08/01/display-inline-block-extra-margin.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/01/display-inline-block-extra-margin.html</guid>
+      </item>
+    
+      <item>
+        <title>Website Contrast Ratio in Practice</title>
+        <description>&lt;p&gt;While perusing &lt;a href=&quot;http://news.ycombinator.com/&quot; title=&quot;Hacker News&quot;&gt;Hacker News&lt;/a&gt; I ran across a single-page site called
+&lt;a href=&quot;http://contrastrebellion.com/&quot; title=&quot;Contrast Rebellion&quot;&gt;Contrast Rebellion&lt;/a&gt;&amp;#8212;
+which I understand has created a bit of controversy.&lt;/p&gt;
+
+&lt;p&gt;I think the point espoused by Contrast Rebellion is both well-made and
+well-taken (despite the host of straw-man style arguments to the contrary);
+however, I feel that&amp;#8212;in &lt;em&gt;most&lt;/em&gt; designs&amp;#8212;contrast arises fairly
+organically. If I can&amp;#8217;t read my font, or there isn&amp;#8217;t enough
+contrast in my color palate, then I know that the people from whom I
+solicit opinions are going to mention that before saying anything else.&lt;/p&gt;
+
+&lt;p&gt;If only we were all so lucky. &amp;#9786;&lt;/p&gt;
+
+&lt;p&gt;On the &lt;a href=&quot;http://www.w3.org/TR/WCAG10-CSS-TECHS/#style-color-contrast&quot; title=&quot;CSS Techniques for Web Content Accessibility Guidelines 1.0&quot;&gt;topic of color contrast&lt;/a&gt;
+the W3C defines &lt;a href=&quot;http://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html&quot; title=&quot;Success Criterion 1.4.3&quot;&gt;Success Criterion 1.4.3&lt;/a&gt;
+saying:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;Contrast (Minimum)&lt;/strong&gt;: The visual presentation of text and images of text has a contrast ratio of at least 4.5:1, except for the following: (Level AA)
+* &lt;strong&gt;Large Text&lt;/strong&gt;: Large-scale text and images of large-scale text have a contrast ratio of at least 3:1;
+* &lt;strong&gt;Incidental&lt;/strong&gt;: Text or images of text that are part of an inactive user interface component, that are pure decoration, that are not visible to anyone, or that are part of a picture that contains significant other visual content, have no contrast requirement.
+* &lt;strong&gt;Logotypes&lt;/strong&gt;: Text that is part of a logo or brand name has no minimum contrast requirement.&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;There is a formula for calculating the contrast of two colors available at
+&lt;a href=&quot;http://www.paciellogroup.com/resources/contrast-analyser.html,&quot; title=&quot;Contrast Analyser&quot;&gt;the paciello group&lt;/a&gt;&amp;#8212;
+they also have a Contrast Analyser that you can download for Mac and Windows.&lt;/p&gt;
+
+&lt;p&gt;Alternately, you could skip the download and the hand-cranking of numbers
+and enter your hex codes into the
+&lt;a href=&quot;http://juicystudio.com/services/luminositycontrastratio.php,&quot; title=&quot;Luminosity Colour Contrast Ratio Analyser&quot;&gt;Luminosity Colour Contrast Ratio Analyser&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;edit&lt;/strong&gt;&amp;#8212;11/23/2012&lt;/p&gt;
+
+&lt;p&gt;My new favorite tool for contrast checking is &lt;a href=&quot;http://leaverou.github.com/contrast-ratio/&quot;&gt;Lea Verou&amp;#8217;s constrast checker&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Looking at popular websites contrast&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The genesis of this exercise was to review websites I have built and to
+review some other popular sites so lets do that &amp;#8230;&lt;/p&gt;
+
+&lt;hr&gt;
+
+
+&lt;p&gt;&lt;strong&gt;The contrast on this site&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;#8217;s pretty good right? The text you&amp;#8217;re reading I mean&amp;#8212;
+it&amp;#8217;easy to read, contrast-wise anyway.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text color&lt;/strong&gt;: &lt;a href=&quot;http://www.colourlovers.com/color/444444&quot;&gt;#444444&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Background color&lt;/strong&gt;: &lt;a href=&quot;http://www.colourlovers.com/color/F8F8F8&quot;&gt;#f8f8f8&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Contrast-ratio&lt;/strong&gt;: 9.17:1&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Analysis&lt;/strong&gt;: Pretty amazing.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;edit&lt;/strong&gt;&amp;#8212;11/23/2012&lt;/p&gt;
+
+&lt;p&gt;You&amp;#8217;re looking at Text color: &lt;a href=&quot;http://www.colourlovers.com/color/8f8d80&quot;&gt;#8f8d80&lt;/a&gt;
+which means that the contrast ratio here has dropped to 3.1:1&amp;#8212;which
+meets the success cirterion for the current text-size of 24px!
+(which is, admittedly, very large, but whatever, I ain&amp;#8217;t scared).&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;hr&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Apple&amp;#8217;s nav bar&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;blogImg&quot; src=&quot;http://tylercipriani-files.s3.amazonaws.com/blog/Apple-nav-bar.png&quot; alt=&quot;Apple&#39;s nav bar&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Apple&amp;#8217;s nav bar is a gradient, so this analysis is for the color at
+the lightest point of the gradient versus the text&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text color&lt;/strong&gt;:  &lt;a href=&quot;http://www.colourlovers.com/color/FFFFFF&quot;&gt;#FFFFFF&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Background color&lt;/strong&gt; (again, at the lightest part of the gradient): &lt;a href=&quot;http://www.colourlovers.com/color/727272&quot;&gt;#727272&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Contrast-ratio&lt;/strong&gt;: 4.81:1&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Analysis&lt;/strong&gt;: Passed at Level AA for regular text, and pass at Level AAA for large text (18pt or 14pt bold)&amp;#8212;Apple&amp;#8217;s nav text is SVG (ostensibly for the new retina displays), but it seems to be about 13pt&amp;#8211;14pt. A little low-contrast perhaps, but not too drastic.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;hr&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Google&amp;#8217;s account settings bar&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;blogImg&quot; src=&quot;http://tylercipriani-files.s3.amazonaws.com/blog/google-account-settings.png&quot; alt=&quot;Google&#39;s account settings bar&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;The Google account settings bar has always seemed to be fairly low-contrast
+to me&amp;#8212;let&amp;#8217;s test a theory.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text color&lt;/strong&gt;:  &lt;a href=&quot;http://www.colourlovers.com/color/666666&quot;&gt;#666666&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Background color&lt;/strong&gt;: &lt;a href=&quot;http://www.colourlovers.com/color/F1F1F1&quot;&gt;#F1F1F1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Contrast-ratio&lt;/strong&gt;: 5.08:1&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Analysis&lt;/strong&gt;: Passed at Level AA for regular text, and pass at Level AAA for large text (18pt or 14pt bold)&amp;#8212;better contrast than Apple; however, the text in this image above is 13px/27px Arial,sans-serif at the default font-weight which is close, but not quite ideal.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Out of curiousity I decided to see what these recommendations would look like for Google in practice&amp;#8212;answer: more readable, arguably less aesthetically appealing (see below).&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;blogImg&quot; src=&quot;http://tylercipriani-files.s3.amazonaws.com/blog/google-account-settings_large.png&quot; alt=&quot;Google&#39;s account settings bar—larger font&quot;&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 27 Jul 2012 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2012/07/27/contrast-ratio-in-action.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2012/07/27/contrast-ratio-in-action.html</guid>
+      </item>
+    
+  </channel>
+</rss>
