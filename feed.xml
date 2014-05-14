@@ -212,14 +212,14 @@ step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Also, it&amp;#8217;s always nice to have a &lt;code&gt;clean&lt;/code&gt; target in any &lt;code&gt;Makefile&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;clean:
-    rm -rf gh-pages
+    rm -rf &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(GHPAGES)&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I&amp;#8217;d also like to be able to preview before commiting this file by typing &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;serve:
-    &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gh-pages &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -272,10 +272,10 @@ init:
     @&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -x &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;LESSC&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; npm install
 
 serve:
-    &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gh-pages &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer
 
 clean:
-    rm -rf gh-pages
+    rm -rf &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 
 commit:
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
@@ -284,7 +284,7 @@ commit:
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
         git push origin &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 
-.PHONY: init gh-pages clean commit serve
+.PHONY: init clean commit serve
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 </description>

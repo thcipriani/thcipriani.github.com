@@ -247,14 +247,14 @@ step to our <code>Makefile</code>.</p>
 <p>Also, it&#8217;s always nice to have a <code>clean</code> target in any <code>Makefile</code></p>
 
 <div class="highlight"><pre><code class="bash">clean:
-    rm -rf gh-pages
+    rm -rf <span class="s2">&quot;$(GHPAGES)&quot;</span>
 </code></pre></div>
 
 
 <p>I&#8217;d also like to be able to preview before commiting this file by typing <code>make serve</code></p>
 
 <div class="highlight"><pre><code class="bash">serve:
-    <span class="nb">cd </span>gh-pages <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
 </code></pre></div>
 
 
@@ -307,10 +307,10 @@ init:
     @<span class="o">[</span> -x <span class="k">$(</span>LESSC<span class="k">)</span> <span class="o">]</span> <span class="o">||</span> npm install
 
 serve:
-    <span class="nb">cd </span>gh-pages <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
 
 clean:
-    rm -rf gh-pages
+    rm -rf <span class="k">$(</span>GHPAGES<span class="k">)</span>
 
 commit:
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
@@ -319,7 +319,7 @@ commit:
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
         git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span>
 
-.PHONY: init gh-pages clean commit serve
+.PHONY: init clean commit serve
 </code></pre></div>
 
 
