@@ -146,28 +146,56 @@ I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 </code></pre></div>
 
 
-<h2>Layout/CSS</h2>
+<h2>Title/Layout/CSS</h2>
 
-<p>So now I have html, but I need to be able to</p>
+<p>So now that I&#8217;m outputting html, I still need to be able to:</p>
 
 <ol>
-<li>configure a layout in which to render html</li>
-<li>include custom css in said layout.</li>
+<li>Configure a layout in which to render html</li>
+<li>Include a css file in said layout</li>
+<li>Add post metadata to my layout (e.g., title, headline, etc.)</li>
 </ol>
 
 
-<p>Oh, Pandoc knows layout.</p>
+<p>Pandoc is able to do all of these things&#8212;easy-peasy-lemon-squeezy.</p>
 
-<p>First, I looked at the default html5 layout file for Pandoc:</p>
+<p>First, to establish a layout, let&#8217;s copy the default html5 layout file for Pandoc:</p>
 
 <div class="highlight"><pre><code class="bash">pandoc -D html5 &gt; _layout.html5
 </code></pre></div>
 
 
-<p>I made some tweaks to that file, kept the variables I wanted, ditched the
-variables I didn&#8217;t need.</p>
+<p>I&#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
+variables I don&#8217;t need. Here is the html5 layout file I came up with:</p>
 
-<p>A quick search for <code>css</code> in <code>pandoc(1)</code> and I find the <code>--css</code> flag which
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content=</span><span class="s">&quot;IE=edge&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;http://fonts.googleapis.com/css?family=Open+Sans:800&quot;</span><span class="nt">&gt;</span>
+$for(css)$
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;$css$&quot;</span><span class="nt">&gt;</span>
+$endfor$
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="c">    &lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</span>
+<span class="c">  &lt;![endif]--&gt;</span>
+
+  <span class="nt">&lt;main</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+    $body$
+  <span class="nt">&lt;/main&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+
+<p>Next, I need to figure out how to include a css stylesheet.  A quick
+search for <code>css</code> in <code>pandoc(1)</code> turns up the <code>--css</code> flag which
 enables you to link to a css stylesheet.</p>
 
 <p>Updated <code>Makefile</code>:</p>
@@ -176,6 +204,25 @@ enables you to link to a css stylesheet.</p>
   pandoc -s --template <span class="s2">&quot;_layout&quot;</span> --css <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
 </code></pre></div>
 
+
+<p>Finally, I need to be able to include a unique <code>&lt;title&gt;</code> tag string for
+each page. Again, a search through <code>pandoc(1)</code> for <code>variable</code> yields results;
+using the <code>-V</code> flag enables you to set template variables using <code>-V [KEY]=[val]</code>.</p>
+
+<p>A bit more digging in the online docs, however, nets better solution:
+YAML Metadata blocks&#8212;just like jekyll!</p>
+
+<p>So, for each markdown file in my repo, I&#8217;ll add a block to the top that looks
+like this:</p>
+
+<div class="highlight"><pre><code class="bash">---
+pagetitle: &lt;pagetitle&gt;
+---
+</code></pre></div>
+
+
+<p><code>$pagetitle$</code> is the variable I defined in my <code>_layout.html5</code> that I&#8217;m
+now passing as a template to Pandoc.</p>
 
 <h2>Makefile fanciness</h2>
 

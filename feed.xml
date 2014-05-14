@@ -111,28 +111,56 @@ I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for t
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h2&gt;Layout/CSS&lt;/h2&gt;
+&lt;h2&gt;Title/Layout/CSS&lt;/h2&gt;
 
-&lt;p&gt;So now I have html, but I need to be able to&lt;/p&gt;
+&lt;p&gt;So now that I&amp;#8217;m outputting html, I still need to be able to:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;configure a layout in which to render html&lt;/li&gt;
-&lt;li&gt;include custom css in said layout.&lt;/li&gt;
+&lt;li&gt;Configure a layout in which to render html&lt;/li&gt;
+&lt;li&gt;Include a css file in said layout&lt;/li&gt;
+&lt;li&gt;Add post metadata to my layout (e.g., title, headline, etc.)&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;p&gt;Oh, Pandoc knows layout.&lt;/p&gt;
+&lt;p&gt;Pandoc is able to do all of these things&amp;#8212;easy-peasy-lemon-squeezy.&lt;/p&gt;
 
-&lt;p&gt;First, I looked at the default html5 layout file for Pandoc:&lt;/p&gt;
+&lt;p&gt;First, to establish a layout, let&amp;#8217;s copy the default html5 layout file for Pandoc:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pandoc -D html5 &amp;gt; _layout.html5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;I made some tweaks to that file, kept the variables I wanted, ditched the
-variables I didn&amp;#8217;t need.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
+variables I don&amp;#8217;t need. Here is the html5 layout file I came up with:&lt;/p&gt;
 
-&lt;p&gt;A quick search for &lt;code&gt;css&lt;/code&gt; in &lt;code&gt;pandoc(1)&lt;/code&gt; and I find the &lt;code&gt;--css&lt;/code&gt; flag which
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;en&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;X-UA-Compatible&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;IE=edge&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;width=device-width, initial-scale=1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://fonts.googleapis.com/css?family=Open+Sans:800&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+$for(css)$
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;$css$&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+$endfor$
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;&amp;lt;!--[if lt IE 9]&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;    &amp;lt;script src=&amp;quot;http://html5shim.googlecode.com/svn/trunk/html5.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;  &amp;lt;![endif]--&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;main&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;container&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    $body$
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/main&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Next, I need to figure out how to include a css stylesheet.  A quick
+search for &lt;code&gt;css&lt;/code&gt; in &lt;code&gt;pandoc(1)&lt;/code&gt; turns up the &lt;code&gt;--css&lt;/code&gt; flag which
 enables you to link to a css stylesheet.&lt;/p&gt;
 
 &lt;p&gt;Updated &lt;code&gt;Makefile&lt;/code&gt;:&lt;/p&gt;
@@ -141,6 +169,25 @@ enables you to link to a css stylesheet.&lt;/p&gt;
   pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; --css &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
+
+&lt;p&gt;Finally, I need to be able to include a unique &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; tag string for
+each page. Again, a search through &lt;code&gt;pandoc(1)&lt;/code&gt; for &lt;code&gt;variable&lt;/code&gt; yields results;
+using the &lt;code&gt;-V&lt;/code&gt; flag enables you to set template variables using &lt;code&gt;-V [KEY]=[val]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A bit more digging in the online docs, however, nets better solution:
+YAML Metadata blocks&amp;#8212;just like jekyll!&lt;/p&gt;
+
+&lt;p&gt;So, for each markdown file in my repo, I&amp;#8217;ll add a block to the top that looks
+like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;---
+pagetitle: &amp;lt;pagetitle&amp;gt;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;$pagetitle$&lt;/code&gt; is the variable I defined in my &lt;code&gt;_layout.html5&lt;/code&gt; that I&amp;#8217;m
+now passing as a template to Pandoc.&lt;/p&gt;
 
 &lt;h2&gt;Makefile fanciness&lt;/h2&gt;
 
