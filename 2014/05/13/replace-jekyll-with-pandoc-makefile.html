@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Replacing Jekyll with Pandoc and a Makefile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="/styles/main-min.css" />
+
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="/scripts/html5shiv-min.js"></script>
+        <![endif]-->
+
+        <link href='http://fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" title="Logo Home">
+                    <img src="http://tylercipriani-files.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                    <li><a href="/blog/" title="Weblog">Weblog</a></li>
+                    <li><a href="https://github.com/thcipriani/links" title="Links">Links</a></li>
+                    <li><a href="/hireme/" title="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+      
+
+        <h1>Replacing Jekyll with Pandoc and a Makefile</h1>
+        <h2>Posted on: <span>May 13, 2014</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    <p>I used to use del.icio.us to keep track of links, then it went away.
+After del.icio.us shutdown, I used a ton of uniquely awful services to
+keep track of links. Eventually, I came around to the idea that all I
+needed was a series of markdown files and github: <a href="https://github.com/thcipriani/links/tree/8d2442d4ba8a9090f645dd2cfe73216a7350dea5">BOOM!</a>
+Public link repositiory&#8212;just like del.icio.us back in the day.</p>
+
+<p>After a while I started thinking, I could make these files a lot more
+presentable if I did some jekyll-ifying and served them out on github.</p>
+
+<h2>Previously Jekyllfied</h2>
+
+<p>My <code>linuxtips</code> repo is just a dumb jekyll repo. Esentially all <code>linuxtips</code> is is
+just <a href="https://github.com/thcipriani/linuxtips/blob/master/README.md">a big <code>README</code> file</a>.
+So, for that repo, I created a <code>gh-pages</code> branch with a <code>_config.yml</code> and
+a <code>_layout</code> directory and popped in a <a href="https://github.com/thcipriani/linuxtips/blob/gh-pages/Makefile">Makefile</a>:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">INDEX</span> <span class="o">=</span> <span class="k">${</span><span class="nv">CURDIR</span><span class="k">}</span>/index.md
+
+<span class="k">$(</span>INDEX<span class="k">)</span>:
+  @ git show origin/master:README.md &gt; <span class="nv">$@</span>
+  @ perl -i -pe <span class="s1">&#39;print &quot;---\nlayout: default\ntitle: Linux Tips\n---\n\n&quot; if $$. == 1;&#39;</span> <span class="nv">$@</span>
+</code></pre></div>
+
+
+<p>and then I got <a href="http://www.tylercipriani.com/linuxtips/">tylercipriani.com/linuxtips</a>; neat.</p>
+
+<p>I ran into some problems with that approach along the way. Mostly problems
+with git and the separate branches and the order in which I&#8217;d commit and pull
+and whatever, it was/is a headache.</p>
+
+<h2>Pandoc</h2>
+
+<p>I started thinking about <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a>. Pandoc is this haskell library that makes
+miracles of text happen.</p>
+
+<p>Got an org-mode file and need TeX? Done.</p>
+
+<p>Got a markdown slideshow that needs to become a beamer slide show? OK, sure.</p>
+
+<p>Fuck Beamer, how about markdown slides &rarr; Reveal.js slides? You bet your sweet sensual bologna.</p>
+
+<h2>Imma install Pandoc&#8230;</h2>
+
+<h3>Debian?</h3>
+
+<div class="highlight"><pre><code class="bash">sudo apt-get install haskell-platform
+cabal update
+cabal install pandoc
+</code></pre></div>
+
+
+<p>then add it to your path in your <code>.${SHELL}rc</code> file:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="o">[</span> -d <span class="s2">&quot;$HOME/.cabal/bin&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.cabal/bin:$PATH&quot;</span>
+</code></pre></div>
+
+
+<h3>OSX?</h3>
+
+<div class="highlight"><pre><code class="bash">brew update
+brew install pandoc
+</code></pre></div>
+
+
+<h2>Imma Use Pandoc&#8230;</h2>
+
+<p>Alright, so I&#8217;ve got tons of markdown files, fairly structured, with bunches of links and I need html5.
+I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
+
+<div class="highlight"><pre><code class="bash">index.html: README.md
+  pandoc -s -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
+</code></pre></div>
+
+
+<p>Running <code>make</code> takes my <code>README.md</code> and makes this:</p>
+
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;generator&quot;</span> <span class="na">content=</span><span class="s">&quot;pandoc&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0, user-scalable=yes&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+  <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;code</span><span class="p">{</span><span class="k">white-space</span><span class="o">:</span> <span class="n">pre</span><span class="p">;}</span><span class="nt">&lt;/style&gt;</span>
+  <span class="c">&lt;!--[if lt IE 9]&gt;</span>
+<span class="c">    &lt;script src=&quot;http://html5shim.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</span>
+<span class="c">  &lt;![endif]--&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">&quot;tyler-ciprianis-bookmarks&quot;</span><span class="nt">&gt;</span>Tyler Cipriani&#39;s Bookmarks<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>In an effort to <span class="nt">&lt;em&gt;</span>not<span class="nt">&lt;/em&gt;</span> have 100+ tabs open…<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.flickr.com/photos/tylercipriani/&quot;</span><span class="nt">&gt;</span>My Photography<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;Design.md&quot;</span><span class="nt">&gt;</span>Design<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;Development.md&quot;</span><span class="nt">&gt;</span>Development<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;Business.md&quot;</span><span class="nt">&gt;</span>Business<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;Fun.md&quot;</span><span class="nt">&gt;</span>Fun<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+
+<h2>Layout/CSS</h2>
+
+<p>So now I have html, but I need to be able to</p>
+
+<ol>
+<li>configure a layout in which to render html</li>
+<li>include custom css in said layout.</li>
+</ol>
+
+
+<p>Oh, Pandoc knows layout.</p>
+
+<p>First, I looked at the default html5 layout file for Pandoc:</p>
+
+<div class="highlight"><pre><code class="bash">pandoc -D html5 &gt; _layout.html5
+</code></pre></div>
+
+
+<p>I made some tweaks to that file, kept the variables I wanted, ditched the
+variables I didn&#8217;t need.</p>
+
+<p>A quick search for <code>css</code> in <code>pandoc(1)</code> and I find the <code>--css</code> flag which
+enables you to link to a css stylesheet.</p>
+
+<p>Updated <code>Makefile</code>:</p>
+
+<div class="highlight"><pre><code class="bash">index.html: README.md
+  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> --css <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
+</code></pre></div>
+
+
+<h2>Makefile fanciness</h2>
+
+<p>Alright, so now that I have the basics of Pandoc down, I need to whip my
+<code>Makefile</code> into shape.</p>
+
+<p>First thing is I want to convert ALL of my markdown files to html, not just
+the <code>README.md</code>. So howzabout I add a wildcard target for all the <code>html</code> files?
+Also, the whole point of this is to make a github pages site, so let&#8217;s add
+that to the <code>Makefile</code> too</p>
+
+<div class="highlight"><pre><code class="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
+<span class="nv">GHPAGES</span> <span class="o">=</span> gh-pages
+
+all: <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="k">$(</span>addprefix <span class="k">$(</span>GHPAGES<span class="k">)</span>/, <span class="k">$(</span>addsuffix .html, <span class="k">$(</span>basename <span class="k">$(</span>wildcard *.md<span class="k">))))</span>
+
+<span class="k">$(</span>GHPAGES<span class="k">)</span>:
+  git clone <span class="s2">&quot;$(REPO)&quot;</span> <span class="s2">&quot;$(GHPAGES)&quot;</span>
+  <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout <span class="k">$(</span>GHPAGES<span class="k">)</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout --orphan <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git rm -rf .<span class="o">)</span>
+
+<span class="k">$(</span>GHPAGES<span class="k">)</span>/%.html: %.md
+  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> -c <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
+</code></pre></div>
+
+
+<p>Running <code>make</code> at this point should checkout your current git repository to
+a subdirectory called <code>gh-pages</code> (which should be added to <code>.gitignore</code>
+on master).</p>
+
+<p>This <code>Makefile</code> first tries to checkout an existing <code>gh-pages</code> branch,
+otherwise it creates a new orphan branch for <code>gh-pages</code>. After
+that, we glob the current directory for any file name <code>*.md</code> and run it
+through pandoc, placing the result in <code>gh-pages/[whatever].html</code></p>
+
+<h2>Niceities</h2>
+
+<p>I&#8217;m a big fan of pre-processors, so the css/main.css file (which
+doesn&#8217;t <em>actually exist</em> as of yet) should be converted from <code>less</code>.
+The easiest way to do that: add a <code>package.json</code> with <code>less</code> as a dependency.</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;linkblog&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;less&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Now running <code>npm install</code> should create a new <code>node_modules</code> directory (which
+should be added to <code>.gitignore</code> on master). Now we need to add a <code>lessc</code>
+step to our <code>Makefile</code>.</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">LESSC</span>    <span class="o">=</span> node_modules/less/bin/lessc
+<span class="nv">LESSFILE</span> <span class="o">=</span> less/main.less
+
+<span class="nv">CSSDIR</span>  <span class="o">=</span> <span class="k">$(</span>GHPAGES<span class="k">)</span>/css
+<span class="nv">CSSFILE</span> <span class="o">=</span> <span class="k">$(</span>CSSDIR<span class="k">)</span>/main.css
+
+<span class="k">$(</span>CSSFILE<span class="k">)</span>: <span class="k">$(</span>CSSDIR<span class="k">)</span> <span class="k">$(</span>LESSFILE<span class="k">)</span>
+    <span class="k">$(</span>LESSC<span class="k">)</span> <span class="s2">&quot;$(LESSFILE)&quot;</span> <span class="s2">&quot;$(CSSFILE)&quot;</span>
+
+<span class="k">$(</span>CSSDIR<span class="k">)</span>:
+    mkdir -p <span class="s2">&quot;$(CSSDIR)&quot;</span>
+</code></pre></div>
+
+
+<p>Also, it&#8217;s always nice to have a <code>clean</code> target in any <code>Makefile</code></p>
+
+<div class="highlight"><pre><code class="bash">clean:
+    rm -rf gh-pages
+</code></pre></div>
+
+
+<p>I&#8217;d also like to be able to preview before commiting this file by typing <code>make serve</code></p>
+
+<div class="highlight"><pre><code class="bash">serve:
+    <span class="nb">cd </span>gh-pages <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
+</code></pre></div>
+
+
+<p>Finally, speaking of commiting this file, let&#8217;s make <code>commit</code> a target, too.</p>
+
+<div class="highlight"><pre><code class="bash">commit:
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git add . <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git commit --edit --message<span class="o">=</span><span class="s2">&quot;Publish @$$(date)&quot;</span>
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span>
+</code></pre></div>
+
+
+<p>Now when I update my <code>links</code> repo's markdown files I issue a simple series of commands:
+<code>make</code> checks-out my <code>gh-pages</code> branch and builds the html and css files,
+<code>make serve</code> lets me look at the output html at <code>localhost:8000</code>,
+and, finally, <code>make commit</code> pushes those changes live.</p>
+
+<p>So here&#8217;s the <a href="http://www.tylercipriani.com/links">result</a> and the final <code>Makefile</code></p>
+
+<div class="highlight"><pre><code class="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
+<span class="nv">GHPAGES</span> <span class="o">=</span> gh-pages
+
+<span class="nv">LESSC</span>    <span class="o">=</span> node_modules/less/bin/lessc
+<span class="nv">LESSFILE</span> <span class="o">=</span> less/main.less
+
+<span class="nv">CSSDIR</span>  <span class="o">=</span> <span class="k">$(</span>GHPAGES<span class="k">)</span>/css
+<span class="nv">CSSFILE</span> <span class="o">=</span> <span class="k">$(</span>CSSDIR<span class="k">)</span>/main.css
+
+all: init clean <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="k">$(</span>CSSFILE<span class="k">)</span> <span class="k">$(</span>addprefix <span class="k">$(</span>GHPAGES<span class="k">)</span>/, <span class="k">$(</span>addsuffix .html, <span class="k">$(</span>basename <span class="k">$(</span>wildcard *.md<span class="k">))))</span>
+
+<span class="k">$(</span>GHPAGES<span class="k">)</span>/%.html: %.md
+    pandoc -s --template <span class="s2">&quot;_layout&quot;</span> -c <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
+
+<span class="k">$(</span>CSSFILE<span class="k">)</span>: <span class="k">$(</span>CSSDIR<span class="k">)</span> <span class="k">$(</span>LESSFILE<span class="k">)</span>
+    <span class="k">$(</span>LESSC<span class="k">)</span> <span class="s2">&quot;$(LESSFILE)&quot;</span> <span class="s2">&quot;$(CSSFILE)&quot;</span>
+
+<span class="k">$(</span>CSSDIR<span class="k">)</span>:
+    mkdir -p <span class="s2">&quot;$(CSSDIR)&quot;</span>
+
+<span class="k">$(</span>GHPAGES<span class="k">)</span>:
+    @echo <span class="k">$(</span>REPO<span class="k">)</span>
+    git clone <span class="s2">&quot;$(REPO)&quot;</span> <span class="s2">&quot;$(GHPAGES)&quot;</span>
+    @echo <span class="s2">&quot;Donezo&quot;</span>
+    <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout <span class="k">$(</span>GHPAGES<span class="k">)</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout --orphan <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git rm -rf .<span class="o">)</span>
+
+init:
+    @command -v pandoc &gt; /dev/null 2&gt;<span class="p">&amp;</span>1 <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;pandoc not found http://johnmacfarlane.net/pandoc/installing.html&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+    @<span class="o">[</span> -x <span class="k">$(</span>LESSC<span class="k">)</span> <span class="o">]</span> <span class="o">||</span> npm install
+
+serve:
+    <span class="nb">cd </span>gh-pages <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
+
+clean:
+    rm -rf gh-pages
+
+commit:
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git add . <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git commit --edit --message<span class="o">=</span><span class="s2">&quot;Publish @$$(date)&quot;</span>
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+        git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span>
+
+.PHONY: init gh-pages clean commit serve
+</code></pre></div>
+
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'tylercipriani';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            
+            <article> 
+            
+            <footer >
+                <hr>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani<br />
+                    Copyright 2013&mdash;<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank" title="Apache v2 license agreement">Apache v2 License</a>
+                </p>
+            </footer>
+            
+        </main>
+
+        <script type="text/javascript">
+            var _gaq=[['_setAccount','UA-25103397-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
