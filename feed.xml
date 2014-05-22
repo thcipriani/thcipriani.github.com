@@ -7,6 +7,77 @@
     <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Create a Baller/Useful MOTD with ANSI Art</title>
+        <description>&lt;p&gt;Everyone universally agrees that most &lt;a href=&quot;http://linux.die.net/man/5/motd&quot;&gt;Message of the Days (MOTDs)&lt;/a&gt;
+are stupid and suck. By the end of reading this post, your mind grapes should be swollen with the knowledge
+of how to make an MOTD that isn&amp;#8217;t stupid and, some would say, &lt;em&gt;doesn&amp;#8217;t&lt;/em&gt;
+suck.&lt;/p&gt;
+
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Imagemagick&lt;/li&gt;
+&lt;li&gt;OpenJDK&lt;/li&gt;
+&lt;li&gt;coreutils&lt;/li&gt;
+&lt;li&gt;perl&lt;/li&gt;
+&lt;li&gt;git&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This should have you covered:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Creating the Util-say file&lt;/h2&gt;
+
+&lt;p&gt;I use &lt;a href=&quot;https://github.com/maandree/util-say&quot;&gt;Util-Say&lt;/a&gt; to create motd messages.
+I started out using &lt;a href=&quot;https://github.com/rossy2401/img2xterm&quot;&gt;img2xterm&lt;/a&gt;,
+but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/maandree/util-say
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;util-say
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./img2ponysay -- yourimg.png &amp;gt; yourimg.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can also try &lt;code&gt;./img2ponysay -2 -- youimg.png &amp;gt; yourimg.txt&lt;/code&gt; but I&amp;#8217;ve never had good results with that&lt;/p&gt;
+
+&lt;h2&gt;MOTD-ifying&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://tylercipriani-files.s3.amazonaws.com/mammoth_motd.png&quot; alt=&quot;Mammoth Motd&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On CentOS and Debian, I usually just throw the ponysay file directly into &lt;code&gt;/etc/motd&lt;/code&gt; and maybe add on some other useful info:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo cat yourimg.txt &amp;gt; /etc/motd
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On Ubuntu Boxes (since they use &lt;a href=&quot;https://wiki.ubuntu.com/UpdateMotd&quot;&gt;update-motd(1)&lt;/a&gt;),
+I do pretty much the same thing except I just make a bash
+script in &lt;code&gt;/etc/update-motd.d/25-baller-motd&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+cat yourimg.txt
+figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are likely better articles on creating a &lt;em&gt;useful&lt;/em&gt; MOTD,
+(&lt;a href=&quot;http://www.mewbies.com/how_to_customize_your_console_login_message_tutorial.htm&quot;&gt;here&lt;/a&gt;&amp;#8217;s
+one that looks kinda cool) but there are exactly none-better articles on
+creating MOTDs that are so flossy!&lt;/p&gt;
+</description>
+        <pubDate>Thu, 22 May 2014 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2014/05/22/creating-baller-useful-motd-ascii-art.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2014/05/22/creating-baller-useful-motd-ascii-art.html</guid>
+      </item>
+    
+      <item>
         <title>Replacing Jekyll with Pandoc and a Makefile</title>
         <description>&lt;p&gt;I used to use del.icio.us to keep track of links, then it went away.
 After del.icio.us shutdown, I used a ton of uniquely awful services to
@@ -1026,63 +1097,6 @@ search Amazon&#39;s digital music store and output the large-format album art fo
         <pubDate>Wed, 15 Aug 2012 00:00:00 -0600</pubDate>
         <link>http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</link>
         <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</guid>
-      </item>
-    
-      <item>
-        <title>CSS display inline-block Extra Margin/Space</title>
-        <description>&lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;: The margin isn&amp;#8217;t a margin&amp;#8212;it&amp;#8217;s a space. Try
-using display: block; float: left; instead.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ALSO:&lt;/strong&gt; Checkout the amazing list of techniques to combat inline-block
-space-margins at &lt;a href=&quot;http://css-tricks.com/fighting-the-space-between-inline-block-elements/&quot; title=&quot;Fighting the Space Between inline-block Elements&quot;&gt;CSS Tricks&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-
-&lt;p&gt;I&amp;#8217;ve made a weird discovery about using the inline-block display.
-I use inline-block elements on my
-&lt;a href=&quot;http://www.tylercipriani.com,&quot; title=&quot;Tyler Cipriani&quot;&gt;homepage&lt;/a&gt;
-in the &lt;em&gt;Recent Work&lt;/em&gt; section.&lt;/p&gt;
-
-&lt;p&gt;I noticed that the math for these block elements wasn&amp;#8217;t quite adding
-up&amp;#8212;the element width + padding + margin + border should&amp;#8217;ve enabled
-three items on one line; however, the elements were wrapping.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;#8217;s an example of what I&amp;#8217;m talking about:&lt;/p&gt;
-
-&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px;&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
-
-
-&lt;p&gt;Even though the margin of each element is set to zero there is seemingly, a margin, between each element.&lt;/p&gt;
-
-&lt;p&gt;This problem could be easily solved by removing the display property, floating each gallery item and using a clearfix on the parent:&lt;/p&gt;
-
-&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px;&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/2/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
-
-
-&lt;p&gt;That solution, however, ignores &lt;em&gt;why&lt;/em&gt; that space is being added.&lt;/p&gt;
-
-&lt;p&gt;The inline-block display property treats block level elements
-(e.g. &amp;lt;div&amp;gt;) as an inline element (e.g. &amp;lt;span&amp;gt;) &lt;span class=&quot;amp&quot;&gt;&amp;amp;&lt;/span&gt;,
-just like if you had a line break between two &amp;lt;span&amp;gt; elements, the
-line-break between the &amp;lt;div&amp;gt;s is creating a space between the &amp;lt;div&amp;gt;s.
-&lt;strong&gt;That extra margin is actually a space&amp;#8212;not a margin&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Knowing what is creating an inline-block displayed &amp;lt;div&amp;gt;&amp;#8217;s
-&amp;#8220;margin&amp;#8221; enables you to create a couple of different solutions.
-* &lt;strong&gt;First&lt;/strong&gt;, the dumb and breakable solution, you could remove the spaces
-and line-breaks in your html
-* &lt;strong&gt;Second&lt;/strong&gt;, directly address the space by setting a negative right margin or negative word-spacing for those elements
-* Or, &lt;strong&gt;Finally&lt;/strong&gt;, just use display: block; float: left;&lt;/p&gt;
-
-&lt;p&gt;Here&amp;#8217;s an example of what the second solution would look like:&lt;/p&gt;
-
-&lt;iframe style=&quot;margin: 1em 0; width: 100%; height: 300px&quot; src=&quot;http://jsfiddle.net/thcipriani/r7egr/3/embedded/result,html,css/&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt; &lt;/iframe&gt;
-
-</description>
-        <pubDate>Wed, 01 Aug 2012 00:00:00 -0600</pubDate>
-        <link>http://www.tylercipriani.com/2012/08/01/display-inline-block-extra-margin.html</link>
-        <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/01/display-inline-block-extra-margin.html</guid>
       </item>
     
   </channel>
