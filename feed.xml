@@ -64,6 +64,7 @@ script in &lt;code&gt;/etc/update-motd.d/25-baller-motd&lt;/code&gt;&lt;/p&gt;
 cat yourimg.txt
 figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; -v fortune &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;&amp;gt; /dev/null &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; fortune
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 

@@ -103,6 +103,7 @@ script in <code>/etc/update-motd.d/25-baller-motd</code></p>
 cat yourimg.txt
 figlet <span class="s2">&quot;$(hostname)&quot;</span>
 <span class="nb">printf</span> <span class="s2">&quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&quot;</span>
+<span class="nb">command</span> -v fortune <span class="p">&amp;</span>&gt; /dev/null <span class="o">&amp;&amp;</span> fortune
 </code></pre></div>
 
 
