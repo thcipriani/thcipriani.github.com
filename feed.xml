@@ -7,6 +7,245 @@
     <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Development Environments with Vagrant, Docker, and Supervisord</title>
+        <description>&lt;p&gt;I&amp;#8217;ve used Vagrant a fair amount in my day, and it&amp;#8217;s great. I
+enjoy being able to spin-up toy linux environments to test out ideas.
+I tend to use the &lt;a href=&quot;http://docs.vagrantup.com/v2/provisioning/chef_solo.html&quot;&gt;Chef provisioner&lt;/a&gt; with Vagrant
+to build-out a local environment that matches my server fairly closely.&lt;/p&gt;
+
+&lt;h2&gt;My Ever-Evolving Rant About DevOps&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#8217;ve been thinking about Chef a lot lately. Often is the time, in moments of
+profound frustration, that I&amp;#8217;ve
+had the thought that Chef is nothing more than a useless, leaky abstraction that separates me
+from something I know fairly well&amp;#8212;Linux.&lt;/p&gt;
+
+&lt;p&gt;This thought is usually fleeting: Chef provides many needed abstractions that
+are, ultimately, much easier to grok than the underlying Linux system. Further,
+Chef allows you to keep a(n ostensibly) well-tested system under version control.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;ve come to the realization that my problem with Chef is not really a problem
+with Chef, but a &lt;a href=&quot;https://www.domenkozar.com/2014/03/11/why-puppet-chef-ansible-arent-good-enough-and-we-can-do-better/&quot;&gt;problem with Linux itself&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Linux system administration is difficult because Linux
+commands are non-deterministic and rely heavily on system
+state (e.g., installed software, permissions, network settings and availability).
+Maintaining a bare-metal, long-running server non-interactively using Chef
+sucks because &lt;a href=&quot;http://me.andering.com/2011/02/03/server-login-considered-harmful/&quot;&gt;any hand-tinkering via ssh&lt;/a&gt; is going to fuck with the &amp;#8220;state&amp;#8221; of
+the system&amp;#8212;creating different results for subsequent chef-client runs.
+This system state adjustment may or may not be reflected in the chef repository (which
+double sucks).&lt;/p&gt;
+
+&lt;h2&gt;Why Docker Curtails My Rage&lt;/h2&gt;
+
+&lt;p&gt;I started to think about Docker. I feel Docker addresses
+the problem of program state better than other currently available solutions
+(although, &lt;a href=&quot;https://nixos.org/nixos/&quot;&gt;Nix&lt;/a&gt; is looking pretty promising as well). While Docker is
+still a Linux system&amp;#8212;and, ipso facto, state-dependant&amp;#8212;it&amp;#8217;s also
+ephemeral and therefore, by not persisting changes to state, Docker has
+created a previously unavailable (on bare metal hardware), lightweight
+workaround to the problem of system state.&lt;/p&gt;
+
+&lt;p&gt;As is my wont, I decided today to play a bit with Docker on Vagrant and, lo-and-below,
+I found that the newest version of Vagrant (1.6.2, as of May 26th) can actually use &lt;a href=&quot;https://www.vagrantup.com/blog/feature-preview-vagrant-1-6-docker-dev-environments.html&quot;&gt;docker as a &lt;em&gt;provider&lt;/em&gt;&lt;/a&gt;,
+that is, as an alternative to VirtualBox. Using Docker as a provider means
+that you can run a fully-independent development enviroment, on your host
+machine without the overhead of VirtualBox. Neat.&lt;/p&gt;
+
+&lt;p&gt;&amp;#8220;Imma setup a local development environment for Ubuntu 14.04, nginx and php-fpm
+using Vagrant, Supervisord and Docker,&amp;#8221; says I.&lt;/p&gt;
+
+&lt;h2&gt;Project Layout&lt;/h2&gt;
+
+&lt;p&gt;To keep my project directory nice and tidy, I&amp;#8217;ve separated-out most of the
+files needed by the Docker provider into a &lt;code&gt;Docker&lt;/code&gt; folder. This
+results in the directory structure below.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;├── Docker
+│   ├── Dockerfile
+│   ├── nginx
+│   │   └── default
+│   ├── php-fpm
+│   │   └── php-fpm.conf
+│   └── supervisor
+│       └── supervisord.conf
+├── Vagrantfile
+└── www
+    └── index.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;Dockerfile&lt;/code&gt; is used to build the main docker machine and the subfolders
+in the &lt;code&gt;Docker&lt;/code&gt; directory contain configuration used in the &lt;code&gt;Dockerfile&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;www&lt;/code&gt; folder is my fake php project folder.&lt;/p&gt;
+
+&lt;h2&gt;VagrantFile&lt;/h2&gt;
+
+&lt;p&gt;Since docker handles so much of what was previously handled by Vagrant provisioner,
+the &lt;code&gt;Vagrantfile&lt;/code&gt; for a Docker-backed Vagrant instance is pretty sparse.&lt;/p&gt;
+
+&lt;p&gt;In mine, I&amp;#8217;ve got:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Vagrant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;synced_folder&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./www&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/var/www&amp;quot;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Sync&amp;#39;d folder&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;docker&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./Docker&amp;quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# specifies the path to the Dockerfile&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;8080:80&amp;#39;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# Forwards port 8080 from the host to the Docker Container port 80&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Dockerfile&lt;/h2&gt;
+
+&lt;p&gt;Most of the work of provisioning a container is handled by Docker and
+the Dockerfile. In fact, if you were only ever going to run this container on a Linux machine, I
+don&amp;#8217;t think that Vagrant adds any needed functionality to the &lt;code&gt;docker.io&lt;/code&gt; cli.
+In terms of portability, however, Vagrant is, at this time, a necessary evil
+to run docker on OSX and Windows.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;FROM ubuntu:latest
+
+MAINTAINER Tyler Cipriani, tyler@tylercipriani.com
+
+&lt;span class=&quot;c&quot;&gt;# Download and install php, nginx, and supervisor, hey, just linux for a change!&lt;/span&gt;
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:nginx/stable
+RUN apt-get update
+RUN apt-get -y dist-upgrade
+RUN apt-get install -y php5-fpm nginx supervisor
+
+&lt;span class=&quot;c&quot;&gt;# Setup config files&lt;/span&gt;
+RUN &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;daemon off;&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/nginx/nginx.conf
+ADD ./nginx/default /etc/nginx/sites-enabled/default
+ADD ./supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+ADD ./php-fpm/php-fpm.conf /etc/php5/fpm/php-fpm.conf
+
+&lt;span class=&quot;c&quot;&gt;# Shared volume&lt;/span&gt;
+RUN mkdir -p /var/www
+VOLUME &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/var/www&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Default command for container, start supervisor&lt;/span&gt;
+CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;supervisord&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;--nodaemon&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+USER root
+
+&lt;span class=&quot;c&quot;&gt;# Expose port 80 of the container&lt;/span&gt;
+EXPOSE 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This &lt;code&gt;Dockerfile&lt;/code&gt; takes care of building a docker container from the latest
+Ubuntu image (14.04 as of May 26th, 2014). Running this code installs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nginx 1.6.0&lt;/li&gt;
+&lt;li&gt;PHP 5.5.9&lt;/li&gt;
+&lt;li&gt;Supervisor&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;This config also starts supervisor with the &lt;code&gt;--nodaemon&lt;/code&gt; flag by default.
+Docker can run a container running a non-daemonized program as a daemon
+(much like supervisor can run non-daemonized programs as daemons).
+Supervisor is used as a way of running both nginx and php-fpm as non-daemonized
+programs. It is also noteworthy that the dockerfile creates and/or modifys configuration files for php-fpm and nginx
+to make sure they both run in non-daemon mode.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;nginx/default&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kn&quot;&gt;root&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;/var/www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;index.php&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;index.html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# pass the PHP scripts to FastCGI server&lt;/span&gt;
+  &lt;span class=&quot;kn&quot;&gt;location&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;\.php$&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;try_files&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$uri&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;fastcgi_split_path_info&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;^(.+\.php)(/.+)&lt;/span&gt;$&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;fastcgi_pass&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;unix:/var/run/php5-fpm.sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;fastcgi_index&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;index.php&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kn&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;fastcgi_params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;php-fpm/php-fpm.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[global]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;pid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/var/run/php5-fpm.pid&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;error_log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/var/log/php5-fpm.log&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;daemonize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/etc/php5/fpm/pool.d/*.conf&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;supervisor/supervisord.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[unix_http_server]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/var/run/supervisor.sock   ; (the path to the socket file)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;chmod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;0700                       ; sockef file mode (default 0700)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[supervisord]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;logfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/tmp/supervisord.log ; (main log file;default $CWD/supervisord.log)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;logfile_maxbytes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;50MB        ; (max main logfile bytes b4 rotation;default 50MB)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;logfile_backups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;10           ; (num of main logfile rotation backups;default 10)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;loglevel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;info                ; (log level;default info; others: debug,warn,trace)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;pidfile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/tmp/supervisord.pid ; (supervisord pidfile;default supervisord.pid)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;nodaemon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;false               ; (start in foreground if true;default false)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;minfds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;1024                  ; (min. avail startup file descriptors;default 1024)&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;minprocs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;200                 ; (min. avail process descriptors;default 200)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; the below section must remain in the config file for RPC&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; (supervisorctl/web interface) to work, additional interfaces may be&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;; added by defining them in separate rpcinterface: sections&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;[rpcinterface:supervisor]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;supervisor.rpcinterface_factory&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;supervisor.rpcinterface:make_main_rpcinterface&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[supervisorctl]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;serverurl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[program:php5-fpm]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/sbin/php5-fpm -c /etc/php5/fpm&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;stdout_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;stderr_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;[program:nginx]&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/sbin/nginx&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;stdout_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;stderr_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Jam Time&lt;/h2&gt;
+
+&lt;p&gt;With all of our configuration in place there isn&amp;#8217;t much left to do aside
+from running the vagrant instance and allowing docker to create our container.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo docker pull ubuntu &lt;span class=&quot;c&quot;&gt;# to grab the latest Ubuntu image, Vagrant should probably do this but doesn&amp;#39;t&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo vagrant up --provider&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker --debug &lt;span class=&quot;c&quot;&gt;# use debug if you don&amp;#39;t want to sit waiting with no info for a long time on the first run&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With that, you now have a container running nginx and php-fpm that is sharing
+a folder with you at &lt;code&gt;/var/www&lt;/code&gt;. Navigating to &lt;code&gt;http://localhost:8080/index.php&lt;/code&gt;
+should show you the contents of your &lt;code&gt;./www/index.php&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;p&gt;This process is really simple AND super lightweight. I&amp;#8217;ve been running my
+docker/vagrant instance for about 45 minutes alongside chrome and tmux/xterm
+without any noticeable jankyness on a notoriously janky laptop.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 25 May 2014 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2014/05/25/lightweight-portable-vagrant-docker.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2014/05/25/lightweight-portable-vagrant-docker.html</guid>
+      </item>
+    
+      <item>
         <title>Create a Baller/Useful MOTD with ANSI Art</title>
         <description>&lt;p&gt;Everyone universally agrees that most &lt;a href=&quot;http://linux.die.net/man/5/motd&quot;&gt;Message of the Days (MOTDs)&lt;/a&gt;
 are stupid and suck. By the end of reading this post, your mind grapes should be swollen with the knowledge
@@ -353,7 +592,7 @@ step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now when I update my &lt;code&gt;links&lt;/code&gt; repo&#39;s markdown files I issue a simple series of commands:
+&lt;p&gt;Now when I update my &lt;code&gt;links&lt;/code&gt; repo's markdown files I issue a simple series of commands:
 &lt;code&gt;make&lt;/code&gt; checks-out my &lt;code&gt;gh-pages&lt;/code&gt; branch and builds the html and css files,
 &lt;code&gt;make serve&lt;/code&gt; lets me look at the output html at &lt;code&gt;localhost:8000&lt;/code&gt;,
 and, finally, &lt;code&gt;make commit&lt;/code&gt; pushes those changes live.&lt;/p&gt;
@@ -632,7 +871,7 @@ a wellspring of ideas.&lt;/p&gt;
         <title>Installing Vim from source on CentOS&amp;nbsp;6.3</title>
         <description>&lt;p&gt;…or, I suppose, other Linux-es…Linuxi…Linux distributions.&lt;/p&gt;
 
-&lt;p&gt;Many of the Vim features on which I&amp;#8217;ve come to depend simply aren&#39;t available in Vim pre-7.3.3. That&amp;#8217;s fine if I&amp;#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&amp;#8217;t so great if I&amp;#8217;m working on a shared host that uses CentOS &lt;strong&gt;&lt;em&gt;five point something dumb&lt;/em&gt;&lt;/strong&gt; because the hosting-providers weren&amp;#8217;t hugged as children (I&amp;#8217;d guess).&lt;/p&gt;
+&lt;p&gt;Many of the Vim features on which I&amp;#8217;ve come to depend simply aren't available in Vim pre-7.3.3. That&amp;#8217;s fine if I&amp;#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&amp;#8217;t so great if I&amp;#8217;m working on a shared host that uses CentOS &lt;strong&gt;&lt;em&gt;five point something dumb&lt;/em&gt;&lt;/strong&gt; because the hosting-providers weren&amp;#8217;t hugged as children (I&amp;#8217;d guess).&lt;/p&gt;
 
 &lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;edit&lt;/strong&gt;&amp;#8212;10/01/2013&lt;/p&gt;
 
@@ -1053,51 +1292,6 @@ under the section heading, &amp;#8220;Removing the index.php file&amp;#8221; it 
         <pubDate>Mon, 20 Aug 2012 00:00:00 -0600</pubDate>
         <link>http://www.tylercipriani.com/2012/08/20/codeigniter-htaccess-file.html</link>
         <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/20/codeigniter-htaccess-file.html</guid>
-      </item>
-    
-      <item>
-        <title>Using Amazon Product Advertising API to Grab Album Art</title>
-        <description>&lt;p&gt;At Custom Channels we have our own API for Album Art. Our Album Art API was designed
-before I got here, it was designed for the single use-case of the Custom Channels standard flash player
-(i.e. 125×125 gif) and isn&#39;t what you&#39;d call “future proof”.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ANYWAY&lt;/strong&gt;, we&#39;re revisiting some of the Custom Channels&#39; site design and
-one idea I had is to show a handful of recently played albums from a few channels
-on our homepage. And a 125×125 gif ain&#39;t gonna to cut the mustard!&lt;/p&gt;
-
-&lt;p&gt;This brings us to the topic of this post—&lt;strong&gt;the Amazon Product Advertising API&lt;/strong&gt;—Step-by-Step.&lt;/p&gt;
-
-&lt;p&gt;This assumes you&#39;ve already got a development environment that runs PHP5.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The first thing to do, if you haven&#39;t already, is to &lt;a href=&quot;http://aws.amazon.com/&quot; title=&quot;AWS Register&quot;&gt;register&lt;/a&gt; for Amazon Web Services&lt;/li&gt;
-&lt;li&gt;After you&#39;ve registered for a AWS account, login to your account and go to the “My Account/Console” pulldown at the top and
-click, “Security Credentials”&lt;/li&gt;
-&lt;li&gt;Scroll down to “Access Credentials”&lt;br&gt;&lt;img src=&quot;http://tylercipriani-files.s3.amazonaws.com/blog/access_credentials.png&quot; alt=&quot;Access Credentials&quot;&gt;&lt;/li&gt;
-&lt;li&gt;Copy your &quot;Access Key ID&quot;, click &quot;Show&quot; and copy your &quot;Secret Access Key&quot;&lt;/li&gt;
-&lt;li&gt;Go ahead and clone the &lt;a href=&quot;https://github.com/Exeu/Amazon-ECS-PHP-Library&quot; title=&quot;Amazon ECS PHP Library&quot;&gt;Amazon ECS PHP Library&lt;/a&gt; to your development environment&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/Exeu/Amazon-ECS-PHP-Library.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ul&gt;
-&lt;li&gt;You&#39;ll only be using the file &lt;code&gt;lib/AmazonECS.class.php&lt;/code&gt; so copy that wherever you&#39;d like&lt;/li&gt;
-&lt;li&gt;Once you&#39;ve got that file it&#39;s easy-peasy-lemon-squeezy:&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;script src=&quot;https://gist.github.com/3364600.js?file=amazon-album-art.php&quot;&gt; &lt;/script&gt;
-
-
-&lt;p&gt;The code above will take the argument from the “track” url parameter and
-search Amazon&#39;s digital music store and output the large-format album art for the top match.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 15 Aug 2012 00:00:00 -0600</pubDate>
-        <link>http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</link>
-        <guid isPermaLink="true">http://www.tylercipriani.com/2012/08/15/step-by-step-amazon-product-api-album-art.html</guid>
       </item>
     
   </channel>
