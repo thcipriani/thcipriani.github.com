@@ -63,8 +63,7 @@ a <code>_layout</code> directory and popped in a <a href="https://github.com/thc
 
 <span class="k">$(</span>INDEX<span class="k">)</span>:
   @ git show origin/master:README.md &gt; <span class="nv">$@</span>
-  @ perl -i -pe <span class="s1">&#39;print &quot;---\nlayout: default\ntitle: Linux Tips\n---\n\n&quot; if $$. == 1;&#39;</span> <span class="nv">$@</span>
-</code></pre></div>
+  @ perl -i -pe <span class="s1">&#39;print &quot;---\nlayout: default\ntitle: Linux Tips\n---\n\n&quot; if $$. == 1;&#39;</span> <span class="nv">$@</span></code></pre></div>
 
 
 <p>and then I got <a href="http://www.tylercipriani.com/linuxtips/">tylercipriani.com/linuxtips</a>; neat.</p>
@@ -90,21 +89,18 @@ miracles of text happen.</p>
 
 <div class="highlight"><pre><code class="bash">sudo apt-get install haskell-platform
 cabal update
-cabal install pandoc
-</code></pre></div>
+cabal install pandoc</code></pre></div>
 
 
 <p>then add it to your path in your <code>.${SHELL}rc</code> file:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="o">[</span> -d <span class="s2">&quot;$HOME/.cabal/bin&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.cabal/bin:$PATH&quot;</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="bash"><span class="o">[</span> -d <span class="s2">&quot;$HOME/.cabal/bin&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.cabal/bin:$PATH&quot;</span></code></pre></div>
 
 
 <h3>OSX?</h3>
 
 <div class="highlight"><pre><code class="bash">brew update
-brew install pandoc
-</code></pre></div>
+brew install pandoc</code></pre></div>
 
 
 <h2>Imma Use Pandoc&#8230;</h2>
@@ -113,8 +109,7 @@ brew install pandoc
 I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 
 <div class="highlight"><pre><code class="bash">index.html: README.md
-  pandoc -s -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
-</code></pre></div>
+  pandoc -s -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span></code></pre></div>
 
 
 <p>Running <code>make</code> takes my <code>README.md</code> and makes this:</p>
@@ -142,8 +137,7 @@ I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;Fun.md&quot;</span><span class="nt">&gt;</span>Fun<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
 <span class="nt">&lt;/ul&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
 
 
 <h2>Title/Layout/CSS</h2>
@@ -161,8 +155,7 @@ I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 
 <p>First, to establish a layout, let&#8217;s copy the default html5 layout file for Pandoc:</p>
 
-<div class="highlight"><pre><code class="bash">pandoc -D html5 &gt; _layout.html5
-</code></pre></div>
+<div class="highlight"><pre><code class="bash">pandoc -D html5 &gt; _layout.html5</code></pre></div>
 
 
 <p>I&#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
@@ -190,8 +183,7 @@ $endfor$
   <span class="nt">&lt;/main&gt;</span>
 
 <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
 
 
 <p>Next, I need to figure out how to include a css stylesheet.  A quick
@@ -201,8 +193,7 @@ enables you to link to a css stylesheet.</p>
 <p>Updated <code>Makefile</code>:</p>
 
 <div class="highlight"><pre><code class="bash">index.html: README.md
-  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> --css <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
-</code></pre></div>
+  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> --css <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span></code></pre></div>
 
 
 <p>Finally, I need to be able to include a unique <code>&lt;title&gt;</code> tag string for
@@ -217,8 +208,7 @@ like this:</p>
 
 <div class="highlight"><pre><code class="bash">---
 pagetitle: &lt;pagetitle&gt;
----
-</code></pre></div>
+---</code></pre></div>
 
 
 <p><code>$pagetitle$</code> is the variable I defined in my <code>_layout.html5</code> that I&#8217;m
@@ -244,8 +234,7 @@ all: <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="k">$(
   <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout <span class="k">$(</span>GHPAGES<span class="k">)</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout --orphan <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git rm -rf .<span class="o">)</span>
 
 <span class="k">$(</span>GHPAGES<span class="k">)</span>/%.html: %.md
-  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> -c <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span>
-</code></pre></div>
+  pandoc -s --template <span class="s2">&quot;_layout&quot;</span> -c <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span></code></pre></div>
 
 
 <p>Running <code>make</code> at this point should checkout your current git repository to
@@ -269,8 +258,7 @@ The easiest way to do that: add a <code>package.json</code> with <code>less</cod
   <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;less&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span>
   <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 
 <p>Now running <code>npm install</code> should create a new <code>node_modules</code> directory (which
@@ -287,22 +275,19 @@ step to our <code>Makefile</code>.</p>
     <span class="k">$(</span>LESSC<span class="k">)</span> <span class="s2">&quot;$(LESSFILE)&quot;</span> <span class="s2">&quot;$(CSSFILE)&quot;</span>
 
 <span class="k">$(</span>CSSDIR<span class="k">)</span>:
-    mkdir -p <span class="s2">&quot;$(CSSDIR)&quot;</span>
-</code></pre></div>
+    mkdir -p <span class="s2">&quot;$(CSSDIR)&quot;</span></code></pre></div>
 
 
 <p>Also, it&#8217;s always nice to have a <code>clean</code> target in any <code>Makefile</code></p>
 
 <div class="highlight"><pre><code class="bash">clean:
-    rm -rf <span class="s2">&quot;$(GHPAGES)&quot;</span>
-</code></pre></div>
+    rm -rf <span class="s2">&quot;$(GHPAGES)&quot;</span></code></pre></div>
 
 
 <p>I&#8217;d also like to be able to preview before commiting this file by typing <code>make serve</code></p>
 
 <div class="highlight"><pre><code class="bash">serve:
-    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer
-</code></pre></div>
+    <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer</code></pre></div>
 
 
 <p>Finally, speaking of commiting this file, let&#8217;s make <code>commit</code> a target, too.</p>
@@ -312,8 +297,7 @@ step to our <code>Makefile</code>.</p>
         git add . <span class="o">&amp;&amp;</span> <span class="se">\</span>
         git commit --edit --message<span class="o">=</span><span class="s2">&quot;Publish @$$(date)&quot;</span>
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
-        git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span>
-</code></pre></div>
+        git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span></code></pre></div>
 
 
 <p>Now when I update my <code>links</code> repo's markdown files I issue a simple series of commands:
@@ -366,8 +350,7 @@ commit:
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
         git push origin <span class="k">$(</span>GHPAGES<span class="k">)</span>
 
-.PHONY: init clean commit serve
-</code></pre></div>
+.PHONY: init clean commit serve</code></pre></div>
 
 
 

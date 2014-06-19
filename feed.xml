@@ -71,8 +71,7 @@ results in the directory structure below.&lt;/p&gt;
 │       └── supervisord.conf
 ├── Vagrantfile
 └── www
-    └── index.php
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    └── index.php&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The &lt;code&gt;Dockerfile&lt;/code&gt; is used to build the main docker machine and the subfolders
@@ -94,8 +93,7 @@ the &lt;code&gt;Vagrantfile&lt;/code&gt; for a Docker-backed Vagrant instance is
     &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build_dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./Docker&amp;quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# specifies the path to the Dockerfile&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;8080:80&amp;#39;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# Forwards port 8080 from the host to the Docker Container port 80&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Dockerfile&lt;/h2&gt;
@@ -133,8 +131,7 @@ CMD &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&
 USER root
 
 &lt;span class=&quot;c&quot;&gt;# Expose port 80 of the container&lt;/span&gt;
-EXPOSE 80
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+EXPOSE 80&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This &lt;code&gt;Dockerfile&lt;/code&gt; takes care of building a docker container from the latest
@@ -170,8 +167,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
     &lt;span class=&quot;kn&quot;&gt;fastcgi_index&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;index.php&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;kn&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;fastcgi_params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;code&gt;php-fpm/php-fpm.conf&lt;/code&gt;&lt;/p&gt;
@@ -181,8 +177,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 &lt;span class=&quot;na&quot;&gt;error_log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/var/log/php5-fpm.log&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;daemonize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
 
-&lt;span class=&quot;na&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/etc/php5/fpm/pool.d/*.conf&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;na&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/etc/php5/fpm/pool.d/*.conf&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;code&gt;supervisor/supervisord.conf&lt;/code&gt;&lt;/p&gt;
@@ -218,8 +213,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 &lt;span class=&quot;k&quot;&gt;[program:nginx]&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/usr/sbin/nginx&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;stdout_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;stderr_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;na&quot;&gt;stderr_events_enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Jam Time&lt;/h2&gt;
@@ -228,8 +222,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 from running the vagrant instance and allowing docker to create our container.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo docker pull ubuntu &lt;span class=&quot;c&quot;&gt;# to grab the latest Ubuntu image, Vagrant should probably do this but doesn&amp;#39;t&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo vagrant up --provider&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker --debug &lt;span class=&quot;c&quot;&gt;# use debug if you don&amp;#39;t want to sit waiting with no info for a long time on the first run&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo vagrant up --provider&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker --debug &lt;span class=&quot;c&quot;&gt;# use debug if you don&amp;#39;t want to sit waiting with no info for a long time on the first run&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;With that, you now have a container running nginx and php-fpm that is sharing
@@ -265,8 +258,7 @@ suck.&lt;/p&gt;
 
 &lt;p&gt;This should have you covered:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Creating the Util-say file&lt;/h2&gt;
@@ -277,8 +269,7 @@ but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/maandree/util-say
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;util-say
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./img2ponysay -- yourimg.png &amp;gt; yourimg.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./img2ponysay -- yourimg.png &amp;gt; yourimg.txt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;You can also try &lt;code&gt;./img2ponysay -2 -- youimg.png &amp;gt; yourimg.txt&lt;/code&gt; but I&amp;#8217;ve never had good results with that&lt;/p&gt;
@@ -291,8 +282,7 @@ but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo cat yourimg.txt &amp;gt; /etc/motd
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;On Ubuntu Boxes (since they use &lt;a href=&quot;https://wiki.ubuntu.com/UpdateMotd&quot;&gt;update-motd(1)&lt;/a&gt;),
@@ -303,8 +293,7 @@ script in &lt;code&gt;/etc/update-motd.d/25-baller-motd&lt;/code&gt;&lt;/p&gt;
 cat yourimg.txt
 figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; -v fortune &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;&amp;gt; /dev/null &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; fortune
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; -v fortune &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;&amp;gt; /dev/null &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; fortune&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;There are likely better articles on creating a &lt;em&gt;useful&lt;/em&gt; MOTD,
@@ -339,8 +328,7 @@ a &lt;code&gt;_layout&lt;/code&gt; directory and popped in a &lt;a href=&quot;ht
 
 &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;INDEX&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;:
   @ git show origin/master:README.md &amp;gt; &lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;
-  @ perl -i -pe &lt;span class=&quot;s1&quot;&gt;&amp;#39;print &amp;quot;---\nlayout: default\ntitle: Linux Tips\n---\n\n&amp;quot; if $$. == 1;&amp;#39;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  @ perl -i -pe &lt;span class=&quot;s1&quot;&gt;&amp;#39;print &amp;quot;---\nlayout: default\ntitle: Linux Tips\n---\n\n&amp;quot; if $$. == 1;&amp;#39;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;and then I got &lt;a href=&quot;http://www.tylercipriani.com/linuxtips/&quot;&gt;tylercipriani.com/linuxtips&lt;/a&gt;; neat.&lt;/p&gt;
@@ -366,21 +354,18 @@ miracles of text happen.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo apt-get install haskell-platform
 cabal update
-cabal install pandoc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+cabal install pandoc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;then add it to your path in your &lt;code&gt;.${SHELL}rc&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin:$PATH&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin:$PATH&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;OSX?&lt;/h3&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;brew update
-brew install pandoc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+brew install pandoc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Imma Use Pandoc&amp;#8230;&lt;/h2&gt;
@@ -389,8 +374,7 @@ brew install pandoc
 I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;index.html: README.md
-  pandoc -s -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  pandoc -s -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Running &lt;code&gt;make&lt;/code&gt; takes my &lt;code&gt;README.md&lt;/code&gt; and makes this:&lt;/p&gt;
@@ -418,8 +402,7 @@ I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for t
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Fun.md&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Fun&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Title/Layout/CSS&lt;/h2&gt;
@@ -437,8 +420,7 @@ I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for t
 
 &lt;p&gt;First, to establish a layout, let&amp;#8217;s copy the default html5 layout file for Pandoc:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pandoc -D html5 &amp;gt; _layout.html5
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pandoc -D html5 &amp;gt; _layout.html5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I&amp;#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
@@ -466,8 +448,7 @@ $endfor$
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/main&amp;gt;&lt;/span&gt;
 
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Next, I need to figure out how to include a css stylesheet.  A quick
@@ -477,8 +458,7 @@ enables you to link to a css stylesheet.&lt;/p&gt;
 &lt;p&gt;Updated &lt;code&gt;Makefile&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;index.html: README.md
-  pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; --css &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; --css &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Finally, I need to be able to include a unique &lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt; tag string for
@@ -493,8 +473,7 @@ like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;---
 pagetitle: &amp;lt;pagetitle&amp;gt;
----
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+---&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;code&gt;$pagetitle$&lt;/code&gt; is the variable I defined in my &lt;code&gt;_layout.html5&lt;/code&gt; that I&amp;#8217;m
@@ -520,8 +499,7 @@ all: &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;
   &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git checkout &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git checkout --orphan &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git rm -rf .&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/%.html: %.md
-  pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; -c &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; -c &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Running &lt;code&gt;make&lt;/code&gt; at this point should checkout your current git repository to
@@ -545,8 +523,7 @@ The easiest way to do that: add a &lt;code&gt;package.json&lt;/code&gt; with &lt
   &lt;span class=&quot;s2&quot;&gt;&amp;quot;dependencies&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;s2&quot;&gt;&amp;quot;less&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;*&amp;quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Now running &lt;code&gt;npm install&lt;/code&gt; should create a new &lt;code&gt;node_modules&lt;/code&gt; directory (which
@@ -563,22 +540,19 @@ step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
     &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;LESSC&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(LESSFILE)&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(CSSFILE)&amp;quot;&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;CSSDIR&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;:
-    mkdir -p &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(CSSDIR)&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    mkdir -p &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(CSSDIR)&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Also, it&amp;#8217;s always nice to have a &lt;code&gt;clean&lt;/code&gt; target in any &lt;code&gt;Makefile&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;clean:
-    rm -rf &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(GHPAGES)&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    rm -rf &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(GHPAGES)&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I&amp;#8217;d also like to be able to preview before commiting this file by typing &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;serve:
-    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Finally, speaking of commiting this file, let&amp;#8217;s make &lt;code&gt;commit&lt;/code&gt; a target, too.&lt;/p&gt;
@@ -588,11 +562,10 @@ step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
         git add . &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
         git commit --edit --message&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Publish @$$(date)&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-        git push origin &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        git push origin &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Now when I update my &lt;code&gt;links&lt;/code&gt; repo's markdown files I issue a simple series of commands:
+&lt;p&gt;Now when I update my &lt;code&gt;links&lt;/code&gt; repo&#39;s markdown files I issue a simple series of commands:
 &lt;code&gt;make&lt;/code&gt; checks-out my &lt;code&gt;gh-pages&lt;/code&gt; branch and builds the html and css files,
 &lt;code&gt;make serve&lt;/code&gt; lets me look at the output html at &lt;code&gt;localhost:8000&lt;/code&gt;,
 and, finally, &lt;code&gt;make commit&lt;/code&gt; pushes those changes live.&lt;/p&gt;
@@ -642,8 +615,7 @@ commit:
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
         git push origin &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 
-.PHONY: init clean commit serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+.PHONY: init clean commit serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 </description>
         <pubDate>Tue, 13 May 2014 00:00:00 -0600</pubDate>
@@ -677,8 +649,7 @@ Readline very effectively without &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt
 &lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key C-b &lt;span class=&quot;c&quot;&gt;#no more Ctrl-b&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Switch me to ^f, thanks&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -g prefix C-f
-&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key f send-prefix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key f send-prefix&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -688,8 +659,7 @@ Faster escape&lt;/p&gt;
 &lt;p&gt;When I first started using Tmux I couldn&amp;#8217;t stand the amount of time it
 took to enter copy-mode. Then I realized&amp;#8212;I didn&amp;#8217;t have to.&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -sg escape-time 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -sg escape-time 0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -704,8 +674,7 @@ This line will let you hit &lt;code&gt;Meta&lt;/code&gt; &lt;code&gt;|&lt;/code&
 
 &lt;p&gt;Warning: this is a tip that will only work with tmux 1.8+ (check your version via &lt;code&gt;tmux -V&lt;/code&gt;)&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; resize-pane -Z &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; display-message &lt;span class=&quot;s2&quot;&gt;&amp;quot;Zoom zoom zoom&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; resize-pane -Z &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; display-message &lt;span class=&quot;s2&quot;&gt;&amp;quot;Zoom zoom zoom&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -719,28 +688,24 @@ and without overwriting any existing keybindings).&lt;/p&gt;
 
 &lt;p&gt;First, I set the window mode-keys to use Vi bindings:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-window-option -g mode-keys vi
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-window-option -g mode-keys vi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, I bind &lt;code&gt;Meta Esc&lt;/code&gt; to enter Tmux copy-mode:&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key Escape copy-mode
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key Escape copy-mode&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;After that, I bind visual-selection and copy keys inside vi-copy mode to
 their Vim equivalents:&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt; begin-selection
-&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt; copy-selection
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt; copy-selection&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally, I bind &lt;code&gt;Meta y&lt;/code&gt; to execute a shell command. This should work on either
 Linux or OSX, although I&amp;#8217;ve only tested this on OSX:&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | pbcopy&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | xclip -sel clip -i&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | xclip -sel clip -i&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -754,8 +719,7 @@ Vim&amp;#8217;s clipboard to play nicely inside Tmux. This mess makes your
 To fix this I keep an OSX Specific &lt;code&gt;tmux.conf&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#dumb osx&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;source ~/.tmux-osx.conf&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;source ~/.tmux-osx.conf&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -787,8 +751,7 @@ to grab weather info (that I call weathermajig).&lt;/p&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-left &lt;span class=&quot;s1&quot;&gt;&amp;#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]&amp;#39;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-right &lt;span class=&quot;s1&quot;&gt;&amp;#39;#[fg=colour245]❬ %R ❬ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)#[fg=colour16,bg=colour254,bold] #h &amp;#39;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-format &lt;span class=&quot;s2&quot;&gt;&amp;quot;#[fg=white,bg=colour234] #I #W &amp;quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-current-format &lt;span class=&quot;s2&quot;&gt;&amp;quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g window-status-current-format &lt;span class=&quot;s2&quot;&gt;&amp;quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 </description>
@@ -871,7 +834,7 @@ a wellspring of ideas.&lt;/p&gt;
         <title>Installing Vim from source on CentOS&amp;nbsp;6.3</title>
         <description>&lt;p&gt;…or, I suppose, other Linux-es…Linuxi…Linux distributions.&lt;/p&gt;
 
-&lt;p&gt;Many of the Vim features on which I&amp;#8217;ve come to depend simply aren't available in Vim pre-7.3.3. That&amp;#8217;s fine if I&amp;#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&amp;#8217;t so great if I&amp;#8217;m working on a shared host that uses CentOS &lt;strong&gt;&lt;em&gt;five point something dumb&lt;/em&gt;&lt;/strong&gt; because the hosting-providers weren&amp;#8217;t hugged as children (I&amp;#8217;d guess).&lt;/p&gt;
+&lt;p&gt;Many of the Vim features on which I&amp;#8217;ve come to depend simply aren&#39;t available in Vim pre-7.3.3. That&amp;#8217;s fine if I&amp;#8217;m working on an OS that cares about having up-to-date software like Ubuntu or OSX; however, it ain&amp;#8217;t so great if I&amp;#8217;m working on a shared host that uses CentOS &lt;strong&gt;&lt;em&gt;five point something dumb&lt;/em&gt;&lt;/strong&gt; because the hosting-providers weren&amp;#8217;t hugged as children (I&amp;#8217;d guess).&lt;/p&gt;
 
 &lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;edit&lt;/strong&gt;&amp;#8212;10/01/2013&lt;/p&gt;
 
@@ -905,24 +868,21 @@ on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo bash
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/local/src/
 &lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hg clone https://vim.googlecode.com/hg/ vim
-&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vim
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vim&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Configuration options&lt;/h2&gt;
 
 &lt;p&gt;There are quite a few configuration options (which you can view by running &lt;code&gt;./configure --help&lt;/code&gt; in your newly created &lt;code&gt;vim&lt;/code&gt; directory)—with respect to Vim installs I support going nuclear. Even at it&amp;#8217;s most ginormous Vim will still be a small install relative to other IDEs—Vim is my primary editor and IDE, so I&amp;#8217;m down to do it big. I&amp;#8217;m also going to use the &lt;code&gt;/usr&lt;/code&gt; prefix so that Vim is installed system-wide.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr --with-compiledby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Tyler the Compiler&amp;quot;&lt;/span&gt; --with-features&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;huge --enable-rubyinterp --enable-pythoninterp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr --with-compiledby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Tyler the Compiler&amp;quot;&lt;/span&gt; --with-features&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;huge --enable-rubyinterp --enable-pythoninterp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;make &amp;amp;&amp;amp; make install&lt;/h2&gt;
 
 &lt;p&gt;Srsly, that&amp;#8217;s it&amp;#8212;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Congrats! You&amp;#8217;re one bad mother Vim compiler.&lt;/p&gt;
@@ -1004,8 +964,7 @@ update the line that starts with &lt;code&gt;ZSH_THEME=&amp;#8230;&lt;/code&gt; 
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Look in ~/.oh-my-zsh/themes/&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Optionally, if you set this to &amp;quot;random&amp;quot;, it&amp;#39;ll load a random theme each&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# time that oh-my-zsh is loaded.&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ZSH_THEME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;junkfood&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ZSH_THEME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;junkfood&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 
@@ -1056,8 +1015,7 @@ for the undoubted overwhelming demand that I expect to begin any time now:&lt;/p
 &lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WHITEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;37m\]&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$WHITEBOLD# $GREEN\u$WHITEBOLD. $BLUE\h$WHITEBOLD. $YELLOW\d$WHITE at $PURPLE\@$WHITEBOLD. $CYAN\w\n  $WHITE&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; prompt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; prompt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 
@@ -1135,8 +1093,7 @@ into this local directory:&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The command breaks down like this:&lt;/p&gt;
@@ -1174,8 +1131,7 @@ your site and initialize a git repository by running &lt;code&gt;git init&lt;/co
 
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /srv/www/tylercipriani.com/public_html/
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ol&gt;
@@ -1205,8 +1161,7 @@ the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ol&gt;
@@ -1215,8 +1170,7 @@ the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ol&gt;
@@ -1229,8 +1183,7 @@ file called &amp;#8220;post-receive&amp;#8221;. Copy the code below into the fil
 
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GIT_WORK_TREE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/your/htdocs/direcotry git checkout -f
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GIT_WORK_TREE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/your/htdocs/direcotry git checkout -f&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;pre&gt;&lt;code&gt;make sure that this code is executable by running 
@@ -1252,8 +1205,7 @@ add your bare webserver repo as your &lt;code&gt;remote&lt;/code&gt; and push yo
 repo up to your server. The post-receive hook will take care of the rest!&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push -u origin master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push -u origin master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;By using the &lt;code&gt;-u&lt;/code&gt; flag you&amp;#8217;re setting the upstream which means
@@ -1273,8 +1225,7 @@ under the section heading, &amp;#8220;Removing the index.php file&amp;#8221; it 
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; RewriteEngine on
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; RewriteCond &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; !^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;index&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;php&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;images&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;robots&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;txt&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The &lt;code&gt;RewriteRule&lt;/code&gt; should not have the forward slash (&lt;code&gt;/&lt;/code&gt;) before &lt;code&gt;index.php&lt;/code&gt;.&lt;/p&gt;
@@ -1283,8 +1234,7 @@ under the section heading, &amp;#8220;Removing the index.php file&amp;#8221; it 
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; RewriteEngine on
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; RewriteCond &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; !^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;index&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;php&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;images&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;js&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;css&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;robots&lt;span class=&quot;se&quot;&gt;\.&lt;/span&gt;txt&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; RewriteRule ^&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.*&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;index.php/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;L&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 

@@ -49,8 +49,7 @@ under the section heading, &#8220;Removing the index.php file&#8221; it shows an
 
 <div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
 <span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php<span class="p">|</span>images<span class="p">|</span>robots<span class="se">\.</span>txt<span class="o">)</span>
-<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>/index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
-</code></pre></div>
+<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>/index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span></code></pre></div>
 
 
 <p>The <code>RewriteRule</code> should not have the forward slash (<code>/</code>) before <code>index.php</code>.</p>
@@ -59,8 +58,7 @@ under the section heading, &#8220;Removing the index.php file&#8221; it shows an
 
 <div class="highlight"><pre><code class="bash"><span class="lineno">1</span> RewriteEngine on
 <span class="lineno">2</span> RewriteCond <span class="nv">$1</span> !^<span class="o">(</span>index<span class="se">\.</span>php<span class="p">|</span>images<span class="p">|</span>js<span class="p">|</span>css<span class="p">|</span>robots<span class="se">\.</span>txt<span class="o">)</span>
-<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span>
-</code></pre></div>
+<span class="lineno">3</span> RewriteRule ^<span class="o">(</span>.*<span class="o">)</span><span class="nv">$ </span>index.php/<span class="nv">$1</span> <span class="o">[</span>L<span class="o">]</span></code></pre></div>
 
 
 

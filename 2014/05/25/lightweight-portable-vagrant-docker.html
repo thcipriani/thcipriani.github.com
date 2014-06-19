@@ -106,8 +106,7 @@ results in the directory structure below.</p>
 │       └── supervisord.conf
 ├── Vagrantfile
 └── www
-    └── index.php
-</code></pre></div>
+    └── index.php</code></pre></div>
 
 
 <p>The <code>Dockerfile</code> is used to build the main docker machine and the subfolders
@@ -129,8 +128,7 @@ the <code>Vagrantfile</code> for a Docker-backed Vagrant instance is pretty spar
     <span class="n">d</span><span class="o">.</span><span class="n">build_dir</span> <span class="o">=</span> <span class="s2">&quot;./Docker&quot;</span> <span class="c1"># specifies the path to the Dockerfile</span>
     <span class="n">d</span><span class="o">.</span><span class="n">ports</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;8080:80&#39;</span>     <span class="c1"># Forwards port 8080 from the host to the Docker Container port 80</span>
   <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 
 <h2>Dockerfile</h2>
@@ -168,8 +166,7 @@ CMD <span class="o">[</span><span class="s2">&quot;supervisord&quot;</span>, <sp
 USER root
 
 <span class="c"># Expose port 80 of the container</span>
-EXPOSE 80
-</code></pre></div>
+EXPOSE 80</code></pre></div>
 
 
 <p>This <code>Dockerfile</code> takes care of building a docker container from the latest
@@ -205,8 +202,7 @@ to make sure they both run in non-daemon mode.</p>
     <span class="kn">fastcgi_index</span> <span class="s">index.php</span><span class="p">;</span>
     <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 
 <p><code>php-fpm/php-fpm.conf</code></p>
@@ -216,8 +212,7 @@ to make sure they both run in non-daemon mode.</p>
 <span class="na">error_log</span> <span class="o">=</span> <span class="s">/var/log/php5-fpm.log</span>
 <span class="na">daemonize</span> <span class="o">=</span> <span class="s">no</span>
 
-<span class="na">include</span><span class="o">=</span><span class="s">/etc/php5/fpm/pool.d/*.conf</span>
-</code></pre></div>
+<span class="na">include</span><span class="o">=</span><span class="s">/etc/php5/fpm/pool.d/*.conf</span></code></pre></div>
 
 
 <p><code>supervisor/supervisord.conf</code></p>
@@ -253,8 +248,7 @@ to make sure they both run in non-daemon mode.</p>
 <span class="k">[program:nginx]</span>
 <span class="na">command</span><span class="o">=</span><span class="s">/usr/sbin/nginx</span>
 <span class="na">stdout_events_enabled</span><span class="o">=</span><span class="s">true</span>
-<span class="na">stderr_events_enabled</span><span class="o">=</span><span class="s">true</span>
-</code></pre></div>
+<span class="na">stderr_events_enabled</span><span class="o">=</span><span class="s">true</span></code></pre></div>
 
 
 <h2>Jam Time</h2>
@@ -263,8 +257,7 @@ to make sure they both run in non-daemon mode.</p>
 from running the vagrant instance and allowing docker to create our container.</p>
 
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>sudo docker pull ubuntu <span class="c"># to grab the latest Ubuntu image, Vagrant should probably do this but doesn&#39;t</span>
-<span class="nv">$ </span>sudo vagrant up --provider<span class="o">=</span>docker --debug <span class="c"># use debug if you don&#39;t want to sit waiting with no info for a long time on the first run</span>
-</code></pre></div>
+<span class="nv">$ </span>sudo vagrant up --provider<span class="o">=</span>docker --debug <span class="c"># use debug if you don&#39;t want to sit waiting with no info for a long time on the first run</span></code></pre></div>
 
 
 <p>With that, you now have a container running nginx and php-fpm that is sharing

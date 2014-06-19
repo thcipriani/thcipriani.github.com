@@ -67,8 +67,7 @@ Readline very effectively without <code>Ctrl</code>-<code>a</code></p>
 <p><div class="highlight"><pre><code class="bash">unbind-key C-b <span class="c">#no more Ctrl-b</span>
 <span class="c"># Switch me to ^f, thanks</span>
 <span class="nb">set</span>-option -g prefix C-f
-<span class="nb">bind</span>-key f send-prefix
-</code></pre></div></p>
+<span class="nb">bind</span>-key f send-prefix</code></pre></div></p>
 
 <p></li></p>
 
@@ -78,8 +77,7 @@ Faster escape</p>
 <p>When I first started using Tmux I couldn&#8217;t stand the amount of time it
 took to enter copy-mode. Then I realized&#8212;I didn&#8217;t have to.</p>
 
-<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-option -sg escape-time 0
-</code></pre></div></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-option -sg escape-time 0</code></pre></div></p>
 
 <p></li></p>
 
@@ -94,8 +92,7 @@ This line will let you hit <code>Meta</code> <code>|</code> to maximize a single
 
 <p>Warning: this is a tip that will only work with tmux 1.8+ (check your version via <code>tmux -V</code>)</p>
 
-<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key <span class="p">|</span> resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span>
-</code></pre></div></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key <span class="p">|</span> resize-pane -Z <span class="se">\;</span> display-message <span class="s2">&quot;Zoom zoom zoom&quot;</span></code></pre></div></p>
 
 <p></li></p>
 
@@ -109,28 +106,24 @@ and without overwriting any existing keybindings).</p>
 
 <p>First, I set the window mode-keys to use Vi bindings:</p>
 
-<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-window-option -g mode-keys vi
-</code></pre></div></p>
+<p><div class="highlight"><pre><code class="bash"><span class="nb">set</span>-window-option -g mode-keys vi</code></pre></div></p>
 
 <p>Next, I bind <code>Meta Esc</code> to enter Tmux copy-mode:</p>
 
 <p><div class="highlight"><pre><code class="bash">unbind-key <span class="o">[</span>
-<span class="nb">bind</span>-key Escape copy-mode
-</code></pre></div></p>
+<span class="nb">bind</span>-key Escape copy-mode</code></pre></div></p>
 
 <p>After that, I bind visual-selection and copy keys inside vi-copy mode to
 their Vim equivalents:</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
-<span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection
-</code></pre></div></p>
+<span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection</code></pre></div></p>
 
 <p>Finally, I bind <code>Meta y</code> to execute a shell command. This should work on either
 Linux or OSX, although I&#8217;ve only tested this on OSX:</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | pbcopy&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
-<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Linux&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | xclip -sel clip -i&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span>
-</code></pre></div></p>
+<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname -s)&quot; = &quot;Linux&quot;&#39;</span> <span class="s1">&#39;bind-key y run-shell &quot;tmux show-buffer | xclip -sel clip -i&quot; \; display-message &quot;Copied tmux buffer to system clipboard&quot;&#39;</span></code></pre></div></p>
 
 <p></li></p>
 
@@ -144,8 +137,7 @@ Vim&#8217;s clipboard to play nicely inside Tmux. This mess makes your
 To fix this I keep an OSX Specific <code>tmux.conf</code>.</p>
 
 <p><div class="highlight"><pre><code class="bash"><span class="c">#dumb osx</span>
-<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;source ~/.tmux-osx.conf&#39;</span>
-</code></pre></div></p>
+<span class="k">if</span>-shell <span class="s1">&#39;test &quot;$(uname)&quot; = &quot;Darwin&quot;&#39;</span> <span class="s1">&#39;source ~/.tmux-osx.conf&#39;</span></code></pre></div></p>
 
 <p></li></p>
 
@@ -177,8 +169,7 @@ to grab weather info (that I call weathermajig).</p>
 <span class="nb">set</span> -g status-left <span class="s1">&#39;#[fg=colour16,bg=colour254,bold] #S #[fg=colour254,bg=colour238,nobold]#[fg=colour15,bg=colour238,bold] #(weathermajig boulder --short) #[fg=colour238,bg=colour234,nobold]&#39;</span>
 <span class="nb">set</span> -g status-right <span class="s1">&#39;#[fg=colour245]❬ %R ❬ %d %b #[fg=colour254,bg=colour234,nobold]#(rdio-current-track-tmux)#[fg=colour16,bg=colour254,bold] #h &#39;</span>
 <span class="nb">set</span> -g window-status-format <span class="s2">&quot;#[fg=white,bg=colour234] #I #W &quot;</span>
-<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&quot;</span>
-</code></pre></div></p>
+<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]#[fg=colour16,bg=colour39,noreverse,bold] #I ❭ #W #[fg=colour39,bg=colour234,nobold]&quot;</span></code></pre></div></p>
 
 <p></li></p>
 
