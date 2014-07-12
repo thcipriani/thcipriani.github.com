@@ -97,10 +97,10 @@ for this difference and grab the overflow property like this:</p>
 
 <div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">overflowStyle</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span>
-  <span class="nx">overflowStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">overflow</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">currentStyle</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span>
+  <span class="nx">overflowStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">overflow</span>
 
-<span class="nx">overflowStyle</span> <span class="o">=</span> <span class="nx">overflowStyle</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">overflow</span></code></pre></div>
+<span class="nx">overflowStyle</span> <span class="o">=</span> <span class="nx">overflowStyle</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">overflow</span></code></pre></div>
 
 
 <p>The two values of the <code>overflow</code> or <code>overflow-y</code> properties that will
@@ -110,7 +110,7 @@ or <code>overflow-y</code> properties will always cause a scrollbar.</p>
 
 <p>This is, once again, a bit of a simplification.</p>
 
-<p>In quirksmode in IE8 <code>document.documentElement.clientWidth</code> is 0. The root
+<p>In quirksmode in IE8 <code>document.documentElement.clientHeight</code> is 0. The root
 element is <code>document.body</code>. This won&#8217;t affect most people reading this, but
 just to be on the safe side let&#8217;s add it into our solution.</p>
 
