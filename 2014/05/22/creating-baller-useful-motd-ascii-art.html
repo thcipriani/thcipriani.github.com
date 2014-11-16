@@ -65,7 +65,7 @@ suck.</p>
 
 <p>This should have you covered:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git</code></pre></div>
 
 
 <h2>Creating the Util-say file</h2>
@@ -74,7 +74,7 @@ suck.</p>
 I started out using <a href="https://github.com/rossy2401/img2xterm">img2xterm</a>,
 but I&#8217;ve found I get better results with Util-Say.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git clone https://github.com/maandree/util-say
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git clone https://github.com/maandree/util-say
 <span class="nv">$ </span><span class="nb">cd </span>util-say
 <span class="nv">$ </span>./img2ponysay -- yourimg.png &gt; yourimg.txt</code></pre></div>
 
@@ -87,7 +87,7 @@ but I&#8217;ve found I get better results with Util-Say.</p>
 
 <p>On CentOS and Debian, I usually just throw the ponysay file directly into <code>/etc/motd</code> and maybe add on some other useful info:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>sudo cat yourimg.txt &gt; /etc/motd
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo cat yourimg.txt &gt; /etc/motd
 <span class="nv">$ </span>sudo figlet <span class="s2">&quot;$(hostname)&quot;</span> &gt;&gt; /etc/motd
 <span class="nv">$ </span>sudo <span class="nb">printf</span> <span class="s2">&quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&quot;</span> &gt;&gt; /etc/motd</code></pre></div>
 
@@ -96,7 +96,7 @@ but I&#8217;ve found I get better results with Util-Say.</p>
 I do pretty much the same thing except I just make a bash
 script in <code>/etc/update-motd.d/25-baller-motd</code></p>
 
-<div class="highlight"><pre><code class="bash"><span class="c">#!/usr/bin/env bash</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/usr/bin/env bash</span>
 cat yourimg.txt
 figlet <span class="s2">&quot;$(hostname)&quot;</span>
 <span class="nb">printf</span> <span class="s2">&quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&quot;</span>

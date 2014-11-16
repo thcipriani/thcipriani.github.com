@@ -17,7 +17,7 @@ more involved than I initially anticipated.&lt;/p&gt;
 
 &lt;p&gt;The tl;dr, semi-näive version:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientWidth&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientWidth&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This works for most browsers. Basically it checks to see if the width of
@@ -45,7 +45,7 @@ in &amp;lt; IE9.&lt;/p&gt;
 element is greater than the &lt;code&gt;clientHeight&lt;/code&gt; of the root element, then that
 root element is going to need to scroll to show the overflowing content:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;number&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientWidth&lt;/span&gt;
@@ -60,7 +60,7 @@ Of course, once again, IE and modern browsers differ about how they&amp;#8217;ve
 implemented the javascript api for accessing element styles. We can account
 for this difference and grab the overflow property like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;overflowStyle&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;overflowStyle&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currentStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;undefined&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;overflowStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;currentStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overflow&lt;/span&gt;
@@ -81,7 +81,7 @@ just to be on the safe side let&amp;#8217;s add it into our solution.&lt;/p&gt;
 
 &lt;p&gt;The final solution looks like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hasScrollbar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;c1&quot;&gt;// The Modern solution&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;typeof&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;number&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;innerWidth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;documentElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clientWidth&lt;/span&gt;
@@ -176,7 +176,7 @@ using Vagrant, Supervisord and Docker,&amp;#8221; says I.&lt;/p&gt;
 files needed by the Docker provider into a &lt;code&gt;Docker&lt;/code&gt; folder. This
 results in the directory structure below.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;├── Docker
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;├── Docker
 │   ├── Dockerfile
 │   ├── nginx
 │   │   └── default
@@ -201,7 +201,7 @@ the &lt;code&gt;Vagrantfile&lt;/code&gt; for a Docker-backed Vagrant instance is
 
 &lt;p&gt;In mine, I&amp;#8217;ve got:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Vagrant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Vagrant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;synced_folder&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./www&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/var/www&amp;quot;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Sync&amp;#39;d folder&lt;/span&gt;
 
   &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;provider&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;docker&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
@@ -219,7 +219,7 @@ don&amp;#8217;t think that Vagrant adds any needed functionality to the &lt;code
 In terms of portability, however, Vagrant is, at this time, a necessary evil
 to run docker on OSX and Windows.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;FROM ubuntu:latest
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;FROM ubuntu:latest
 
 MAINTAINER Tyler Cipriani, tyler@tylercipriani.com
 
@@ -268,7 +268,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;nginx/default&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span class=&quot;k&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;kn&quot;&gt;listen&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;default_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
   &lt;span class=&quot;kn&quot;&gt;root&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;/var/www&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -287,7 +287,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;php-fpm/php-fpm.conf&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[global]&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[global]&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;pid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/var/run/php5-fpm.pid&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;error_log&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;/var/log/php5-fpm.log&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;daemonize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;no&lt;/span&gt;
@@ -297,7 +297,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;supervisor/supervisord.conf&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[unix_http_server]&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ini&quot; data-lang=&quot;ini&quot;&gt;&lt;span class=&quot;k&quot;&gt;[unix_http_server]&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/var/run/supervisor.sock   ; (the path to the socket file)&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;chmod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;0700                       ; sockef file mode (default 0700)&lt;/span&gt;
 
@@ -336,7 +336,7 @@ to make sure they both run in non-daemon mode.&lt;/p&gt;
 &lt;p&gt;With all of our configuration in place there isn&amp;#8217;t much left to do aside
 from running the vagrant instance and allowing docker to create our container.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo docker pull ubuntu &lt;span class=&quot;c&quot;&gt;# to grab the latest Ubuntu image, Vagrant should probably do this but doesn&amp;#39;t&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo docker pull ubuntu &lt;span class=&quot;c&quot;&gt;# to grab the latest Ubuntu image, Vagrant should probably do this but doesn&amp;#39;t&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo vagrant up --provider&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker --debug &lt;span class=&quot;c&quot;&gt;# use debug if you don&amp;#39;t want to sit waiting with no info for a long time on the first run&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -373,7 +373,7 @@ suck.&lt;/p&gt;
 
 &lt;p&gt;This should have you covered:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install imagemagick openjdk-6-jdk coreutils perl git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Creating the Util-say file&lt;/h2&gt;
@@ -382,7 +382,7 @@ suck.&lt;/p&gt;
 I started out using &lt;a href=&quot;https://github.com/rossy2401/img2xterm&quot;&gt;img2xterm&lt;/a&gt;,
 but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/maandree/util-say
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/maandree/util-say
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;util-say
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./img2ponysay -- yourimg.png &amp;gt; yourimg.txt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -395,7 +395,7 @@ but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 
 &lt;p&gt;On CentOS and Debian, I usually just throw the ponysay file directly into &lt;code&gt;/etc/motd&lt;/code&gt; and maybe add on some other useful info:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo cat yourimg.txt &amp;gt; /etc/motd
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo cat yourimg.txt &amp;gt; /etc/motd
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/motd&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -404,7 +404,7 @@ but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 I do pretty much the same thing except I just make a bash
 script in &lt;code&gt;/etc/update-motd.d/25-baller-motd&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
 cat yourimg.txt
 figlet &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(hostname)&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Public IP: $(dig +short myip.opendns.com @resolver1.opendns.com)\n&amp;quot;&lt;/span&gt;
@@ -439,7 +439,7 @@ just &lt;a href=&quot;https://github.com/thcipriani/linuxtips/blob/master/README
 So, for that repo, I created a &lt;code&gt;gh-pages&lt;/code&gt; branch with a &lt;code&gt;_config.yml&lt;/code&gt; and
 a &lt;code&gt;_layout&lt;/code&gt; directory and popped in a &lt;a href=&quot;https://github.com/thcipriani/linuxtips/blob/gh-pages/Makefile&quot;&gt;Makefile&lt;/a&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;INDEX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CURDIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/index.md
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;INDEX&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CURDIR&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/index.md
 
 &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;INDEX&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;:
   @ git show origin/master:README.md &amp;gt; &lt;span class=&quot;nv&quot;&gt;$@&lt;/span&gt;
@@ -467,19 +467,19 @@ miracles of text happen.&lt;/p&gt;
 
 &lt;h3&gt;Debian?&lt;/h3&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo apt-get install haskell-platform
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apt-get install haskell-platform
 cabal update
 cabal install pandoc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;then add it to your path in your &lt;code&gt;.${SHELL}rc&lt;/code&gt; file:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin:$PATH&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -d &lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$HOME/.cabal/bin:$PATH&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;OSX?&lt;/h3&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;brew update
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;brew update
 brew install pandoc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -488,13 +488,13 @@ brew install pandoc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Alright, so I&amp;#8217;ve got tons of markdown files, fairly structured, with bunches of links and I need html5.
 I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;index.html: README.md
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;index.html: README.md
   pandoc -s -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Running &lt;code&gt;make&lt;/code&gt; takes my &lt;code&gt;README.md&lt;/code&gt; and makes this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
@@ -535,13 +535,13 @@ I&amp;#8217;ll create a &lt;code&gt;Makefile&lt;/code&gt; proof-of-concept for t
 
 &lt;p&gt;First, to establish a layout, let&amp;#8217;s copy the default html5 layout file for Pandoc:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pandoc -D html5 &amp;gt; _layout.html5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;pandoc -D html5 &amp;gt; _layout.html5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I&amp;#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
 variables I don&amp;#8217;t need. Here is the html5 layout file I came up with:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!doctype html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;en&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
   &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
@@ -572,7 +572,7 @@ enables you to link to a css stylesheet.&lt;/p&gt;
 
 &lt;p&gt;Updated &lt;code&gt;Makefile&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;index.html: README.md
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;index.html: README.md
   pandoc -s --template &lt;span class=&quot;s2&quot;&gt;&amp;quot;_layout&amp;quot;&lt;/span&gt; --css &lt;span class=&quot;s2&quot;&gt;&amp;quot;css/main.css&amp;quot;&lt;/span&gt; -f markdown -t html5 -o &lt;span class=&quot;s2&quot;&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$&amp;lt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -586,7 +586,7 @@ YAML Metadata blocks&amp;#8212;just like jekyll!&lt;/p&gt;
 &lt;p&gt;So, for each markdown file in my repo, I&amp;#8217;ll add a block to the top that looks
 like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;---
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;---
 pagetitle: &amp;lt;pagetitle&amp;gt;
 ---&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -604,7 +604,7 @@ the &lt;code&gt;README.md&lt;/code&gt;. So howzabout I add a wildcard target for
 Also, the whole point of this is to make a github pages site, so let&amp;#8217;s add
 that to the &lt;code&gt;Makefile&lt;/code&gt; too&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;REPO :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;shell git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;REPO :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;shell git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;GHPAGES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; gh-pages
 
 all: &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;addprefix &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/, &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;addsuffix .html, &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;basename &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;wildcard *.md&lt;span class=&quot;k&quot;&gt;))))&lt;/span&gt;
@@ -632,7 +632,7 @@ through pandoc, placing the result in &lt;code&gt;gh-pages/[whatever].html&lt;/c
 doesn&amp;#8217;t &lt;em&gt;actually exist&lt;/em&gt; as of yet) should be converted from &lt;code&gt;less&lt;/code&gt;.
 The easiest way to do that: add a &lt;code&gt;package.json&lt;/code&gt; with &lt;code&gt;less&lt;/code&gt; as a dependency.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;linkblog&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   &lt;span class=&quot;s2&quot;&gt;&amp;quot;version&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;0.0.1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   &lt;span class=&quot;s2&quot;&gt;&amp;quot;dependencies&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -645,7 +645,7 @@ The easiest way to do that: add a &lt;code&gt;package.json&lt;/code&gt; with &lt
 should be added to &lt;code&gt;.gitignore&lt;/code&gt; on master). Now we need to add a &lt;code&gt;lessc&lt;/code&gt;
 step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;LESSC&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_modules/less/bin/lessc
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;LESSC&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_modules/less/bin/lessc
 &lt;span class=&quot;nv&quot;&gt;LESSFILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; less/main.less
 
 &lt;span class=&quot;nv&quot;&gt;CSSDIR&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;/css
@@ -660,19 +660,19 @@ step to our &lt;code&gt;Makefile&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Also, it&amp;#8217;s always nice to have a &lt;code&gt;clean&lt;/code&gt; target in any &lt;code&gt;Makefile&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;clean:
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;clean:
     rm -rf &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(GHPAGES)&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I&amp;#8217;d also like to be able to preview before commiting this file by typing &lt;code&gt;make serve&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;serve:
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;serve:
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; python -m SimpleHTTPServer&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Finally, speaking of commiting this file, let&amp;#8217;s make &lt;code&gt;commit&lt;/code&gt; a target, too.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;commit:
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;commit:
     &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
         git add . &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
         git commit --edit --message&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Publish @$$(date)&amp;quot;&lt;/span&gt;
@@ -687,7 +687,7 @@ and, finally, &lt;code&gt;make commit&lt;/code&gt; pushes those changes live.&lt
 
 &lt;p&gt;So here&amp;#8217;s the &lt;a href=&quot;http://www.tylercipriani.com/links&quot;&gt;result&lt;/a&gt; and the final &lt;code&gt;Makefile&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;REPO :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;shell git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;REPO :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;shell git config --get remote.origin.url&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;GHPAGES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; gh-pages
 
 &lt;span class=&quot;nv&quot;&gt;LESSC&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_modules/less/bin/lessc
@@ -714,7 +714,7 @@ all: init clean &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span c
     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git checkout &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git checkout --orphan &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;GHPAGES&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git rm -rf .&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
 init:
-    @command -v pandoc &amp;gt; /dev/null 2&amp;gt;&lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;1 &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;pandoc not found http://johnmacfarlane.net/pandoc/installing.html&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    @command -v pandoc &amp;gt; /dev/null 2&amp;gt;&lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;pandoc not found http://johnmacfarlane.net/pandoc/installing.html&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     @&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -x &lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;LESSC&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; npm install
 
 serve:
@@ -761,7 +761,7 @@ however, when you use Screen inside Tmux (as I often do with our AWS servers),
 hitting &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt;/code&gt; &lt;code&gt;a&lt;/code&gt; can get pretty tiresome. Plus, you can&amp;#8217;t use
 Readline very effectively without &lt;code&gt;Ctrl&lt;/code&gt;-&lt;code&gt;a&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key C-b &lt;span class=&quot;c&quot;&gt;#no more Ctrl-b&lt;/span&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;unbind-key C-b &lt;span class=&quot;c&quot;&gt;#no more Ctrl-b&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Switch me to ^f, thanks&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -g prefix C-f
 &lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key f send-prefix&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
@@ -774,7 +774,7 @@ Faster escape&lt;/p&gt;
 &lt;p&gt;When I first started using Tmux I couldn&amp;#8217;t stand the amount of time it
 took to enter copy-mode. Then I realized&amp;#8212;I didn&amp;#8217;t have to.&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -sg escape-time 0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-option -sg escape-time 0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -789,7 +789,7 @@ This line will let you hit &lt;code&gt;Meta&lt;/code&gt; &lt;code&gt;|&lt;/code&
 
 &lt;p&gt;Warning: this is a tip that will only work with tmux 1.8+ (check your version via &lt;code&gt;tmux -V&lt;/code&gt;)&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; resize-pane -Z &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; display-message &lt;span class=&quot;s2&quot;&gt;&amp;quot;Zoom zoom zoom&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; resize-pane -Z &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; display-message &lt;span class=&quot;s2&quot;&gt;&amp;quot;Zoom zoom zoom&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
 
@@ -803,23 +803,23 @@ and without overwriting any existing keybindings).&lt;/p&gt;
 
 &lt;p&gt;First, I set the window mode-keys to use Vi bindings:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-window-option -g mode-keys vi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-window-option -g mode-keys vi&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, I bind &lt;code&gt;Meta Esc&lt;/code&gt; to enter Tmux copy-mode:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;unbind-key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;unbind-key &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key Escape copy-mode&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;After that, I bind visual-selection and copy keys inside vi-copy mode to
 their Vim equivalents:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt; begin-selection
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt; begin-selection
 &lt;span class=&quot;nb&quot;&gt;bind&lt;/span&gt;-key -t vi-copy &lt;span class=&quot;s1&quot;&gt;&amp;#39;y&amp;#39;&lt;/span&gt; copy-selection&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Finally, I bind &lt;code&gt;Meta y&lt;/code&gt; to execute a shell command. This should work on either
 Linux or OSX, although I&amp;#8217;ve only tested this on OSX:&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | pbcopy&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | pbcopy&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bind-key y run-shell &amp;quot;tmux show-buffer | xclip -sel clip -i&amp;quot; \; display-message &amp;quot;Copied tmux buffer to system clipboard&amp;quot;&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
@@ -833,7 +833,7 @@ Vim&amp;#8217;s clipboard to play nicely inside Tmux. This mess makes your
 &lt;code&gt;tmux.conf&lt;/code&gt; look more cluttered and makes your dotfiles a little less portable.
 To fix this I keep an OSX Specific &lt;code&gt;tmux.conf&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#dumb osx&lt;/span&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#dumb osx&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;-shell &lt;span class=&quot;s1&quot;&gt;&amp;#39;test &amp;quot;$(uname)&amp;quot; = &amp;quot;Darwin&amp;quot;&amp;#39;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;source ~/.tmux-osx.conf&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/li&gt;&lt;/p&gt;
@@ -846,7 +846,7 @@ of this he uses a small script to get his unread email count from his local
 offlineimap folder. In the version below I use a little bash script I wrote
 to grab weather info (that I call weathermajig).&lt;/p&gt;
 
-&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Bad Wolf by Steve Losh&lt;/span&gt;
+&lt;p&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Bad Wolf by Steve Losh&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# =====================&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-fg white
 &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; -g status-bg colour234
@@ -980,7 +980,7 @@ on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
 
 &lt;p&gt;Vim keeps its source in a Mercurial repo on googlcode so you need to download it. To do that you should have Mercurial installed (which you can, somewhat ironically, install from via yum &lt;code&gt;yum install mercurial&lt;/code&gt;). You should switch to the root user for this install and for your sanity so use &lt;code&gt;su&lt;/code&gt; or &lt;code&gt;sudo bash&lt;/code&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo bash
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo bash
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/local/src/
 &lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;hg clone https://vim.googlecode.com/hg/ vim
 &lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vim&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -990,14 +990,14 @@ on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
 
 &lt;p&gt;There are quite a few configuration options (which you can view by running &lt;code&gt;./configure --help&lt;/code&gt; in your newly created &lt;code&gt;vim&lt;/code&gt; directory)—with respect to Vim installs I support going nuclear. Even at it&amp;#8217;s most ginormous Vim will still be a small install relative to other IDEs—Vim is my primary editor and IDE, so I&amp;#8217;m down to do it big. I&amp;#8217;m also going to use the &lt;code&gt;/usr&lt;/code&gt; prefix so that Vim is installed system-wide.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr --with-compiledby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Tyler the Compiler&amp;quot;&lt;/span&gt; --with-features&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;huge --enable-rubyinterp --enable-pythoninterp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure --prefix&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr --with-compiledby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Tyler the Compiler&amp;quot;&lt;/span&gt; --with-features&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;huge --enable-rubyinterp --enable-pythoninterp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;make &amp;amp;&amp;amp; make install&lt;/h2&gt;
 
 &lt;p&gt;Srsly, that&amp;#8217;s it&amp;#8212;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Congrats! You&amp;#8217;re one bad mother Vim compiler.&lt;/p&gt;
@@ -1075,7 +1075,7 @@ to specify how your prompt looks. You can define what theme you&amp;#8217;d like
 in your &lt;code&gt;~/.zshrc&lt;/code&gt; file. On or around line 8 you&amp;#8217;ll want to
 update the line that starts with &lt;code&gt;ZSH_THEME=&amp;#8230;&lt;/code&gt; to look like this:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set name of the theme to load.&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set name of the theme to load.&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Look in ~/.oh-my-zsh/themes/&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Optionally, if you set this to &amp;quot;random&amp;quot;, it&amp;#39;ll load a random theme each&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# time that oh-my-zsh is loaded.&lt;/span&gt;
@@ -1100,8 +1100,8 @@ That little code chestnut is available over on
 &lt;p&gt;I also have a version of this prompt for Bash that I&amp;#8217;ve made in preperation
 for the undoubted overwhelming demand that I expect to begin any time now:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;prompt &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; prompt &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 30m - Black&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 31m - Red&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 32m - Green&lt;/span&gt;
@@ -1208,7 +1208,7 @@ into this local directory:&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The command breaks down like this:&lt;/p&gt;
@@ -1245,7 +1245,7 @@ your site and initialize a git repository by running &lt;code&gt;git init&lt;/co
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /srv/www/tylercipriani.com/public_html/
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /srv/www/tylercipriani.com/public_html/
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1276,7 +1276,7 @@ the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ol&gt;
@@ -1285,7 +1285,7 @@ the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;ol&gt;
@@ -1297,7 +1297,7 @@ file called &amp;#8220;post-receive&amp;#8221;. Copy the code below into the fil
 &lt;/ol&gt;
 
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GIT_WORK_TREE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/your/htdocs/direcotry git checkout -f&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1319,7 +1319,7 @@ file called &amp;#8220;post-receive&amp;#8221;. Copy the code below into the fil
 add your bare webserver repo as your &lt;code&gt;remote&lt;/code&gt; and push your git
 repo up to your server. The post-receive hook will take care of the rest!&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push -u origin master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 

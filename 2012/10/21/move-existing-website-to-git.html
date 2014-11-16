@@ -101,7 +101,7 @@ into this local directory:</li>
 </ol>
 
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>rsync -av -e <span class="s2">&quot;ssh -p &lt;port&gt;&quot;</span> &lt;rsync-username&gt;@&lt;webserver&gt;:/path/to/public_html/ .</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>rsync -av -e <span class="s2">&quot;ssh -p &lt;port&gt;&quot;</span> &lt;rsync-username&gt;@&lt;webserver&gt;:/path/to/public_html/ .</code></pre></div>
 
 
 <p>The command breaks down like this:</p>
@@ -138,7 +138,7 @@ your site and initialize a git repository by running <code>git init</code></li>
 </ol>
 
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd</span> /srv/www/tylercipriani.com/public_html/
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> /srv/www/tylercipriani.com/public_html/
 <span class="nv">$ </span>git init</code></pre></div>
 
 
@@ -169,7 +169,7 @@ the webroot (i.e. <code>htdocs</code>)</li>
 </ol>
 
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>mkdir tylercipriani.com.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>tylercipriani.com.git</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mkdir tylercipriani.com.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>tylercipriani.com.git</code></pre></div>
 
 
 <ol>
@@ -178,7 +178,7 @@ the webroot (i.e. <code>htdocs</code>)</li>
 </ol>
 
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git init --bare</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git init --bare</code></pre></div>
 
 
 <ol>
@@ -190,7 +190,7 @@ file called &#8220;post-receive&#8221;. Copy the code below into the file:</li>
 </ol>
 
 
-<div class="highlight"><pre><code class="bash"><span class="lineno">1</span> <span class="c">#!/bin/bash</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno">1</span> <span class="c">#!/bin/bash</span>
 <span class="lineno">2</span> <span class="nv">GIT_WORK_TREE</span><span class="o">=</span>/path/to/your/htdocs/direcotry git checkout -f</code></pre></div>
 
 
@@ -212,7 +212,7 @@ file called &#8220;post-receive&#8221;. Copy the code below into the file:</li>
 add your bare webserver repo as your <code>remote</code> and push your git
 repo up to your server. The post-receive hook will take care of the rest!</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
 <span class="nv">$ </span>git push -u origin master</code></pre></div>
 
 

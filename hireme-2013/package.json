@@ -1,0 +1,13 @@
+{
+  "name": "tylercipriani",
+  "version": "1.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "matchdep": "~0.1.2",
+    "autoprefixer": "~0.5.20130629",
+    "grunt-autoprefixer": "~0.1.20130615",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-sass": "~0.6.0",
+    "grunt-contrib-compass": "~0.5.0"
+  }
+}

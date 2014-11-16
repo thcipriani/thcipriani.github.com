@@ -96,7 +96,7 @@ using Vagrant, Supervisord and Docker,&#8221; says I.</p>
 files needed by the Docker provider into a <code>Docker</code> folder. This
 results in the directory structure below.</p>
 
-<div class="highlight"><pre><code class="bash">├── Docker
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">├── Docker
 │   ├── Dockerfile
 │   ├── nginx
 │   │   └── default
@@ -121,7 +121,7 @@ the <code>Vagrantfile</code> for a Docker-backed Vagrant instance is pretty spar
 
 <p>In mine, I&#8217;ve got:</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;./www&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/www&quot;</span>   <span class="c1"># Sync&#39;d folder</span>
 
   <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provider</span> <span class="s2">&quot;docker&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">d</span><span class="o">|</span>
@@ -139,7 +139,7 @@ don&#8217;t think that Vagrant adds any needed functionality to the <code>docker
 In terms of portability, however, Vagrant is, at this time, a necessary evil
 to run docker on OSX and Windows.</p>
 
-<div class="highlight"><pre><code class="bash">FROM ubuntu:latest
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">FROM ubuntu:latest
 
 MAINTAINER Tyler Cipriani, tyler@tylercipriani.com
 
@@ -188,7 +188,7 @@ to make sure they both run in non-daemon mode.</p>
 
 <p><code>nginx/default</code></p>
 
-<div class="highlight"><pre><code class="nginx"><span class="k">server</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
   <span class="kn">listen</span> <span class="mi">80</span> <span class="s">default_server</span><span class="p">;</span>
 
   <span class="kn">root</span>  <span class="s">/var/www</span><span class="p">;</span>
@@ -207,7 +207,7 @@ to make sure they both run in non-daemon mode.</p>
 
 <p><code>php-fpm/php-fpm.conf</code></p>
 
-<div class="highlight"><pre><code class="ini"><span class="k">[global]</span>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[global]</span>
 <span class="na">pid</span> <span class="o">=</span> <span class="s">/var/run/php5-fpm.pid</span>
 <span class="na">error_log</span> <span class="o">=</span> <span class="s">/var/log/php5-fpm.log</span>
 <span class="na">daemonize</span> <span class="o">=</span> <span class="s">no</span>
@@ -217,7 +217,7 @@ to make sure they both run in non-daemon mode.</p>
 
 <p><code>supervisor/supervisord.conf</code></p>
 
-<div class="highlight"><pre><code class="ini"><span class="k">[unix_http_server]</span>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[unix_http_server]</span>
 <span class="na">file</span><span class="o">=</span><span class="s">/var/run/supervisor.sock   ; (the path to the socket file)</span>
 <span class="na">chmod</span><span class="o">=</span><span class="s">0700                       ; sockef file mode (default 0700)</span>
 
@@ -256,7 +256,7 @@ to make sure they both run in non-daemon mode.</p>
 <p>With all of our configuration in place there isn&#8217;t much left to do aside
 from running the vagrant instance and allowing docker to create our container.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>sudo docker pull ubuntu <span class="c"># to grab the latest Ubuntu image, Vagrant should probably do this but doesn&#39;t</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo docker pull ubuntu <span class="c"># to grab the latest Ubuntu image, Vagrant should probably do this but doesn&#39;t</span>
 <span class="nv">$ </span>sudo vagrant up --provider<span class="o">=</span>docker --debug <span class="c"># use debug if you don&#39;t want to sit waiting with no info for a long time on the first run</span></code></pre></div>
 
 

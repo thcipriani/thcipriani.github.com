@@ -59,7 +59,7 @@ just <a href="https://github.com/thcipriani/linuxtips/blob/master/README.md">a b
 So, for that repo, I created a <code>gh-pages</code> branch with a <code>_config.yml</code> and
 a <code>_layout</code> directory and popped in a <a href="https://github.com/thcipriani/linuxtips/blob/gh-pages/Makefile">Makefile</a>:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">INDEX</span> <span class="o">=</span> <span class="k">${</span><span class="nv">CURDIR</span><span class="k">}</span>/index.md
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">INDEX</span> <span class="o">=</span> <span class="k">${</span><span class="nv">CURDIR</span><span class="k">}</span>/index.md
 
 <span class="k">$(</span>INDEX<span class="k">)</span>:
   @ git show origin/master:README.md &gt; <span class="nv">$@</span>
@@ -87,19 +87,19 @@ miracles of text happen.</p>
 
 <h3>Debian?</h3>
 
-<div class="highlight"><pre><code class="bash">sudo apt-get install haskell-platform
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install haskell-platform
 cabal update
 cabal install pandoc</code></pre></div>
 
 
 <p>then add it to your path in your <code>.${SHELL}rc</code> file:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="o">[</span> -d <span class="s2">&quot;$HOME/.cabal/bin&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.cabal/bin:$PATH&quot;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span> -d <span class="s2">&quot;$HOME/.cabal/bin&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$HOME/.cabal/bin:$PATH&quot;</span></code></pre></div>
 
 
 <h3>OSX?</h3>
 
-<div class="highlight"><pre><code class="bash">brew update
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">brew update
 brew install pandoc</code></pre></div>
 
 
@@ -108,13 +108,13 @@ brew install pandoc</code></pre></div>
 <p>Alright, so I&#8217;ve got tons of markdown files, fairly structured, with bunches of links and I need html5.
 I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 
-<div class="highlight"><pre><code class="bash">index.html: README.md
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">index.html: README.md
   pandoc -s -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span></code></pre></div>
 
 
 <p>Running <code>make</code> takes my <code>README.md</code> and makes this:</p>
 
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
@@ -155,13 +155,13 @@ I&#8217;ll create a <code>Makefile</code> proof-of-concept for this:</p>
 
 <p>First, to establish a layout, let&#8217;s copy the default html5 layout file for Pandoc:</p>
 
-<div class="highlight"><pre><code class="bash">pandoc -D html5 &gt; _layout.html5</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">pandoc -D html5 &gt; _layout.html5</code></pre></div>
 
 
 <p>I&#8217;ll make some small tweaks to that file, keep the variables I need, ditch the
 variables I don&#8217;t need. Here is the html5 layout file I came up with:</p>
 
-<div class="highlight"><pre><code class="html"><span class="cp">&lt;!doctype html&gt;</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
@@ -192,7 +192,7 @@ enables you to link to a css stylesheet.</p>
 
 <p>Updated <code>Makefile</code>:</p>
 
-<div class="highlight"><pre><code class="bash">index.html: README.md
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">index.html: README.md
   pandoc -s --template <span class="s2">&quot;_layout&quot;</span> --css <span class="s2">&quot;css/main.css&quot;</span> -f markdown -t html5 -o <span class="s2">&quot;$@&quot;</span> <span class="s2">&quot;$&lt;&quot;</span></code></pre></div>
 
 
@@ -206,7 +206,7 @@ YAML Metadata blocks&#8212;just like jekyll!</p>
 <p>So, for each markdown file in my repo, I&#8217;ll add a block to the top that looks
 like this:</p>
 
-<div class="highlight"><pre><code class="bash">---
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">---
 pagetitle: &lt;pagetitle&gt;
 ---</code></pre></div>
 
@@ -224,7 +224,7 @@ the <code>README.md</code>. So howzabout I add a wildcard target for all the <co
 Also, the whole point of this is to make a github pages site, so let&#8217;s add
 that to the <code>Makefile</code> too</p>
 
-<div class="highlight"><pre><code class="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
 <span class="nv">GHPAGES</span> <span class="o">=</span> gh-pages
 
 all: <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="k">$(</span>addprefix <span class="k">$(</span>GHPAGES<span class="k">)</span>/, <span class="k">$(</span>addsuffix .html, <span class="k">$(</span>basename <span class="k">$(</span>wildcard *.md<span class="k">))))</span>
@@ -252,7 +252,7 @@ through pandoc, placing the result in <code>gh-pages/[whatever].html</code></p>
 doesn&#8217;t <em>actually exist</em> as of yet) should be converted from <code>less</code>.
 The easiest way to do that: add a <code>package.json</code> with <code>less</code> as a dependency.</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="p">{</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
   <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;linkblog&quot;</span><span class="p">,</span>
   <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
   <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -265,7 +265,7 @@ The easiest way to do that: add a <code>package.json</code> with <code>less</cod
 should be added to <code>.gitignore</code> on master). Now we need to add a <code>lessc</code>
 step to our <code>Makefile</code>.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">LESSC</span>    <span class="o">=</span> node_modules/less/bin/lessc
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">LESSC</span>    <span class="o">=</span> node_modules/less/bin/lessc
 <span class="nv">LESSFILE</span> <span class="o">=</span> less/main.less
 
 <span class="nv">CSSDIR</span>  <span class="o">=</span> <span class="k">$(</span>GHPAGES<span class="k">)</span>/css
@@ -280,19 +280,19 @@ step to our <code>Makefile</code>.</p>
 
 <p>Also, it&#8217;s always nice to have a <code>clean</code> target in any <code>Makefile</code></p>
 
-<div class="highlight"><pre><code class="bash">clean:
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">clean:
     rm -rf <span class="s2">&quot;$(GHPAGES)&quot;</span></code></pre></div>
 
 
 <p>I&#8217;d also like to be able to preview before commiting this file by typing <code>make serve</code></p>
 
-<div class="highlight"><pre><code class="bash">serve:
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">serve:
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> python -m SimpleHTTPServer</code></pre></div>
 
 
 <p>Finally, speaking of commiting this file, let&#8217;s make <code>commit</code> a target, too.</p>
 
-<div class="highlight"><pre><code class="bash">commit:
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">commit:
     <span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
         git add . <span class="o">&amp;&amp;</span> <span class="se">\</span>
         git commit --edit --message<span class="o">=</span><span class="s2">&quot;Publish @$$(date)&quot;</span>
@@ -307,7 +307,7 @@ and, finally, <code>make commit</code> pushes those changes live.</p>
 
 <p>So here&#8217;s the <a href="http://www.tylercipriani.com/links">result</a> and the final <code>Makefile</code></p>
 
-<div class="highlight"><pre><code class="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">REPO :<span class="o">=</span> <span class="k">$(</span>shell git config --get remote.origin.url<span class="k">)</span>
 <span class="nv">GHPAGES</span> <span class="o">=</span> gh-pages
 
 <span class="nv">LESSC</span>    <span class="o">=</span> node_modules/less/bin/lessc
@@ -334,7 +334,7 @@ all: init clean <span class="k">$(</span>GHPAGES<span class="k">)</span> <span c
     <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout <span class="k">$(</span>GHPAGES<span class="k">)</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nb">cd</span> <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git checkout --orphan <span class="k">$(</span>GHPAGES<span class="k">)</span> <span class="o">&amp;&amp;</span> git rm -rf .<span class="o">)</span>
 
 init:
-    @command -v pandoc &gt; /dev/null 2&gt;<span class="p">&amp;</span>1 <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;pandoc not found http://johnmacfarlane.net/pandoc/installing.html&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
+    @command -v pandoc &gt; /dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> <span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;pandoc not found http://johnmacfarlane.net/pandoc/installing.html&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">exit </span>1<span class="o">)</span>
     @<span class="o">[</span> -x <span class="k">$(</span>LESSC<span class="k">)</span> <span class="o">]</span> <span class="o">||</span> npm install
 
 serve:

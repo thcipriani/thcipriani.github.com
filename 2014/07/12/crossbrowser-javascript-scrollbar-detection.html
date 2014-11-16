@@ -52,7 +52,7 @@ more involved than I initially anticipated.</p>
 
 <p>The tl;dr, semi-näive version:</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span></code></pre></div>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span></code></pre></div>
 
 
 <p>This works for most browsers. Basically it checks to see if the width of
@@ -80,7 +80,7 @@ in &lt; IE9.</p>
 element is greater than the <code>clientHeight</code> of the root element, then that
 root element is going to need to scroll to show the overflowing content:</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span>
   <span class="nx">hasScrollbar</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span>
@@ -95,7 +95,7 @@ Of course, once again, IE and modern browsers differ about how they&#8217;ve
 implemented the javascript api for accessing element styles. We can account
 for this difference and grab the overflow property like this:</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">overflowStyle</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">overflowStyle</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">currentStyle</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span>
   <span class="nx">overflowStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">.</span><span class="nx">overflow</span>
@@ -116,7 +116,7 @@ just to be on the safe side let&#8217;s add it into our solution.</p>
 
 <p>The final solution looks like this:</p>
 
-<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">hasScrollbar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="c1">// The Modern solution</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">&gt;</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientWidth</span>
