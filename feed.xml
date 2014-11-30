@@ -391,7 +391,7 @@ but I&amp;#8217;ve found I get better results with Util-Say.&lt;/p&gt;
 
 &lt;h2&gt;MOTD-ifying&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://tylercipriani-files.s3.amazonaws.com/mammoth_motd.png&quot; alt=&quot;Mammoth Motd&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://tylercipriani-files.s3.amazonaws.com/mammoth_motd.png&quot; alt=&quot;Mammoth Motd&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;On CentOS and Debian, I usually just throw the ponysay file directly into &lt;code&gt;/etc/motd&lt;/code&gt; and maybe add on some other useful info:&lt;/p&gt;
 
