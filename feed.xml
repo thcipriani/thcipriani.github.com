@@ -7,6 +7,126 @@
     <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Conway&amp;#8217;s Favicon</title>
+        <description>&lt;p&gt;I find favicons pretty useful overall. That weird little
+&lt;a href=&quot;https://bugs.r-project.org/bugzilla3/images/favicon.ico&quot;&gt;Earthworm-Jim-esque bug-head&lt;/a&gt;
+in my bookmarks bar immediately queues me in on where to click to get to
+bugzilla. My site hasn&amp;#8217;t had a favicon. The only explanation I can offer is
+laziness mixed with a lack of inspiration. A favicon isn&amp;#8217;t typically a
+glamorous undertaking—it&amp;#8217;s just one of those things that ought to be done.&lt;/p&gt;
+
+&lt;p&gt;My first idea for a favicon was Eric S. Raymond&amp;#8217;s
+&lt;a href=&quot;http://www.catb.org/hacker-emblem/&quot;&gt;Hacker Emblem&lt;/a&gt;. The Hacker Emblem
+is certainly a meaningful symbol, but it&amp;#8217;s also kind of a cop-out.&lt;/p&gt;
+
+&lt;p&gt;I tried something with &lt;a href=&quot;/images/nyan-conway.png&quot;&gt;nyan cat and the hacker emblem&lt;/a&gt;,
+which was a solid idea, but sort of lost something at 16px×16px. Then I
+started to think, &lt;em&gt;why not just have Conway&amp;#8217;s Game of Life running in the
+favicon&lt;/em&gt;?&lt;/p&gt;
+
+&lt;h2&gt;Game of Life in JavaScript&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life&quot;&gt;Conway&amp;#8217;s Game of Life&lt;/a&gt;
+is a zero player game with 4 simple rules (this is verbatim from the Wikipedia article):&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;ol&gt;
+&lt;li&gt;Any live cell with less than two live neighbours dies, as if caused by under-population.&lt;/li&gt;
+&lt;li&gt;Any live cell with two or three live neighbours lives on to the next generation.&lt;/li&gt;
+&lt;li&gt;Any live cell with more than three live neighbours dies, as if by overcrowding.&lt;/li&gt;
+&lt;li&gt;Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/thcipriani/conways-favicon/blob/master/conways-favicon.js&quot;&gt;My game of life&lt;/a&gt;
+is heavily derived from an IBM DeveloperWorks post,
+&lt;a href=&quot;http://www.ibm.com/developerworks/library/wa-coffeescriptcanvas/&quot;&gt;&lt;em&gt;Conway&amp;#8217;s Game of Life in CoffeeScript and canvas&lt;/em&gt;&lt;/a&gt;,
+except that I just used plain ol&amp;#8217; JavaScript, a much smaller grid, and
+I included some functionality to reset the game seed if the last two
+evolutions of life don&amp;#8217;t change the grid layout.&lt;/p&gt;
+
+&lt;h2&gt;Dynamic Favicons&lt;/h2&gt;
+
+&lt;p&gt;After creating the game loop in JavaScript, I had to create some code to
+dynamically update the favicon.&lt;/p&gt;
+
+&lt;p&gt;First, I created the &lt;a href=&quot;/favicon.ico&quot;&gt;default favicon&lt;/a&gt; for this site by
+rendering out a glider via JavaScript and rendering the canvas as a png
+on the page.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;GameOfLife&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;glider&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;,{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* ... */&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/**&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt; * Seed with default of glider&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt; */&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;GameOfLife&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;seed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rowLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;colLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gliderLen&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Start with all empty&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rowLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;numberOfRows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rowLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;curCellGen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;col&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;colLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;numberOfCols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;colLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;col&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;curCellGen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createCell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// Create glider&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gliderLen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;glider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;gliderLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;glider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;glider&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;curCellGen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createCell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;GameOfLife&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawGrid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;img&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;img&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toDataURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;img/png&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After rendering as a png in the browser, I saved the &lt;code&gt;.png&lt;/code&gt; to my computer.
+Then I uploaded the png to &lt;a href=&quot;http://favicon-generator.org/&quot;&gt;favicon-generator.org&lt;/a&gt;
+saving the resulting &lt;code&gt;.ico&lt;/code&gt; to my site&amp;#8217;s directory root as &lt;code&gt;favicon.ico&lt;/code&gt;.
+&lt;code&gt;favicon.ico&lt;/code&gt; is what gets rendered in IE, since IE has found brand new ways
+to be non-compliant with emerging standards (le sigh).&lt;/p&gt;
+
+&lt;p&gt;The finishing touch is to make the &lt;code&gt;GameOfLife.prototype.drawGrid&lt;/code&gt; function update
+my favicon&amp;#8217;s &lt;code&gt;href&lt;/code&gt; attribute on every &lt;code&gt;tick&lt;/code&gt; function call:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;GameOfLife&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createCanvas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;canvas&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;favicon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;link&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;favicon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;rel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;icon&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getElementsByTagName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;head&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;nx&quot;&gt;GameOfLife&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;prototype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;drawGrid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;cm&quot;&gt;/* ... */&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;favicon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toDataURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;img/png&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The entirety of this javascript is available under the
+ &lt;a href=&quot;https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29&quot;&gt;GPLv3 License&lt;/a&gt;
+on &lt;a href=&quot;https://github.com/thcipriani/conways-favicon&quot;&gt;my github&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 30 Nov 2014 00:00:00 -0700</pubDate>
+        <link>http://www.tylercipriani.com/2014/11/30/conways-game-of-life-favicon.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2014/11/30/conways-game-of-life-favicon.html</guid>
+      </item>
+    
+      <item>
         <title>Cross-Browser JavaScript Scrollbar Detection</title>
         <description>&lt;p&gt;I recently contributed a fix to the
 &lt;a href=&quot;https://github.com/twbs/bootstrap/issues/9855&quot;&gt;bootstrap framework&lt;/a&gt;
@@ -1146,190 +1266,6 @@ called, &lt;a href=&quot;http://stevelosh.com/blog/2010/02/my-extravagant-zsh-pr
         <pubDate>Tue, 18 Dec 2012 00:00:00 -0700</pubDate>
         <link>http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</link>
         <guid isPermaLink="true">http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</guid>
-      </item>
-    
-      <item>
-        <title>Integrating git with your existing website</title>
-        <description>&lt;p&gt;Better git it in your soul&lt;a href=&quot;http://www.youtube.com/watch?v=SPoK1lryfh4&quot; target=&quot;_blank&quot;&gt;*&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Git has a &lt;a href=&quot;https://bitly.com/bundles/matthewmccullough/1&quot; target=&quot;_blank&quot;&gt;lot&lt;/a&gt;
-of &lt;a href=&quot;http://try.github.com/levels/1/challenges/1&quot; target=&quot;blank&quot;&gt;great&lt;/a&gt;
-&lt;a href=&quot;https://peepcode.com/products/git&quot; target=&quot;_blank&quot;&gt;tutorials&lt;/a&gt;
-for getting started. There are also a number of great articles on
-&lt;a href=&quot;http://daneden.github.com/github-workflow/&quot; target=&quot;_blank&quot;&gt;how to
-use git and github&lt;/a&gt; for your workflow.&lt;/p&gt;
-
-&lt;p&gt;What I haven&amp;#8217;t seen is an article on how to integrate git with your
-current site without storing any code on github. I&amp;#8217;m writing this blog
-to create a quick reference for how to get up and running using git on your
-existing site.&lt;/p&gt;
-
-&lt;h2&gt;Needed&lt;/h2&gt;
-
-
-&lt;p&gt;I&amp;#8217;m making the assumption that you have the following:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Knowledge of Linux&lt;/li&gt;
-&lt;li&gt;&amp;shy;&lt;a href=&quot;http://library.linode.com/lamp-guides/ubuntu-12.04-precise-pangolin&quot; target=&quot;_blank&quot;&gt;
-A local development environment
-&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;git-core installed both locally and on your webserver&lt;/li&gt;
-&lt;li&gt;rsync installed both locally and on your webserver&lt;/li&gt;
-&lt;li&gt;&amp;shy;&lt;a href=&quot;http://www.commandlinefu.com/commands/view/771/copy-your-ssh-public-key-on-a-remote-machine-for-passwordless-login-the-easy-way&quot; target=&quot;_blank&quot;&gt;
-  Keyless SSH access to your webserver
-&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-
-&lt;p&gt;I&amp;#8217;m using Ubuntu 12.04 locally, but I&amp;#8217;d assume that most of this
-won&amp;#8217;t be too different on a different distribution or on a Mac&amp;#8212;but
-I&amp;#8217;m probably totally wrong about that &amp;#9786;&lt;/p&gt;
-
-&lt;hr&gt;
-
-
-
-
-&lt;h2&gt;Step One:&lt;/h2&gt;
-
-
-&lt;p&gt;&lt;strong&gt;RSync your site to your local development environment.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In order to begin to develop locally (and break the old &lt;a href=&quot;http://www.bnj.com/cowboy-coding-pink-sombrero/&quot; target=&quot;_blank&quot;&gt;cowboy-coding&lt;/a&gt; habits
-that you&amp;#8217;ve undoubtedly developed over the years) you need a local
-copy of your site.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Open your terminal emulator and &lt;code&gt;cd&lt;/code&gt; to the directory in which
-you will be storing these files (i.e. &lt;code&gt;cd /srv&amp;shy;/www&amp;shy;/tylercipriani.com&amp;shy;/public_html&lt;/code&gt;)&lt;/li&gt;
-&lt;li&gt;Rsync the &lt;code&gt;htdocs&lt;/code&gt; or &lt;code&gt;public_html&lt;/code&gt; from your webserver
-into this local directory:&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rsync -av -e &lt;span class=&quot;s2&quot;&gt;&amp;quot;ssh -p &amp;lt;port&amp;gt;&amp;quot;&lt;/span&gt; &amp;lt;rsync-username&amp;gt;@&amp;lt;webserver&amp;gt;:/path/to/public_html/ .&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;The command breaks down like this:&lt;/p&gt;
-
-&lt;ul&gt;
-    &lt;li&gt;&lt;code&gt;a&lt;/code&gt; means &amp;#8220;Archive&amp;#8221;&amp;#8212;keeps permissions, mtimes, etc the same&lt;/li&gt;
-    &lt;li&gt;&lt;code&gt;v&lt;/code&gt; means &amp;#8220;Verbose&amp;#8221;&amp;#8212;increases verbosity of the command&lt;/li&gt;
-    &lt;li&gt;&lt;code&gt;e&lt;/code&gt; means &amp;#8220;RSH&amp;#8221;&amp;#8212;allows you to use remote shell (same as RSH=command)&lt;/li&gt;
-    &lt;li&gt;&lt;code&gt;:/path/to/htdocs/&lt;/code&gt;&amp;#8212;the path to you htdocs folder. 
-      The trailing &lt;code&gt;/&lt;/code&gt; is significant&amp;#8212;it means copy the 
-      content of the htdocs directory rather than the directory by name&lt;/li&gt;
-    &lt;li&gt;&lt;code&gt;.&lt;/code&gt; is the current directory&lt;/li&gt;
-&lt;/ul&gt;
-
-
-
-
-&lt;hr&gt;
-
-
-
-
-&lt;h2&gt;Step Two:&lt;/h2&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Initialize git in local development environment.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;This step will create a new git repository on your local machine and add all
-the code that you&amp;#8217;ve rsynced in the previous step to that repo.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&amp;shy;&lt;code&gt;cd&lt;/code&gt; to the directory to which you previously rsynced
-your site and initialize a git repository by running &lt;code&gt;git init&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /srv/www/tylercipriani.com/public_html/
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ol&gt;
-&lt;li&gt;Add the contents of the current directory to the git repository by running
-&lt;code&gt;git add .&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Commit all your newly added files to the repo by running your first
-commit &lt;code&gt;git commit -m &amp;#8220;First Commit&amp;#8221;&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;hr&gt;
-
-
-
-
-&lt;h2&gt;Step Three:&lt;/h2&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Setup a bare repo on your web server.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;You need a bare repo out on your webserver that will act as a mirror to your
-local development environment.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;ssh into your webserver and make a new directory, I usually make it above
-the webroot (i.e. &lt;code&gt;htdocs&lt;/code&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir tylercipriani.com.git &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tylercipriani.com.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ol&gt;
-&lt;li&gt;Once inside the new directory initialize a bare repository by using the
-&lt;code&gt;--bare&lt;/code&gt; flag:&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init --bare&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;ol&gt;
-&lt;li&gt;Now we can define a new post-receive hook that will be triggered whenever
-an update is pushed to this new bare repository. The post-receive hook
-can be any type of script you want, the script below is written in bash.
-&lt;code&gt;cd&lt;/code&gt; into the &lt;code&gt;.git/hooks&lt;/code&gt; directory and create a
-file called &amp;#8220;post-receive&amp;#8221;. Copy the code below into the file:&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;GIT_WORK_TREE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/your/htdocs/direcotry git checkout -f&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;pre&gt;&lt;code&gt;make sure that this code is executable by running 
-&amp;lt;code&amp;gt;chmod +x .git/hooks/post-receive&amp;lt;/code&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr&gt;
-
-
-
-
-&lt;h2&gt;You&amp;#8217;re Done!&lt;/h2&gt;
-
-
-&lt;p&gt;&lt;strong&gt;Push to your new repo, you beautiful command-line ninja, you!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Back on your local machine, in the webroot of your local development environment,
-add your bare webserver repo as your &lt;code&gt;remote&lt;/code&gt; and push your git
-repo up to your server. The post-receive hook will take care of the rest!&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git remote add web ssh://user@tylercipriani.com/home/user/tylercipriani.com.git
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git push -u origin master&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;By using the &lt;code&gt;-u&lt;/code&gt; flag you&amp;#8217;re setting the upstream which means
-you can just run &lt;code&gt;git pull&lt;/code&gt; without further arguments to merge
-origin and master.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 21 Oct 2012 00:00:00 -0600</pubDate>
-        <link>http://www.tylercipriani.com/2012/10/21/move-existing-website-to-git.html</link>
-        <guid isPermaLink="true">http://www.tylercipriani.com/2012/10/21/move-existing-website-to-git.html</guid>
       </item>
     
   </channel>

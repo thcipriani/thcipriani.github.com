@@ -17,7 +17,7 @@
   GameOfLife.prototype.cellSize        = 5.34
   GameOfLife.prototype.numberOfRows    = 3
   GameOfLife.prototype.numberOfCols    = 3
-  GameOfLife.prototype.tickLength      = 1250
+  GameOfLife.prototype.tickLength      = 250
   GameOfLife.prototype.canvas          = null
   GameOfLife.prototype.drawingContext  = null
   GameOfLife.prototype.changed         = true

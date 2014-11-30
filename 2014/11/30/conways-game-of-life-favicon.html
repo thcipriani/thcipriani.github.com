@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Conway&#8217;s Favicon</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+          /**
+
+          https://www.gnu.org/philosophy/javascript-trap.html
+
+          @licstart  The following is the entire license notice for the
+          CSS and JavaScript code in this page.
+
+          Copyright (C) 2014 Tyler Cipriani
+
+          The JavaScript code in this page is free software: you can
+          redistribute it and/or modify it under the terms of the GNU
+          General Public License (GNU GPL) as published by the Free Software
+          Foundation, either version 3 of the License, or (at your option)
+          any later version.  The code is distributed WITHOUT ANY WARRANTY;
+          without even the implied warranty of MERCHANTABILITY or FITNESS
+          FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+          As additional permission under GNU GPL version 3 section 7, you
+          may distribute non-source (e.g., minimized or compacted) forms of
+          that code without the copy of the GNU GPL normally required by
+          section 4, provided you include this license notice and a URL
+          through which recipients can access the Corresponding Source.
+
+
+          @licend  The above is the entire license notice
+          for the CSS and JavaScript code in this page.
+          */
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/styles/main-min.css" />
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="/scripts/html5shiv-min.js"></script>
+        <![endif]-->
+
+        <link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" title="Logo Home">
+                    <img src="https://tylercipriani-files.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                    <li><a href="/blog/" title="Weblog">Weblog</a></li>
+                    <li><a href="/links/" title="Links">Links</a></li>
+                    <li><a href="/hireme/" title="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+      
+
+        <h1>Conway&#8217;s Favicon</h1>
+        <h2>Posted on: <span>November 30, 2014</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    <p>I find favicons pretty useful overall. That weird little
+<a href="https://bugs.r-project.org/bugzilla3/images/favicon.ico">Earthworm-Jim-esque bug-head</a>
+in my bookmarks bar immediately queues me in on where to click to get to
+bugzilla. My site hasn&#8217;t had a favicon. The only explanation I can offer is
+laziness mixed with a lack of inspiration. A favicon isn&#8217;t typically a
+glamorous undertaking—it&#8217;s just one of those things that ought to be done.</p>
+
+<p>My first idea for a favicon was Eric S. Raymond&#8217;s
+<a href="http://www.catb.org/hacker-emblem/">Hacker Emblem</a>. The Hacker Emblem
+is certainly a meaningful symbol, but it&#8217;s also kind of a cop-out.</p>
+
+<p>I tried something with <a href="/images/nyan-conway.png">nyan cat and the hacker emblem</a>,
+which was a solid idea, but sort of lost something at 16px×16px. Then I
+started to think, <em>why not just have Conway&#8217;s Game of Life running in the
+favicon</em>?</p>
+
+<h2>Game of Life in JavaScript</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway&#8217;s Game of Life</a>
+is a zero player game with 4 simple rules (this is verbatim from the Wikipedia article):</p>
+
+<blockquote><ol>
+<li>Any live cell with less than two live neighbours dies, as if caused by under-population.</li>
+<li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+<li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
+<li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+</ol>
+</blockquote>
+
+<p><a href="https://github.com/thcipriani/conways-favicon/blob/master/conways-favicon.js">My game of life</a>
+is heavily derived from an IBM DeveloperWorks post,
+<a href="http://www.ibm.com/developerworks/library/wa-coffeescriptcanvas/"><em>Conway&#8217;s Game of Life in CoffeeScript and canvas</em></a>,
+except that I just used plain ol&#8217; JavaScript, a much smaller grid, and
+I included some functionality to reset the game seed if the last two
+evolutions of life don&#8217;t change the grid layout.</p>
+
+<h2>Dynamic Favicons</h2>
+
+<p>After creating the game loop in JavaScript, I had to create some code to
+dynamically update the favicon.</p>
+
+<p>First, I created the <a href="/favicon.ico">default favicon</a> for this site by
+rendering out a glider via JavaScript and rendering the canvas as a png
+on the page.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">GameOfLife</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">glider</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span><span class="p">}</span>
+ <span class="p">,{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span>
+ <span class="p">,{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">0</span><span class="p">}</span>
+ <span class="p">,{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">1</span><span class="p">}</span>
+ <span class="p">,{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="p">]</span>
+
+<span class="cm">/* ... */</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Seed with default of glider</span>
+<span class="cm"> */</span>
+<span class="nx">GameOfLife</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">seed</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">rowLen</span><span class="p">,</span> <span class="nx">colLen</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">col</span><span class="p">,</span> <span class="nx">gliderLen</span>
+
+  <span class="c1">// Start with all empty</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="nx">row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">rowLen</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">numberOfRows</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">rowLen</span><span class="p">;</span> <span class="nx">row</span> <span class="o">=</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">curCellGen</span><span class="p">[</span><span class="nx">row</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">j</span> <span class="o">=</span> <span class="nx">col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">colLen</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">numberOfCols</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">colLen</span><span class="p">;</span> <span class="nx">col</span> <span class="o">=</span> <span class="o">++</span><span class="nx">j</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">curCellGen</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createCell</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="nx">row</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Create glider</span>
+  <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">gliderLen</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">glider</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">gliderLen</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span>
+
+    <span class="nx">x</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">glider</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">x</span>
+    <span class="nx">y</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">glider</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">y</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">curCellGen</span><span class="p">[</span><span class="nx">x</span><span class="p">][</span><span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">createCell</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">GameOfLife</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">drawGrid</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">)</span>
+  <span class="nx">img</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(</span><span class="s1">&#39;img/png&#39;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+
+<p>After rendering as a png in the browser, I saved the <code>.png</code> to my computer.
+Then I uploaded the png to <a href="http://favicon-generator.org/">favicon-generator.org</a>
+saving the resulting <code>.ico</code> to my site&#8217;s directory root as <code>favicon.ico</code>.
+<code>favicon.ico</code> is what gets rendered in IE, since IE has found brand new ways
+to be non-compliant with emerging standards (le sigh).</p>
+
+<p>The finishing touch is to make the <code>GameOfLife.prototype.drawGrid</code> function update
+my favicon&#8217;s <code>href</code> attribute on every <code>tick</code> function call:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">GameOfLife</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">createCanvas</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;canvas&#39;</span><span class="p">)</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">favicon</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;link&#39;</span><span class="p">)</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">favicon</span><span class="p">.</span><span class="nx">rel</span> <span class="o">=</span> <span class="s1">&#39;icon&#39;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="nx">GameOfLife</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">drawGrid</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="cm">/* ... */</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">favicon</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">toDataURL</span><span class="p">(</span><span class="s1">&#39;img/png&#39;</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+
+<p>The entirety of this javascript is available under the
+ <a href="https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29">GPLv3 License</a>
+on <a href="https://github.com/thcipriani/conways-favicon">my github</a>.</p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'tylercipriani';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            
+            <article>
+            
+            <footer >
+                <hr>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                    <img alt="Creative Commons License" src="/images/cc-by-sa.png" />
+                  </a>
+                </p>
+            </footer>
+            
+        </main>
+
+        <script type="text/javascript">
+            var _gaq=[['_setAccount','UA-25103397-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+        <script src="/scripts/conways-favicon.js"></script>
+    </body>
+</html>
