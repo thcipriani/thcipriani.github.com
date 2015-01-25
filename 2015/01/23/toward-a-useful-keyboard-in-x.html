@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Toward a More Useful X Keyboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+          /**
+
+          https://www.gnu.org/philosophy/javascript-trap.html
+
+          @licstart  The following is the entire license notice for the
+          CSS and JavaScript code in this page.
+
+          Copyright (C) 2014 Tyler Cipriani
+
+          The JavaScript code in this page is free software: you can
+          redistribute it and/or modify it under the terms of the GNU
+          General Public License (GNU GPL) as published by the Free Software
+          Foundation, either version 3 of the License, or (at your option)
+          any later version.  The code is distributed WITHOUT ANY WARRANTY;
+          without even the implied warranty of MERCHANTABILITY or FITNESS
+          FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+          As additional permission under GNU GPL version 3 section 7, you
+          may distribute non-source (e.g., minimized or compacted) forms of
+          that code without the copy of the GNU GPL normally required by
+          section 4, provided you include this license notice and a URL
+          through which recipients can access the Corresponding Source.
+
+
+          @licend  The above is the entire license notice
+          for the CSS and JavaScript code in this page.
+          */
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="/styles/main-min.css" />
+
+        <!--[if lt IE 9]>
+            <script type="text/javascript" src="/scripts/html5shiv-min.js"></script>
+        <![endif]-->
+
+        <link href='//fonts.googleapis.com/css?family=Old+Standard+TT:400,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="author" href="/humans.txt">
+    </head>
+    <body>
+        <main role="main">
+            <header>
+                <a href="/" title="Logo Home">
+                    <img src="https://tylercipriani-files.s3.amazonaws.com/blog/201307_p_tyler_logo.png" alt="Tyler Cipriani" />
+                </a>
+
+                <h1>TYLER CIPRIANI</h1>
+                <h2>Gentleman, Scholar, Web Hacker</h2>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="/" title="Home">Home</a></li>
+                    <li><a href="/blog/" title="Weblog">Weblog</a></li>
+                    <li><a href="/links/" title="Links">Links</a></li>
+                    <li><a href="/hireme/" title="Résumé">Résumé</a></li>
+                </ul>
+            </nav>
+
+            <article>
+    <header>
+      
+
+        <h1>Toward a More Useful X Keyboard</h1>
+        <h2>Posted on: <span>January 23, 2015</span> by <span>Tyler H.T. Cipriani</span></h2>
+    </header>
+
+    <p>I'm not sure when, exactly, it became clear that I was going to spend as
+much time as necessary perfecting my keyboard configuration. It's one of
+those things that you <em>know</em> you can make absolutely perfect—given enough
+time and energy. On Linux, when you spend enough time bashing your brain
+into a topic, you often find your effort rewarded manyfold. This is the
+hallmark of a professional tool: a tool with which your efficiency
+increases with your proficiency.</p>
+
+<p>The way many people first experience a computer is through a
+point-and-click-style mouse interface. While there are
+professional tools that prefer a <a href="http://research.swtch.com/acme">mouse interface</a>,
+and there is <a href="http://www.loper-os.org/?p=861">healthy</a> <a href="http://99percentinvisible.org/episode/of-mice-and-men/">debate</a>
+about the most appropriate tool for computer interaction,
+the fact remains: most professional computing and programming is
+done with a QWERTY keyboard.</p>
+
+<p>My endless <code>X</code> keyboard tinkerings have given me the most efficient
+keyboard configuration I have ever used. This configuration is probably
+achievable on other platforms; however, on a modern Linux system
+my configuration only requires one tool that isn't included with the kernel:
+<a href="https://github.com/alols/xcape">XCape</a>, which is 500 lines of GPL-licensed
+C-code—not too shabby overall.</p>
+
+<ul>
+<li><a href="#keymaps">Keymaps</a></li>
+<li><a href="#autorepeat">Key Autorepeat</a></li>
+<li><a href="#persist">Persistence</a></li>
+</ul>
+
+
+<div id="keymaps"></div>
+
+
+<h1>Keymaps</h1>
+
+<p>To start working with keyboard layout the lowest-risk command is <code>setxkbmap(1)</code>.
+<code>setxkbmap</code> temporarily maps the keyboard to use options specified on the command line.
+Changes will not persist when you restart <code>X</code> (i.e., log out and log back in).
+This is a good place to start experimenting with configuration and layouts.</p>
+
+<p>The options that can be applied with <code>setxkbmap</code> are found in
+<code>xkeyboard-config(7)</code>. For whatever reason, neither my Debian nor Arch box
+has this man file. I found
+<a href="https://web.archive.org/web/20150125024107/http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=xkeyboard-config&amp;ampsect=7">one copy</a>
+online and made sure to snapshot it in the
+<a href="https://web.archive.org">internet archive</a>—which is a project to which I plan to
+donate more heavily in the upcoming year.</p>
+
+<p>To view currently applied options use: <code>setxkbmap -query</code> which should
+output something like:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rules:      evdev
+model:      pc105
+layout:     us</code></pre></div>
+
+
+<p>To achieve this with <code>setxkbmap</code> you would type in your xterm:
+<code>setxkbmap -model pc105 -layout us</code></p>
+
+<p>This is a pretty vanilla setup—when you setup your computer and accept
+the defaults, this is what you get.</p>
+
+<div id="altgr-intl"></div>
+
+
+<h2>AltGr-Intl</h2>
+
+<p>One of the features I find myself using
+frequently is the <a href="https://en.wikipedia.org/wiki/AltGr_key">AltGr</a> (or <em>Alternate Graphic</em>) key.
+I like to be able to type international characters that are often used in
+English (like "é") without resorting to using deadkeys or
+esoteric key-compostability sequences.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="s2">&quot;é&quot;</span> <span class="o">==</span> <span class="o">[</span>Right Alt<span class="o">]</span> + <span class="o">[</span>e<span class="o">]</span>
+<span class="s2">&quot;ñ&quot;</span> <span class="o">==</span> <span class="o">[</span>Right Alt<span class="o">]</span> + <span class="o">[</span>n<span class="o">]</span>
+<span class="s2">&quot;ö&quot;</span> <span class="o">==</span> <span class="o">[</span>Right Alt<span class="o">]</span> + <span class="o">[</span>p<span class="o">]</span></code></pre></div>
+
+
+<p>To enable this simply use the <code>setxkbmap</code> command:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">setxkbmap -model pc105 -layout us -variant altgr-intl</code></pre></div>
+
+
+<p>More information about the <em>AltGr-Intl</em> layout can be found in the
+<a href="http://lists.x.org/archives/xorg/2007-July/026534.html">Xorg Mailing List</a>
+(found via <a href="https://zuttobenkyou.wordpress.com/2011/08/24/xorg-using-the-us-international-altgr-intl-variant-keyboard-layout/">Shinobu's Secrets</a>)</p>
+
+<div id="xcompose"></div>
+
+
+<h2><code>~/.XCompose</code></h2>
+
+<p>Text expansion is awesome. Being able to type a sequence of three characters
+to dump your public key into IRC is awesome. Or how about <code>ಠ_ಠ</code>? Being able
+to express disapproval quickly is what separates our emails from those of
+animals: it's why we have civilization.</p>
+
+<p>The <a href="https://en.wikipedia.org/wiki/Compose_key">compose</a> (or <em>MultiKey</em>) key, can be mapped
+to any number of keys or key combinations (again, see: <a href="https://web.archive.org/web/20150125024107/http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=xkeyboard-config&amp;ampsect=7">xkeyboard-config(7)</a>)
+I prefer to map my MultiKey to the right Ctrl key:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl</code></pre></div>
+
+
+<p>To type special symbols or expansions using the compose key, simply hit the
+compose key (in my case right Ctrl) and then type the additional character for the
+combination in sequence.</p>
+
+<p>For instance, to make a degree mark ("°") I type: <code>[Ctrl]-o-o</code>; just like I'm
+typing "oo", but I hit the right Ctrl key first.</p>
+
+<p>The real magic of the compose key can be unleashed with the <code>~/.XCompose</code> file.
+This is the file into which you can drop your custom key combination mappings
+that will generate any text output.</p>
+
+<p>Example expansions for <a href="https://github.com/thcipriani/dotfiles/blob/master/XCompose"><code>~/.XCompose</code></a>:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Quick ssh key output</span>
+&lt;Multi_key&gt; &lt;k&gt; &lt;e&gt; &lt;y&gt; : <span class="s2">&quot;https://gist.github.com/thcipriani/5e95399457da6544a4cb&quot;</span>
+
+&lt;Multi_key&gt; &lt;S&gt; &lt;N&gt; &lt;O&gt; &lt;W&gt;     : <span class="s2">&quot;❄&quot;</span>   U2603
+&lt;Multi_key&gt; &lt;p&gt; &lt;l&gt; &lt;a&gt; &lt;n&gt; &lt;e&gt; : <span class="s2">&quot;✈&quot;</span>   U2708
+&lt;Multi_key&gt; &lt;z&gt; &lt;a&gt; &lt;p&gt;         : <span class="s2">&quot;⚡&quot;</span>   U26A1
+
+<span class="c"># prefix &#39;m&#39; = mathematical symbols</span>
+&lt;Multi_key&gt; &lt;m&gt; &lt;d&gt; : <span class="s2">&quot;Δ&quot;</span>
+&lt;Multi_key&gt; &lt;m&gt; &lt;e&gt; : <span class="s2">&quot;ϵ&quot;</span>
+&lt;Multi_key&gt; &lt;m&gt; &lt;l&gt; : <span class="s2">&quot;λ&quot;</span>
+
+<span class="c"># misc</span>
+&lt;Multi_key&gt; &lt;colon&gt; &lt;bar&gt; &lt;bar&gt; : <span class="s2">&quot;ಠ_ಠ&quot;</span>
+&lt;Multi_key&gt; &lt;less&gt; &lt;3&gt; : <span class="s2">&quot;❤&quot;</span></code></pre></div>
+
+
+
+
+<div id="capslock"></div>
+
+
+<h2>You're out of your element, CapsLock</h2>
+
+<p>CapsLock sucks and everyone hates it.</p>
+
+<p>People <em>think</em> they use CapsLock, but, <em>I</em> think, if people were honest with
+themselves they would admit that CapsLock is the worse than useless: it's
+usually counter-productive. Also, if you find yourself frequently needing
+to type in ALL CAPS, maybe you should look at life:
+<em>what have you become</em>?</p>
+
+<p>I like to remap my CapsLock key to a modifier key I use more frequently: Ctrl.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">setxkbmap <span class="se">\</span>
+  -model pc105 <span class="se">\</span>
+  -layout us <span class="se">\</span>
+  -variant altgr-intl <span class="se">\</span>
+  -option compose:rctrl <span class="se">\</span>
+  -option ctrl:nocaps</code></pre></div>
+
+
+
+
+<div id="xcape"></div>
+
+
+<h2>XCape</h2>
+
+<p>The other function of my CapsLock key only happens when it is pressed without
+any additonal keys. Basically, if I hit <code>CapsLock+[t]</code>, I want a new tab,
+but if I just hit <code>CapsLock</code>, it doesn't do anything—which <em>was</em> a waste.</p>
+
+<p>The program <a href="https://github.com/alols/xcape">XCape</a> allows you to configure
+modifier keys (Alt, Ctrl, Shift, Meta) to act as other keys when pressed
+on their own. And, since the CapsLock key is so central on my keyboard, I
+also use it as an escape key. Compiling <code>xcape</code> is pretty straight forward
+(provided you have the requisite build tools):</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/alols/xcape.git .
+<span class="nb">cd </span>xcape <span class="o">&amp;&amp;</span> make</code></pre></div>
+
+
+<p>The command that allows for that functionality is also pretty straight-forward:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">xcape -e <span class="s1">&#39;Control_L=Escape&#39;</span></code></pre></div>
+
+
+<p>Finally, I also use the option that allows <code>[Ctrl]+[Alt]+[Backspace]</code> to
+end an <code>X</code> session. So my final <code>setxkbmap</code> looks like:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">setxkbmap <span class="se">\</span>
+  -model pc105 <span class="se">\</span>
+  -layout us <span class="se">\</span>
+  -variant altgr-intl <span class="se">\</span>
+  -option compose:rctrl <span class="se">\</span>
+  -option ctrl:nocaps <span class="se">\</span>
+  -option terminate:ctrl_alt_bksp</code></pre></div>
+
+
+
+
+<div id="autorepeat"></div>
+
+
+<h1>Key Autorepeat</h1>
+
+<p>There are some keyboard options that cannot be set via <code>setxkbmap</code>. The
+<code>AutoRepeat</code> option was removed from the <code>X</code> keyboard driver (<code>kbd(4)</code>) as
+of <a href="https://bugzilla.redhat.com/show_bug.cgi?id=601853">version 1.4.0</a>.</p>
+
+<p>The only recourse is using <code>xset(1)</code>, the <code>X</code> user-preference utility. An infinitely
+customizable keyrate is one of the many luxuries of using a Linux keyboard.</p>
+
+<p>There are two main options that matter for me in <code>xset</code> that affect the
+autorepeat rate: AutoRepeatDelay and AutoRepeatRate</p>
+
+<p>The syntax for <code>xset</code> autorepeat is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">xset <span class="o">[</span>-r keycode<span class="o">]</span> rate <span class="o">[</span>AutoRepeatRate<span class="o">]</span> <span class="o">[</span>AutoRepeatDelay<span class="o">]</span></code></pre></div>
+
+
+<p>By omitting the <code>-r keycode</code> you apply the <code>rate</code> to all keys (e.g.,
+<code>xset -r 10</code> will apply the <code>rate</code> settings only to the "1" key). The
+default AutoRepeatDelay is 660ms and the default AutoRepeatRate is 25Hz,
+which is fine, but after tweaking this rate and living with it for a few
+days it will seem <em>unbearably slow</em>. My settings are:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">xset r rate <span class="m">330</span> 75</code></pre></div>
+
+
+<p>These settings half the time I spend waiting for a key to auto-repeat, and
+triple the rate at which that auto-repeat fires.</p>
+
+<p>While mentioning <code>xset</code> it's also worth mentioning that I hate HATE the system beep.
+It's that beep that happens when you double-tab Tab in Bash, or try to
+backspace beyond the beginning of a line (which happens a lot with a fast
+AutoRepeatRate). You can probably disable it many ways in <code>X</code>, but I use:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">xset -b</code></pre></div>
+
+
+
+
+<div id="persist"></div>
+
+
+<h1>Persistence</h1>
+
+<p>By placing the <code>setxkbmap</code> command, the <code>xcape</code> command, and the two <code>xset</code>
+commands shown above into <code>~/.xinitrc</code>, that configuration will load
+whenever <code>X</code> is started.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/usr/bin/env bash</span>
+<span class="c">#</span>
+<span class="c"># ~/.xinitrc</span>
+<span class="c">#</span>
+has?<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">command</span> -v <span class="s2">&quot;$1&quot;</span> &gt; /dev/null 2&gt;<span class="p">&amp;</span>1
+<span class="o">}</span>
+
+<span class="c"># Keyboard stuffs</span>
+<span class="c"># ---</span>
+<span class="c"># * use right-alt as Alt-Gr key ($ → £)</span>
+<span class="c"># * use right ctrl key as compose (ctrl 1 2 → ½)</span>
+<span class="c"># * use ctrl+alt+bksp to restart `X`</span>
+<span class="c"># * Capslock → Ctrl</span>
+<span class="c"># * Alt-Gr + Space = nbsp/Alt-Gr + Shift + Space = shy nbsp</span>
+setxkbmap <span class="se">\</span>
+  -layout us <span class="se">\</span>
+  -variant altgr-intl <span class="se">\</span>
+  -option compose:rctrl <span class="se">\</span>
+  -option terminate:ctrl_alt_bksp <span class="se">\</span>
+  -option ctrl:nocaps
+
+xset -b            <span class="c"># Stop beeping at me (A.K.A turn off PC speaker)</span>
+xset r rate <span class="m">330</span> <span class="m">60</span> <span class="c"># Set keyboard repeat rate</span>
+
+has? xcape <span class="o">&amp;&amp;</span> xcape -e <span class="s1">&#39;Control_L=Escape&#39;</span> <span class="c"># https://github.com/alols/xcape</span></code></pre></div>
+
+
+<p><code>~/.xinitrc</code> will NOT, however, keep those configurations when an external
+USB keyboard is added to the mix.</p>
+
+<p>The configuration loaded by <code>setxkbmap</code> can easily become persistent
+since it is part of the <code>X</code> keyboard driver. I have the following in a
+file at <code>/etc/X11/xorg.conf.d/10-keyboard.conf</code>:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Section <span class="s2">&quot;InputDevice&quot;</span>
+  Identifier <span class="s2">&quot;Muh Keyboard&quot;</span>
+  MatchIsKeyboard <span class="s2">&quot;true&quot;</span>
+  Option <span class="s2">&quot;xkblayout&quot;</span> <span class="s2">&quot;us&quot;</span>
+  Option <span class="s2">&quot;xkbvariant&quot;</span> <span class="s2">&quot;altgr-intl&quot;</span>
+  Option <span class="s2">&quot;Xkboptions&quot;</span> <span class="s2">&quot;compose:rctrl&quot;</span>
+  Option <span class="s2">&quot;Xkboptions&quot;</span> <span class="s2">&quot;terminate:ctrl_alt_bksp&quot;</span>
+  Option <span class="s2">&quot;Xkboptions&quot;</span> <span class="s2">&quot;ctrl:nocaps&quot;</span>
+EndSection</code></pre></div>
+
+
+<p>The <code>xset</code> commands and <code>xcape</code> daemon are a bit more difficult to persist
+when attaching external keyboards.</p>
+
+<p>In the lazy past, I created a file in my <code>~/bin/</code> directory
+(which, in my case, is on my <code>$PATH</code>) that I ran manually whenever a new
+keyboard was attached.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/usr/bin/env bash</span>
+<span class="c">#</span>
+<span class="c"># ~/bin/keyboard—In case of new keyboard, break gla...er...I mean...run this.</span>
+<span class="c">#</span>
+
+<span class="o">(</span>
+  sleep 1
+
+  <span class="nv">DISPLAY</span><span class="o">=</span>:0.0 xset -b
+  <span class="nv">DISPLAY</span><span class="o">=</span>:0.0 xset r rate <span class="m">330</span> 60
+  xcape -e <span class="s1">&#39;Control_L=Escape&#39;</span>
+  <span class="nv">DISPLAY</span><span class="o">=</span>:0.0 notify-send <span class="s2">&quot;External USB Connected&quot;</span>
+<span class="o">)</span> <span class="p">&amp;</span></code></pre></div>
+
+
+<p>Getting over to my terminal and typing: <code>keyboard</code> everytime I attached a
+new keyboard is pretty far from <em>perfect</em>.</p>
+
+<p>So what are my other options? Initially, I thought about doing something with
+<code>acpid(8)</code> (<a href="https://github.com/thcipriani/acpi">since I use that a ton</a>), which would have been easy
+enough. <code>acpid</code> notifies user-space utilities about system events, which
+includes when devices are attached.</p>
+
+<p>After reading a great post from <a href="http://pbrisbin.com/posts/disable_all_the_caps/">Pat Brisbin</a>
+about udev events, I thought (and think) that's the answer. You can probably
+tell that my <code>~/bin/keyboard</code> script has evolved to accommodate what he outlined
+in his article. In any event (pun intended), I created a file at <code>/etc/udev/rules.d/99-usb-keyboards.rules</code>
+with the following contents:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">SUBSYSTEM</span><span class="o">==</span><span class="s2">&quot;input&quot;</span>, <span class="nv">ACTION</span><span class="o">==</span><span class="s2">&quot;add&quot;</span>, RUN+<span class="o">=</span><span class="s2">&quot;/bin/su tyler --shell=/bin/bash -c /home/tyler/bin/keyboard&quot;</span></code></pre></div>
+
+
+<p>Which seems to do the trick!</p>
+
+<p>The configuration you see above is the result of <em>way too much</em> thinking
+about how I use my keyboard. Now, I just need to get this configuration to
+work <em>without</em> <code>X</code> Server...<em>le sigh</em></p>
+
+
+    <hr />
+
+    <a href="/blog/" title="Back to the weblog">&larr; View Weblog</a>
+
+    <footer>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'tylercipriani';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</article>
+
+
+            
+            <article>
+            
+            <footer >
+                <hr>
+                <p>
+                    All pixels lovingly mashed by Tyler Cipriani
+                </p>
+                <p>
+                  <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                    <img alt="Creative Commons License" src="/images/cc-by-sa.png" />
+                  </a>
+                </p>
+            </footer>
+            
+        </main>
+
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//analytics.tylercipriani.com/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', 1]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//analytics.tylercipriani.com/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+
+        <script src="/scripts/conways-favicon.js"></script>
+    </body>
+</html>

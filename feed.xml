@@ -7,6 +7,354 @@
     <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Toward a More Useful X Keyboard</title>
+        <description>&lt;p&gt;I&#39;m not sure when, exactly, it became clear that I was going to spend as
+much time as necessary perfecting my keyboard configuration. It&#39;s one of
+those things that you &lt;em&gt;know&lt;/em&gt; you can make absolutely perfect—given enough
+time and energy. On Linux, when you spend enough time bashing your brain
+into a topic, you often find your effort rewarded manyfold. This is the
+hallmark of a professional tool: a tool with which your efficiency
+increases with your proficiency.&lt;/p&gt;
+
+&lt;p&gt;The way many people first experience a computer is through a
+point-and-click-style mouse interface. While there are
+professional tools that prefer a &lt;a href=&quot;http://research.swtch.com/acme&quot;&gt;mouse interface&lt;/a&gt;,
+and there is &lt;a href=&quot;http://www.loper-os.org/?p=861&quot;&gt;healthy&lt;/a&gt; &lt;a href=&quot;http://99percentinvisible.org/episode/of-mice-and-men/&quot;&gt;debate&lt;/a&gt;
+about the most appropriate tool for computer interaction,
+the fact remains: most professional computing and programming is
+done with a QWERTY keyboard.&lt;/p&gt;
+
+&lt;p&gt;My endless &lt;code&gt;X&lt;/code&gt; keyboard tinkerings have given me the most efficient
+keyboard configuration I have ever used. This configuration is probably
+achievable on other platforms; however, on a modern Linux system
+my configuration only requires one tool that isn&#39;t included with the kernel:
+&lt;a href=&quot;https://github.com/alols/xcape&quot;&gt;XCape&lt;/a&gt;, which is 500 lines of GPL-licensed
+C-code—not too shabby overall.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#keymaps&quot;&gt;Keymaps&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#autorepeat&quot;&gt;Key Autorepeat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#persist&quot;&gt;Persistence&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div id=&quot;keymaps&quot;&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Keymaps&lt;/h1&gt;
+
+&lt;p&gt;To start working with keyboard layout the lowest-risk command is &lt;code&gt;setxkbmap(1)&lt;/code&gt;.
+&lt;code&gt;setxkbmap&lt;/code&gt; temporarily maps the keyboard to use options specified on the command line.
+Changes will not persist when you restart &lt;code&gt;X&lt;/code&gt; (i.e., log out and log back in).
+This is a good place to start experimenting with configuration and layouts.&lt;/p&gt;
+
+&lt;p&gt;The options that can be applied with &lt;code&gt;setxkbmap&lt;/code&gt; are found in
+&lt;code&gt;xkeyboard-config(7)&lt;/code&gt;. For whatever reason, neither my Debian nor Arch box
+has this man file. I found
+&lt;a href=&quot;https://web.archive.org/web/20150125024107/http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=xkeyboard-config&amp;amp;ampsect=7&quot;&gt;one copy&lt;/a&gt;
+online and made sure to snapshot it in the
+&lt;a href=&quot;https://web.archive.org&quot;&gt;internet archive&lt;/a&gt;—which is a project to which I plan to
+donate more heavily in the upcoming year.&lt;/p&gt;
+
+&lt;p&gt;To view currently applied options use: &lt;code&gt;setxkbmap -query&lt;/code&gt; which should
+output something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;rules:      evdev
+model:      pc105
+layout:     us&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To achieve this with &lt;code&gt;setxkbmap&lt;/code&gt; you would type in your xterm:
+&lt;code&gt;setxkbmap -model pc105 -layout us&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a pretty vanilla setup—when you setup your computer and accept
+the defaults, this is what you get.&lt;/p&gt;
+
+&lt;div id=&quot;altgr-intl&quot;&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;AltGr-Intl&lt;/h2&gt;
+
+&lt;p&gt;One of the features I find myself using
+frequently is the &lt;a href=&quot;https://en.wikipedia.org/wiki/AltGr_key&quot;&gt;AltGr&lt;/a&gt; (or &lt;em&gt;Alternate Graphic&lt;/em&gt;) key.
+I like to be able to type international characters that are often used in
+English (like &quot;é&quot;) without resorting to using deadkeys or
+esoteric key-compostability sequences.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;é&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Right Alt&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;e&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;ñ&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Right Alt&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;n&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;ö&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Right Alt&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; + &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;p&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To enable this simply use the &lt;code&gt;setxkbmap&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;setxkbmap -model pc105 -layout us -variant altgr-intl&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;More information about the &lt;em&gt;AltGr-Intl&lt;/em&gt; layout can be found in the
+&lt;a href=&quot;http://lists.x.org/archives/xorg/2007-July/026534.html&quot;&gt;Xorg Mailing List&lt;/a&gt;
+(found via &lt;a href=&quot;https://zuttobenkyou.wordpress.com/2011/08/24/xorg-using-the-us-international-altgr-intl-variant-keyboard-layout/&quot;&gt;Shinobu&#39;s Secrets&lt;/a&gt;)&lt;/p&gt;
+
+&lt;div id=&quot;xcompose&quot;&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;&lt;code&gt;~/.XCompose&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Text expansion is awesome. Being able to type a sequence of three characters
+to dump your public key into IRC is awesome. Or how about &lt;code&gt;ಠ_ಠ&lt;/code&gt;? Being able
+to express disapproval quickly is what separates our emails from those of
+animals: it&#39;s why we have civilization.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Compose_key&quot;&gt;compose&lt;/a&gt; (or &lt;em&gt;MultiKey&lt;/em&gt;) key, can be mapped
+to any number of keys or key combinations (again, see: &lt;a href=&quot;https://web.archive.org/web/20150125024107/http://www.dsm.fordham.edu/cgi-bin/man-cgi.pl?topic=xkeyboard-config&amp;amp;ampsect=7&quot;&gt;xkeyboard-config(7)&lt;/a&gt;)
+I prefer to map my MultiKey to the right Ctrl key:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;setxkbmap -model pc105 -layout us -variant altgr-intl -option compose:rctrl&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To type special symbols or expansions using the compose key, simply hit the
+compose key (in my case right Ctrl) and then type the additional character for the
+combination in sequence.&lt;/p&gt;
+
+&lt;p&gt;For instance, to make a degree mark (&quot;°&quot;) I type: &lt;code&gt;[Ctrl]-o-o&lt;/code&gt;; just like I&#39;m
+typing &quot;oo&quot;, but I hit the right Ctrl key first.&lt;/p&gt;
+
+&lt;p&gt;The real magic of the compose key can be unleashed with the &lt;code&gt;~/.XCompose&lt;/code&gt; file.
+This is the file into which you can drop your custom key combination mappings
+that will generate any text output.&lt;/p&gt;
+
+&lt;p&gt;Example expansions for &lt;a href=&quot;https://github.com/thcipriani/dotfiles/blob/master/XCompose&quot;&gt;&lt;code&gt;~/.XCompose&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Quick ssh key output&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;k&amp;gt; &amp;lt;e&amp;gt; &amp;lt;y&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;https://gist.github.com/thcipriani/5e95399457da6544a4cb&amp;quot;&lt;/span&gt;
+
+&amp;lt;Multi_key&amp;gt; &amp;lt;S&amp;gt; &amp;lt;N&amp;gt; &amp;lt;O&amp;gt; &amp;lt;W&amp;gt;     : &lt;span class=&quot;s2&quot;&gt;&amp;quot;❄&amp;quot;&lt;/span&gt;   U2603
+&amp;lt;Multi_key&amp;gt; &amp;lt;p&amp;gt; &amp;lt;l&amp;gt; &amp;lt;a&amp;gt; &amp;lt;n&amp;gt; &amp;lt;e&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;✈&amp;quot;&lt;/span&gt;   U2708
+&amp;lt;Multi_key&amp;gt; &amp;lt;z&amp;gt; &amp;lt;a&amp;gt; &amp;lt;p&amp;gt;         : &lt;span class=&quot;s2&quot;&gt;&amp;quot;⚡&amp;quot;&lt;/span&gt;   U26A1
+
+&lt;span class=&quot;c&quot;&gt;# prefix &amp;#39;m&amp;#39; = mathematical symbols&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;m&amp;gt; &amp;lt;d&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;Δ&amp;quot;&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;m&amp;gt; &amp;lt;e&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;ϵ&amp;quot;&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;m&amp;gt; &amp;lt;l&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;λ&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# misc&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;colon&amp;gt; &amp;lt;bar&amp;gt; &amp;lt;bar&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;ಠ_ಠ&amp;quot;&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;less&amp;gt; &amp;lt;3&amp;gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;❤&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div id=&quot;capslock&quot;&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;You&#39;re out of your element, CapsLock&lt;/h2&gt;
+
+&lt;p&gt;CapsLock sucks and everyone hates it.&lt;/p&gt;
+
+&lt;p&gt;People &lt;em&gt;think&lt;/em&gt; they use CapsLock, but, &lt;em&gt;I&lt;/em&gt; think, if people were honest with
+themselves they would admit that CapsLock is the worse than useless: it&#39;s
+usually counter-productive. Also, if you find yourself frequently needing
+to type in ALL CAPS, maybe you should look at life:
+&lt;em&gt;what have you become&lt;/em&gt;?&lt;/p&gt;
+
+&lt;p&gt;I like to remap my CapsLock key to a modifier key I use more frequently: Ctrl.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;setxkbmap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -model pc105 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -layout us &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -variant altgr-intl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option compose:rctrl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option ctrl:nocaps&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div id=&quot;xcape&quot;&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;XCape&lt;/h2&gt;
+
+&lt;p&gt;The other function of my CapsLock key only happens when it is pressed without
+any additonal keys. Basically, if I hit &lt;code&gt;CapsLock+[t]&lt;/code&gt;, I want a new tab,
+but if I just hit &lt;code&gt;CapsLock&lt;/code&gt;, it doesn&#39;t do anything—which &lt;em&gt;was&lt;/em&gt; a waste.&lt;/p&gt;
+
+&lt;p&gt;The program &lt;a href=&quot;https://github.com/alols/xcape&quot;&gt;XCape&lt;/a&gt; allows you to configure
+modifier keys (Alt, Ctrl, Shift, Meta) to act as other keys when pressed
+on their own. And, since the CapsLock key is so central on my keyboard, I
+also use it as an escape key. Compiling &lt;code&gt;xcape&lt;/code&gt; is pretty straight forward
+(provided you have the requisite build tools):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/alols/xcape.git .
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;xcape &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The command that allows for that functionality is also pretty straight-forward:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xcape -e &lt;span class=&quot;s1&quot;&gt;&amp;#39;Control_L=Escape&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Finally, I also use the option that allows &lt;code&gt;[Ctrl]+[Alt]+[Backspace]&lt;/code&gt; to
+end an &lt;code&gt;X&lt;/code&gt; session. So my final &lt;code&gt;setxkbmap&lt;/code&gt; looks like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;setxkbmap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -model pc105 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -layout us &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -variant altgr-intl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option compose:rctrl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option ctrl:nocaps &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option terminate:ctrl_alt_bksp&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div id=&quot;autorepeat&quot;&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Key Autorepeat&lt;/h1&gt;
+
+&lt;p&gt;There are some keyboard options that cannot be set via &lt;code&gt;setxkbmap&lt;/code&gt;. The
+&lt;code&gt;AutoRepeat&lt;/code&gt; option was removed from the &lt;code&gt;X&lt;/code&gt; keyboard driver (&lt;code&gt;kbd(4)&lt;/code&gt;) as
+of &lt;a href=&quot;https://bugzilla.redhat.com/show_bug.cgi?id=601853&quot;&gt;version 1.4.0&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The only recourse is using &lt;code&gt;xset(1)&lt;/code&gt;, the &lt;code&gt;X&lt;/code&gt; user-preference utility. An infinitely
+customizable keyrate is one of the many luxuries of using a Linux keyboard.&lt;/p&gt;
+
+&lt;p&gt;There are two main options that matter for me in &lt;code&gt;xset&lt;/code&gt; that affect the
+autorepeat rate: AutoRepeatDelay and AutoRepeatRate&lt;/p&gt;
+
+&lt;p&gt;The syntax for &lt;code&gt;xset&lt;/code&gt; autorepeat is:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xset &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;-r keycode&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; rate &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;AutoRepeatRate&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;AutoRepeatDelay&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By omitting the &lt;code&gt;-r keycode&lt;/code&gt; you apply the &lt;code&gt;rate&lt;/code&gt; to all keys (e.g.,
+&lt;code&gt;xset -r 10&lt;/code&gt; will apply the &lt;code&gt;rate&lt;/code&gt; settings only to the &quot;1&quot; key). The
+default AutoRepeatDelay is 660ms and the default AutoRepeatRate is 25Hz,
+which is fine, but after tweaking this rate and living with it for a few
+days it will seem &lt;em&gt;unbearably slow&lt;/em&gt;. My settings are:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xset r rate &lt;span class=&quot;m&quot;&gt;330&lt;/span&gt; 75&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;These settings half the time I spend waiting for a key to auto-repeat, and
+triple the rate at which that auto-repeat fires.&lt;/p&gt;
+
+&lt;p&gt;While mentioning &lt;code&gt;xset&lt;/code&gt; it&#39;s also worth mentioning that I hate HATE the system beep.
+It&#39;s that beep that happens when you double-tab Tab in Bash, or try to
+backspace beyond the beginning of a line (which happens a lot with a fast
+AutoRepeatRate). You can probably disable it many ways in &lt;code&gt;X&lt;/code&gt;, but I use:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;xset -b&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;div id=&quot;persist&quot;&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Persistence&lt;/h1&gt;
+
+&lt;p&gt;By placing the &lt;code&gt;setxkbmap&lt;/code&gt; command, the &lt;code&gt;xcape&lt;/code&gt; command, and the two &lt;code&gt;xset&lt;/code&gt;
+commands shown above into &lt;code&gt;~/.xinitrc&lt;/code&gt;, that configuration will load
+whenever &lt;code&gt;X&lt;/code&gt; is started.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ~/.xinitrc&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+has?&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; -v &lt;span class=&quot;s2&quot;&gt;&amp;quot;$1&amp;quot;&lt;/span&gt; &amp;gt; /dev/null 2&amp;gt;&lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;1
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Keyboard stuffs&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ---&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# * use right-alt as Alt-Gr key ($ → £)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# * use right ctrl key as compose (ctrl 1 2 → ½)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# * use ctrl+alt+bksp to restart `X`&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# * Capslock → Ctrl&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# * Alt-Gr + Space = nbsp/Alt-Gr + Shift + Space = shy nbsp&lt;/span&gt;
+setxkbmap &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -layout us &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -variant altgr-intl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option compose:rctrl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option terminate:ctrl_alt_bksp &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -option ctrl:nocaps
+
+xset -b            &lt;span class=&quot;c&quot;&gt;# Stop beeping at me (A.K.A turn off PC speaker)&lt;/span&gt;
+xset r rate &lt;span class=&quot;m&quot;&gt;330&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set keyboard repeat rate&lt;/span&gt;
+
+has? xcape &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; xcape -e &lt;span class=&quot;s1&quot;&gt;&amp;#39;Control_L=Escape&amp;#39;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# https://github.com/alols/xcape&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;~/.xinitrc&lt;/code&gt; will NOT, however, keep those configurations when an external
+USB keyboard is added to the mix.&lt;/p&gt;
+
+&lt;p&gt;The configuration loaded by &lt;code&gt;setxkbmap&lt;/code&gt; can easily become persistent
+since it is part of the &lt;code&gt;X&lt;/code&gt; keyboard driver. I have the following in a
+file at &lt;code&gt;/etc/X11/xorg.conf.d/10-keyboard.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;Section &lt;span class=&quot;s2&quot;&gt;&amp;quot;InputDevice&amp;quot;&lt;/span&gt;
+  Identifier &lt;span class=&quot;s2&quot;&gt;&amp;quot;Muh Keyboard&amp;quot;&lt;/span&gt;
+  MatchIsKeyboard &lt;span class=&quot;s2&quot;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
+  Option &lt;span class=&quot;s2&quot;&gt;&amp;quot;xkblayout&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;us&amp;quot;&lt;/span&gt;
+  Option &lt;span class=&quot;s2&quot;&gt;&amp;quot;xkbvariant&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;altgr-intl&amp;quot;&lt;/span&gt;
+  Option &lt;span class=&quot;s2&quot;&gt;&amp;quot;Xkboptions&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;compose:rctrl&amp;quot;&lt;/span&gt;
+  Option &lt;span class=&quot;s2&quot;&gt;&amp;quot;Xkboptions&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;terminate:ctrl_alt_bksp&amp;quot;&lt;/span&gt;
+  Option &lt;span class=&quot;s2&quot;&gt;&amp;quot;Xkboptions&amp;quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ctrl:nocaps&amp;quot;&lt;/span&gt;
+EndSection&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;xset&lt;/code&gt; commands and &lt;code&gt;xcape&lt;/code&gt; daemon are a bit more difficult to persist
+when attaching external keyboards.&lt;/p&gt;
+
+&lt;p&gt;In the lazy past, I created a file in my &lt;code&gt;~/bin/&lt;/code&gt; directory
+(which, in my case, is on my &lt;code&gt;$PATH&lt;/code&gt;) that I ran manually whenever a new
+keyboard was attached.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ~/bin/keyboard—In case of new keyboard, break gla...er...I mean...run this.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+  sleep 1
+
+  &lt;span class=&quot;nv&quot;&gt;DISPLAY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;:0.0 xset -b
+  &lt;span class=&quot;nv&quot;&gt;DISPLAY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;:0.0 xset r rate &lt;span class=&quot;m&quot;&gt;330&lt;/span&gt; 60
+  xcape -e &lt;span class=&quot;s1&quot;&gt;&amp;#39;Control_L=Escape&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;DISPLAY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;:0.0 notify-send &lt;span class=&quot;s2&quot;&gt;&amp;quot;External USB Connected&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Getting over to my terminal and typing: &lt;code&gt;keyboard&lt;/code&gt; everytime I attached a
+new keyboard is pretty far from &lt;em&gt;perfect&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;So what are my other options? Initially, I thought about doing something with
+&lt;code&gt;acpid(8)&lt;/code&gt; (&lt;a href=&quot;https://github.com/thcipriani/acpi&quot;&gt;since I use that a ton&lt;/a&gt;), which would have been easy
+enough. &lt;code&gt;acpid&lt;/code&gt; notifies user-space utilities about system events, which
+includes when devices are attached.&lt;/p&gt;
+
+&lt;p&gt;After reading a great post from &lt;a href=&quot;http://pbrisbin.com/posts/disable_all_the_caps/&quot;&gt;Pat Brisbin&lt;/a&gt;
+about udev events, I thought (and think) that&#39;s the answer. You can probably
+tell that my &lt;code&gt;~/bin/keyboard&lt;/code&gt; script has evolved to accommodate what he outlined
+in his article. In any event (pun intended), I created a file at &lt;code&gt;/etc/udev/rules.d/99-usb-keyboards.rules&lt;/code&gt;
+with the following contents:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;SUBSYSTEM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;input&amp;quot;&lt;/span&gt;, &lt;span class=&quot;nv&quot;&gt;ACTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;add&amp;quot;&lt;/span&gt;, RUN+&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/bin/su tyler --shell=/bin/bash -c /home/tyler/bin/keyboard&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Which seems to do the trick!&lt;/p&gt;
+
+&lt;p&gt;The configuration you see above is the result of &lt;em&gt;way too much&lt;/em&gt; thinking
+about how I use my keyboard. Now, I just need to get this configuration to
+work &lt;em&gt;without&lt;/em&gt; &lt;code&gt;X&lt;/code&gt; Server...&lt;em&gt;le sigh&lt;/em&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 23 Jan 2015 00:00:00 -0700</pubDate>
+        <link>http://www.tylercipriani.com/2015/01/23/toward-a-useful-keyboard-in-x.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2015/01/23/toward-a-useful-keyboard-in-x.html</guid>
+      </item>
+    
+      <item>
         <title>Conway&amp;#8217;s Favicon</title>
         <description>&lt;p&gt;I find favicons pretty useful overall. That weird little
 &lt;a href=&quot;https://bugs.r-project.org/bugzilla3/images/favicon.ico&quot;&gt;Earthworm-Jim-esque bug-head&lt;/a&gt;
@@ -1167,105 +1515,6 @@ on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
         <pubDate>Sat, 09 Feb 2013 00:00:00 -0700</pubDate>
         <link>http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</link>
         <guid isPermaLink="true">http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</guid>
-      </item>
-    
-      <item>
-        <title>My ZSH (and bash) prompt</title>
-        <description>&lt;p&gt;In order to become a card-carrying Linux user, I feel like you &lt;em&gt;need&lt;/em&gt; to
-have spent a truly astounding amount of time fiddling with your
-&lt;a href=&quot;https://github.com/thcipriani/dotfiles&quot; target=&quot;_blank&quot;&gt;dotfiles.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Me? I&amp;#8217;ve gone way beyond the point of diminishing returns. Past the
-point where anyone who loves me can even feign interest.
-And now I&amp;#8217;m quaffing the sweet nectar of victory, and that victory
-nectar &lt;em&gt;is&lt;/em&gt; sweet. Oh yes, that&amp;#8217;s right: my insanely customized
-prompt is now a part of &lt;a href=&quot;http://github.com/robbyrussell/oh-my-zsh&quot; target=&quot;_blank&quot;&gt;Bobby Russell&amp;#8217;s Oh-My-ZSH&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I&amp;#8217;m feeling the pride, joy, and anxiety that can only come from watching
-my little utf-8 baby move beyond my home directory and march deep into
-the uncharted home directories of what I can only assume are &lt;strong&gt;BILLIONS&lt;/strong&gt; of users.&lt;/p&gt;
-
-&lt;h2&gt;All your Oh-My-ZSH are belong to us!
-&lt;a href=&quot;http://knowyourmeme.com/memes/all-your-base-are-belong-to-us&quot; target=&quot;_blank&quot;&gt;*&lt;/a&gt;&lt;/h2&gt;
-
-
-&lt;p&gt;&amp;#8230;or it will when you update your theme. See, cause, oh-my-zsh uses
-&lt;a href=&quot;http://github.com/robbyrussell/oh-my-zsh/tree/master/themes/&quot; target=&quot;_blank&quot;&gt;themes&lt;/a&gt;
-to specify how your prompt looks. You can define what theme you&amp;#8217;d like to use
-in your &lt;code&gt;~/.zshrc&lt;/code&gt; file. On or around line 8 you&amp;#8217;ll want to
-update the line that starts with &lt;code&gt;ZSH_THEME=&amp;#8230;&lt;/code&gt; to look like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Set name of the theme to load.&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Look in ~/.oh-my-zsh/themes/&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Optionally, if you set this to &amp;quot;random&amp;quot;, it&amp;#39;ll load a random theme each&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# time that oh-my-zsh is loaded.&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ZSH_THEME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;junkfood&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-
-&lt;h2&gt;Almost, not quite&amp;#8230;&lt;/h2&gt;
-
-
-&lt;p&gt;Like any good dotfile obsessive, I&amp;#8217;ve continued to make changes to this
-prompt since I made my pull request to ole Robby! I&amp;#8217;ve modified the prompt
-to show the same sort of branch information about SVN repos that it currently
-displays for git repos (e.g., current branch name and local modifications).
-That little code chestnut is available over on
-&lt;a href=&quot;https://github.com/thcipriani/oh-my-zsh&quot; target=&quot;_blank&quot;&gt;my fork of the oh-my-zsh build&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2&gt;Bash Junkfood theme&lt;/h2&gt;
-
-
-&lt;p&gt;I also have a version of this prompt for Bash that I&amp;#8217;ve made in preperation
-for the undoubted overwhelming demand that I expect to begin any time now:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; prompt &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 30m - Black&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 31m - Red&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 32m - Green&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 33m - Yellow&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 34m - Blue&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 35m - Purple&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 36m - Cyan&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 37m - White&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 0 - Normal&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 1 - Bold&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLACK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;30m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLACKBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;30m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;RED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;31m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;REDBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;31m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GREEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;32m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GREENBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;32m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YELLOW&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;33m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;20&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;YELLOWBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;33m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;21&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;34m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;22&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;BLUEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;34m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;23&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PURPLE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;35m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;24&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PURPLEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;35m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;25&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CYAN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;36m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;26&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CYANBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;36m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;27&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WHITE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[0;37m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;28&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WHITEBOLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;\[\033[1;37m\]&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;29&lt;/span&gt;   &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;$WHITEBOLD# $GREEN\u$WHITEBOLD. $BLUE\h$WHITEBOLD. $YELLOW\d$WHITE at $PURPLE\@$WHITEBOLD. $CYAN\w\n  $WHITE&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;31&lt;/span&gt; prompt&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-
-&lt;h2&gt;Prompt Inspiration&lt;/h2&gt;
-
-
-&lt;p&gt;Most of the inspiration for moving to ZSH and for creating this &lt;em&gt;extravagant&lt;/em&gt;
-(to borrow a phrase) prompt came from a blog post written by Mr. Steve Losh
-called, &lt;a href=&quot;http://stevelosh.com/blog/2010/02/my-extravagant-zsh-prompt/#oh-my-zsh&quot; target=&quot;_blank&quot;&gt;
-&amp;#8220;My Extravagant ZSH Prompt&amp;#8221;&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 18 Dec 2012 00:00:00 -0700</pubDate>
-        <link>http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</link>
-        <guid isPermaLink="true">http://www.tylercipriani.com/2012/12/18/zsh-prompt-customization.html</guid>
       </item>
     
   </channel>
