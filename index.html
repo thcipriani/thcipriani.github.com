@@ -35,6 +35,11 @@
           */
         </script>
 
+        <link rel="feed alternate" type="application/atom+xml" href="/feed.xml" title="Blog">
+
+        <!-- alternative website for feed readers with no SNI support https://www.mnot.net/blog/2014/05/09/if_you_can_read_this_youre_sniing -->
+        <link rel="feed alternate" type="application/atom+xml" href="http://tylercipriani.com.s3-website-us-east-1.amazonaws.com/feed.xml" title="Blog (non-SNI feedreader)">
+
         <link rel="stylesheet" type="text/css" href="/styles/main-min.css" />
 
         <!--[if lt IE 9]>
@@ -77,9 +82,9 @@
                 Digital rights ideologue, Vim lover, beer geek, emoji junkie,
                 dotfile tinkerer and unabashed Sriracha addict&mdash; are
                 all true (and potentially derisive) things that could be
-                said about me. I am currently a full-stack developer at
-                <a href="http://www.sparkfun.com" target="blank" title="SparkFun">SparkFun Electronics</a>
-                in sunny Boulder, Colorado.
+                said about me. I am currently a release engineer at the
+                <a href="https://wikimediafoundation.org/wiki/Home" target="_blank">
+                Wikimedia Foundation</a> working remotely from sunny Boulder, Colorado.
             </p>
             <p>
                 When I’m not thinking about how to make the web a better, more
@@ -89,63 +94,6 @@
             </p>
         </div>
 
-    </section>
-
-    <section>
-        <header>
-            <h1>Work</h1>
-            <h2>Take your pleasure seriously.<br />&#8201;&#8212;&#8201;<span>Charles Eames</span></h2>
-        </header>
-        <div>
-            <figure>
-                <aside id="first">
-                    Triggers first slide
-                </aside>
-
-                <aside id="second">
-                    Triggers second slide
-                </aside>
-
-                <aside id="third">
-                    Triggers third slide
-                </aside>
-                <ul>
-                    <li>
-                        <a href="/July-Dev-Derby" target="_blank">
-                            <img src="/images/201307_p_legend_of_css.jpg" alt="Legend of CSS">
-                        </a>
-                        <button><a href="#second">Next &rarr;</a></button>
-                        <button><a href="#third">&larr; Previous</a></button>
-                        <figcaption>
-                            <em>Much like this slide show</em>, this only uses CSS and includes a tiny
-                            controllable sprite at the end of the&nbsp;introduction.
-                        </figcaption>
-                    </li>
-                    <li>
-                        <a href="http://remix.customchannels.net" target="_blank">
-                            <img src="/images/201307_p_chrome_channel_mixer.jpg" alt="Custom Channels Remix">
-                        </a>
-                        <button><a href="#third">Next &rarr;</a></button>
-                        <button><a href="#first">&larr; Previous</a></button>
-                        <figcaption>
-                            Music streaming application written in PHP, JavaScript, MySQL and Bash running on
-                            an NGINX server with PHP-FPM.
-                        </figcaption>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" target="_blank">
-                            <img src="/images/201307_p_playbook_app.jpg" alt="Playbook Application">
-                        </a>
-                        <button><a href="#first">Next &rarr;</a></button>
-                        <button><a href="#second">&larr; Previous</a></button>
-                        <figcaption>
-                            Custom sales playbook application for iPad. Written in Javascript
-                            utilizing Backbone, Grunt, LESS and&nbsp;Require.js
-                        </figcaption>
-                    </li>
-                </ul>
-            </figure>
-        </div>
     </section>
 
     <section>
@@ -170,6 +118,8 @@
               Fingerprint: <code>6237 D8D3 ECC1 AE91 8729  296F F6DA D285 018F AC02</code>
             </p>
             </ul>
+            <h3>Freenode</h3>
+            thcipriani
         </footer>
     </section>
 
