@@ -64,7 +64,7 @@
                 <ul>
                     <li><a href="/" title="Home">Home</a></li>
                     <li><a href="/blog/" title="Weblog">Weblog</a></li>
-                    <li><a href="/links/" title="Links">Links</a></li>
+                    <li><a href="https://pinboard.in/u:thcipriani/" title="Links">Links</a></li>
                     <li><a href="/hireme/" title="Résumé">Résumé</a></li>
                 </ul>
             </nav>
@@ -105,11 +105,11 @@ to specify how your prompt looks. You can define what theme you&#8217;d like to 
 in your <code>~/.zshrc</code> file. On or around line 8 you&#8217;ll want to
 update the line that starts with <code>ZSH_THEME=&#8230;</code> to look like this:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno">1</span> <span class="c"># Set name of the theme to load.</span>
-<span class="lineno">2</span> <span class="c"># Look in ~/.oh-my-zsh/themes/</span>
-<span class="lineno">3</span> <span class="c"># Optionally, if you set this to &quot;random&quot;, it&#39;ll load a random theme each</span>
-<span class="lineno">4</span> <span class="c"># time that oh-my-zsh is loaded.</span>
-<span class="lineno">5</span> <span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">&quot;junkfood&quot;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Set name of the theme to load.</span>
+<span class="c"># Look in ~/.oh-my-zsh/themes/</span>
+<span class="c"># Optionally, if you set this to &quot;random&quot;, it&#39;ll load a random theme each</span>
+<span class="c"># time that oh-my-zsh is loaded.</span>
+<span class="nv">ZSH_THEME</span><span class="o">=</span><span class="s2">&quot;junkfood&quot;</span></code></pre></div>
 
 
 
@@ -130,37 +130,37 @@ That little code chestnut is available over on
 <p>I also have a version of this prompt for Bash that I&#8217;ve made in preperation
 for the undoubted overwhelming demand that I expect to begin any time now:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno"> 1</span> <span class="c"># An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/</span>
-<span class="lineno"> 2</span> <span class="k">function</span> prompt <span class="o">{</span>
-<span class="lineno"> 3</span>   <span class="c"># 30m - Black</span>
-<span class="lineno"> 4</span>   <span class="c"># 31m - Red</span>
-<span class="lineno"> 5</span>   <span class="c"># 32m - Green</span>
-<span class="lineno"> 6</span>   <span class="c"># 33m - Yellow</span>
-<span class="lineno"> 7</span>   <span class="c"># 34m - Blue</span>
-<span class="lineno"> 8</span>   <span class="c"># 35m - Purple</span>
-<span class="lineno"> 9</span>   <span class="c"># 36m - Cyan</span>
-<span class="lineno">10</span>   <span class="c"># 37m - White</span>
-<span class="lineno">11</span>   <span class="c"># 0 - Normal</span>
-<span class="lineno">12</span>   <span class="c"># 1 - Bold</span>
-<span class="lineno">13</span>   <span class="nb">local </span><span class="nv">BLACK</span><span class="o">=</span><span class="s2">&quot;\[\033[0;30m\]&quot;</span>
-<span class="lineno">14</span>   <span class="nb">local </span><span class="nv">BLACKBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;30m\]&quot;</span>
-<span class="lineno">15</span>   <span class="nb">local </span><span class="nv">RED</span><span class="o">=</span><span class="s2">&quot;\[\033[0;31m\]&quot;</span>
-<span class="lineno">16</span>   <span class="nb">local </span><span class="nv">REDBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;31m\]&quot;</span>
-<span class="lineno">17</span>   <span class="nb">local </span><span class="nv">GREEN</span><span class="o">=</span><span class="s2">&quot;\[\033[0;32m\]&quot;</span>
-<span class="lineno">18</span>   <span class="nb">local </span><span class="nv">GREENBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;32m\]&quot;</span>
-<span class="lineno">19</span>   <span class="nb">local </span><span class="nv">YELLOW</span><span class="o">=</span><span class="s2">&quot;\[\033[0;33m\]&quot;</span>
-<span class="lineno">20</span>   <span class="nb">local </span><span class="nv">YELLOWBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;33m\]&quot;</span>
-<span class="lineno">21</span>   <span class="nb">local </span><span class="nv">BLUE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;34m\]&quot;</span>
-<span class="lineno">22</span>   <span class="nb">local </span><span class="nv">BLUEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;34m\]&quot;</span>
-<span class="lineno">23</span>   <span class="nb">local </span><span class="nv">PURPLE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;35m\]&quot;</span>
-<span class="lineno">24</span>   <span class="nb">local </span><span class="nv">PURPLEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;35m\]&quot;</span>
-<span class="lineno">25</span>   <span class="nb">local </span><span class="nv">CYAN</span><span class="o">=</span><span class="s2">&quot;\[\033[0;36m\]&quot;</span>
-<span class="lineno">26</span>   <span class="nb">local </span><span class="nv">CYANBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;36m\]&quot;</span>
-<span class="lineno">27</span>   <span class="nb">local </span><span class="nv">WHITE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;37m\]&quot;</span>
-<span class="lineno">28</span>   <span class="nb">local </span><span class="nv">WHITEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;37m\]&quot;</span>
-<span class="lineno">29</span>   <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;$WHITEBOLD# $GREEN\u$WHITEBOLD. $BLUE\h$WHITEBOLD. $YELLOW\d$WHITE at $PURPLE\@$WHITEBOLD. $CYAN\w\n  $WHITE&quot;</span>
-<span class="lineno">30</span> <span class="o">}</span>
-<span class="lineno">31</span> prompt</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># An extravagent PS1 http://blog.bigdinosaur.org/easy-ps1-colors/</span>
+<span class="k">function</span> prompt <span class="o">{</span>
+  <span class="c"># 30m - Black</span>
+  <span class="c"># 31m - Red</span>
+  <span class="c"># 32m - Green</span>
+  <span class="c"># 33m - Yellow</span>
+  <span class="c"># 34m - Blue</span>
+  <span class="c"># 35m - Purple</span>
+  <span class="c"># 36m - Cyan</span>
+  <span class="c"># 37m - White</span>
+  <span class="c"># 0 - Normal</span>
+  <span class="c"># 1 - Bold</span>
+  <span class="nb">local </span><span class="nv">BLACK</span><span class="o">=</span><span class="s2">&quot;\[\033[0;30m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">BLACKBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;30m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">RED</span><span class="o">=</span><span class="s2">&quot;\[\033[0;31m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">REDBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;31m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">GREEN</span><span class="o">=</span><span class="s2">&quot;\[\033[0;32m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">GREENBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;32m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">YELLOW</span><span class="o">=</span><span class="s2">&quot;\[\033[0;33m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">YELLOWBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;33m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">BLUE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;34m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">BLUEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;34m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">PURPLE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;35m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">PURPLEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;35m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">CYAN</span><span class="o">=</span><span class="s2">&quot;\[\033[0;36m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">CYANBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;36m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">WHITE</span><span class="o">=</span><span class="s2">&quot;\[\033[0;37m\]&quot;</span>
+  <span class="nb">local </span><span class="nv">WHITEBOLD</span><span class="o">=</span><span class="s2">&quot;\[\033[1;37m\]&quot;</span>
+  <span class="nb">export </span><span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;$WHITEBOLD# $GREEN\u$WHITEBOLD. $BLUE\h$WHITEBOLD. $YELLOW\d$WHITE at $PURPLE\@$WHITEBOLD. $CYAN\w\n  $WHITE&quot;</span>
+<span class="o">}</span>
+prompt</code></pre></div>
 
 
 

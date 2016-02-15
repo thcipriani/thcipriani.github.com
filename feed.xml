@@ -7,6 +7,58 @@
     <atom:link href="http://www.tylercipriani.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>On Puppet, apt-get update, Source Lists, and Dumbness</title>
+        <description>&lt;p&gt;Configuration management software is nice because it lets you be a little dumb.
+Puppet, Chef, Ansible, and Salt have all managed to smooth down many of the
+rough edges that were ubiquitous in the terrible bash and perl
+scripts used for old-time, ad-hoc configuration management.&lt;/p&gt;
+
+&lt;p&gt;My main problem with configuration management software is that &lt;em&gt;I&#39;m still dumb&lt;/em&gt;.
+I&#39;m still dumb and there are now new, non-obvious, ways to be dumb.&lt;/p&gt;
+
+&lt;p&gt;One non-obvious example is below:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-puppet&quot; data-lang=&quot;puppet&quot;&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;apache&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;ensure&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;installed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;/etc/apt/sources.list.d/some_source.list&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;/etc/apt/sources.list.d/some_source.list&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;notify&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Exec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;apt-get update&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;On the surface, this little contrived example seems fine: Apache requires a
+special source, adding that source triggers an &lt;code&gt;apt-get update&lt;/code&gt;. Therefore, before
+Apache is installed, our sources list should be up-to-date, right? Wrong.&lt;/p&gt;
+
+&lt;p&gt;The problem here is subtle: the &lt;code&gt;notify =&amp;gt; Exec[&#39;apt-get update&#39;]&lt;/code&gt;
+in the file resource means that the file &lt;code&gt;&quot;/etc/apt/sources.d/${name}.list&quot;&lt;/code&gt; has to
+exist before &lt;code&gt;apt-get update&lt;/code&gt; is run. Adding
+&lt;code&gt;require =&amp;gt; File[&#39;/etc/apt/sources.list.d/some_source.list&#39;]&lt;/code&gt;
+to the Apache package means that it will be installed only after &lt;code&gt;&quot;/etc/apt/sources.d/${name}.list&quot;&lt;/code&gt;
+gets added.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HOWEVER&lt;/strong&gt;, the Apache package, currently, has no relationship with &lt;code&gt;apt-get update&lt;/code&gt;.
+This means Puppet may try to install the Apache package &lt;em&gt;after&lt;/em&gt; adding
+&lt;code&gt;/etc/apt/sources.d/some_source.list&lt;/code&gt;, but &lt;em&gt;before&lt;/em&gt; running &lt;code&gt;apt-get update&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;While the short example above is not a problem in isolation, it &lt;em&gt;can be&lt;/em&gt; a
+problem in a larger manifest. Puppet will succeed with some packages, fail in others, then
+create &lt;a href=&quot;http://en.wikipedia.org/wiki/Dependency_hell&quot;&gt;unresolvable dependency conflicts&lt;/a&gt;
+on the next run (after &lt;code&gt;apt-get update&lt;/code&gt; has run).&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 May 2015 00:00:00 -0600</pubDate>
+        <link>http://www.tylercipriani.com/2015/05/23/Puppet,-Apt-get-update,-Source-lists,-and-Dumbness.html</link>
+        <guid isPermaLink="true">http://www.tylercipriani.com/2015/05/23/Puppet,-Apt-get-update,-Source-lists,-and-Dumbness.html</guid>
+      </item>
+    
+      <item>
         <title>Toward a More Useful X Keyboard</title>
         <description>&lt;p&gt;I&#39;m not sure when, exactly, it became clear that I was going to spend as
 much time as necessary perfecting my keyboard configuration. It&#39;s one of
@@ -1475,46 +1527,6 @@ on the YouCompleteMe wiki&lt;/p&gt;&lt;/blockquote&gt;
         <pubDate>Sun, 24 Feb 2013 00:00:00 -0700</pubDate>
         <link>http://www.tylercipriani.com/2013/02/24/install-vim-from-source.html</link>
         <guid isPermaLink="true">http://www.tylercipriani.com/2013/02/24/install-vim-from-source.html</guid>
-      </item>
-    
-      <item>
-        <title>Vim, the OSX clipboard and Tmux</title>
-        <description>&lt;p&gt;I&amp;#8217;ve been an Ubuntu user for 4 years now. Since I started working at Upsync 3 months ago, I&amp;#8217;ve found myself a very lonely desktop Linux user. Also, since this job is my first heavy-duty exposure to back-end web development, I&amp;#8217;ve found myself a very confused desktop Linux user.&lt;/p&gt;
-
-&lt;p&gt;While there are many tools for working on a website backend available in Ubuntu, few are as shiny as those available in OSX (Charles Proxy, usable in Chrome. I want that. I want it hard.). Also, want to do any iOS work? (you know I do)&amp;mdash;then you &lt;em&gt;must&lt;/em&gt; have a mac.&lt;/p&gt;
-
-&lt;p&gt;On the flip side there is my natural inclination to be a bit of a contrarian and principles and such&amp;#8230;&lt;/p&gt;
-
-&lt;h2&gt;&amp;#8230;but it&amp;#8217;s so shiny!&lt;/h2&gt;
-
-&lt;p&gt;I&amp;#8217;ve caved. I&amp;#8217;m a sell-out. I&amp;#8217;m not the cool hardcore ideologue I once believed myself to be. You know those hypothetical, &lt;em&gt;which-side-of-history-would-you-be-on-type&lt;/em&gt;, questions? Well, I can now safely say that I would &lt;em&gt;not&lt;/em&gt; have been in the French Resistance.&lt;/p&gt;
-
-&lt;p&gt;I&amp;#8217;m typing this on the beautiful back-lit keyboard of a brand-new, core-i7-having, 8GB-RAM-possesing, 256GB-SSD-not-spinning monster that is a 13&amp;#8243; MacBook Air.&lt;/p&gt;
-
-&lt;h2&gt;I thought this was supposed to be easy&lt;/h2&gt;
-
-&lt;p&gt;The first thing I did was get iTerm 2 up and running and then install Homebrew. After removing the dumb &amp;#8220;Natural&amp;#8221; scrolling and using PCKeyboard hack to remap some keys, I&amp;#8217;m working exactly as I was before. I really can&amp;#8217;t tell a difference. Which is a little anti-climactic for a computer that cost as much as my first car (oh, how I miss that purple Taurus!).&lt;/p&gt;
-
-&lt;p&gt;It was really easy to get everything set up as it was before, except&amp;#8230;Vim&amp;#8230;my clipboard&amp;#8230;Tmux&amp;#8230;they didn&amp;#8217;t work together and that was CRIPPLING! Seriously, I depend on those things working together.&lt;/p&gt;
-
-&lt;p&gt;This post is written as a little reminder to myself of how I got it all up and running again.&lt;/p&gt;
-
-&lt;h2&gt;The process&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install Homebrew:&lt;/strong&gt;&lt;br /&gt;Instructions are available on &lt;a href=&quot;http://mxcl.github.com/homebrew/&quot; target=&quot;_blank&quot; title=&quot;Homebrew&quot;&gt;Github&lt;/a&gt; but really all it boils down to is: &lt;code&gt;ruby -e &quot;$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)&quot;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install MacVim:&lt;/strong&gt;&lt;br /&gt;And make sure it overrides the system default Vim, which is pre-7.3 Vim and sucks (or it was last week when my MacBook got here) use: &lt;code&gt;brew install macvim --override-system-vim&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Install Tmux:&lt;/strong&gt;&lt;br /&gt;Easy peesy lemon squeezy: &lt;code&gt;brew install tmux&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Thank the good, sweet lord for Paul Hinze:&lt;/strong&gt;&lt;br /&gt; Install Paul&amp;#8217;s reattach-to-user-namespace hack via homebrew: &lt;code&gt;brew install reattach-to-user-namespace --wrap-pbcopy-and-pbpaste&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;Append your &lt;code&gt;~/.tmux.conf&lt;/code&gt; file&lt;/strong&gt;:&lt;br /&gt;With this lovely gem: &lt;code&gt;set-option -g default-command &quot;reattach-to-user-namespace -l zsh&quot;&lt;/code&gt; or you can use bash, I guess, I don&amp;#8217;t know because I use ZSH. That should be a step somewhere&amp;#8230;&lt;code&gt;chsh -s /bin/zsh&lt;/code&gt;. Done.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-
-&lt;p&gt;Now if only OSX Mountain Lion possessed the awesome power of moving windows between workspaces using keyboard shortcuts. Someday&amp;#8230; someday.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 09 Feb 2013 00:00:00 -0700</pubDate>
-        <link>http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</link>
-        <guid isPermaLink="true">http://www.tylercipriani.com/2013/02/09/vim-mac-osx-tmux-clipboard.html</guid>
       </item>
     
   </channel>
